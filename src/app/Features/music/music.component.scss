@@ -1,18 +1,48 @@
 .app {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background: #0d0d0d;
+  width: 100%;
+  min-height: 100vh;
+  background: #000;
   color: white;
+  overflow-x: hidden; /* 🔥 removes side scroll gap */
+}
+
+.app {
+  width: 100%;
+  min-height: 100vh;
+  background: #000;
+  color: white;
+  overflow-x: hidden;
+}
+.app {
+  width: 100vw;   /* 🔥 IMPORTANT (not 100%) */
+  min-height: 100vh;
+  background: #000;
+  overflow-x: hidden;
+}
+
+
+
+
+
+
+.content {
+  padding: 0 15px; /* left + right spacing */
 }
 
 /* HEADER */
 .header {
-  padding: 15px;
-  background: black;
+  position: fixed;   /* 🔥 sticky top */
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #000;
+  z-index: 1000;
+
   display: flex;
   justify-content: center;
   align-items: center;
+
+  padding: 15px;
   border-bottom: 1px solid #222;
 }
 
@@ -92,6 +122,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+border-bottom: 1px solid rgba(255, 215, 0, 0.15); 
+
 }
 
 .song-card .info h3 {
@@ -148,7 +181,12 @@
 .icon {
   font-size: 20px;
 }
-
+.content {
+  flex: 1;
+  overflow-y: auto;   /* 🔥 scroll enable */
+  padding-top: 70px;  /* header space */
+  padding-bottom: 80px; /* bottom nav space */
+}
 
 
 
@@ -195,13 +233,17 @@
 
 /* BOTTOM NAV */
 .bottom-nav {
+  position: fixed;   /* 🔥 THIS IS MAIN */
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #000;
   display: flex;
   justify-content: space-around;
-  background: black;
   padding: 10px 0;
   border-top: 1px solid #333;
+  z-index: 1000;
 }
-
 .nav-item {
   display: flex;
   flex-direction: column;
