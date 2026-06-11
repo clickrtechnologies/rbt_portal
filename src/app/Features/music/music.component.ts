@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-music',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatIconModule],
   templateUrl: './music.component.html',
   styleUrls: ['./music.component.scss']
 })
@@ -89,5 +90,17 @@ categories = [
     ]
   }
 ];
+getIcon(title: string): string {
+  switch (title) {
+    case 'Party Music': return 'celebration';
+    case 'Love Music': return 'favorite';
+    case 'Sad Songs': return 'sentiment_dissatisfied';
+    case 'Emotional Songs': return 'healing';
+    case 'Bhakti Songs': return 'self_improvement';
+    case 'Trending Songs': return 'trending_up';
+    case 'Latest Songs': return 'new_releases';
+    default: return 'music_note';
+  }
+}
 
 }
