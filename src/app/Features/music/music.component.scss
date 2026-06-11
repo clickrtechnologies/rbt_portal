@@ -1,0 +1,219 @@
+.app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #0d0d0d;
+  color: white;
+}
+
+/* HEADER */
+.header {
+  padding: 15px;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #222;
+}
+
+.header h2 {
+  margin: 0;
+  color: gold;
+}
+
+/* TITLE */
+.title {
+  color: gold;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0;
+  text-align: center;
+}
+
+/* HEADER TEXT */
+.header-text {
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+.header-text h2 {
+  color: gold;
+  margin: 0;
+}
+
+.header-text p {
+  margin: 3px 0;
+  font-size: 13px;
+  color: #ccc;
+}
+
+.header-text .highlight {
+  color: #fff;
+  font-weight: bold;
+}
+
+/* SEARCH BAR */
+.search-bar {
+  display: flex;
+  align-items: center;
+  background: #1a1a1a;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 10px 0;
+}
+
+.search-bar input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  width: 100%;
+  margin-left: 8px;
+}
+
+/* CATEGORY SECTION (NEW ADD) */
+.category {
+  margin-bottom: 20px;
+}
+
+.category h3 {
+  margin: 10px 0 4px;
+  font-size: 16px;
+  color: #fff;
+}
+
+/* SONG LIST CARD (UPDATED STYLE) */
+.song-card {
+  background: #1a1a1a;
+  padding: 12px;
+  margin-bottom: 8px;
+  border-radius: 12px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.song-card .info h3 {
+  margin: 0;
+  font-size: 15px;
+}
+
+.song-card .info p {
+  margin: 0;
+  font-size: 12px;
+  color: gray;
+}
+
+.song-card button {
+  background: gold;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+
+.section-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 15px 0 10px 8px;
+  text-align: left;
+
+  background: linear-gradient(90deg, #ff4da6, #4da6ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+/* DEFAULT */
+.section-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 15px 0 10px 8px;
+  text-align: left;
+  color: white;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 15px 0 10px 8px;
+  text-align: left;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon {
+  font-size: 20px;
+}
+
+
+
+
+
+
+/* PARTY */
+.Party\ Music {
+  color: #ff4da6;
+}
+
+/* LOVE */
+.Love\ Music {
+  color: #ffcc00;
+}
+
+/* SAD */
+.Sad\ Songs {
+  color: #4da6ff;
+}
+
+/* EMOTIONAL */
+.Emotional\ Songs {
+  color: #9b59b6;
+}
+
+/* BHAKTI */
+.Bhakti\ Songs {
+  color: #f39c12;
+}
+
+/* TRENDING */
+.Trending\ Songs {
+  color: #2ecc71;
+}
+
+/* LATEST */
+.Latest\ Songs {
+  color: #e74c3c;
+}
+
+
+/* IMPORTANT: DO NOT style all h3 globally */
+
+
+/* BOTTOM NAV */
+.bottom-nav {
+  display: flex;
+  justify-content: space-around;
+  background: black;
+  padding: 10px 0;
+  border-top: 1px solid #333;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 14px;
+  color: gray;
+}
+
+.nav-item span {
+  font-size: 12px;
+}
+
+.nav-item.active {
+  color: gold;
+}

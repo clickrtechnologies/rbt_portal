@@ -1,0 +1,67 @@
+<div class="app">
+
+  <!-- HEADER -->
+  <div class="header">
+    <h2>RBT Portal 🎵</h2>
+  </div>
+
+  <!-- HEADER TEXT -->
+  <div class="header-text">
+    <h2>🔥 Top RBT Songs of the moment</h2>
+    <p>Choose Your RBT Tone</p>
+    <p>Listen & activate your personalized RBT ringtone</p>
+    <p class="highlight">✨ Easy & Fast Activation</p>
+  </div>
+
+  <!-- SEARCH -->
+  <div class="search-bar">
+    🔍
+    <input type="text" placeholder="Search songs or artist..." />
+  </div>
+
+<!-- CATEGORIES START -->
+<div class="category" *ngFor="let cat of categories">
+
+  <!-- CATEGORY TITLE -->
+  <h3 class="section-title">
+    <span class="icon">{{cat.icon}}</span>
+    {{ cat.title }}
+  </h3>
+
+  <!-- SONG LIST INSIDE CATEGORY -->
+  <div class="song-card" *ngFor="let s of cat.songs">
+
+    <div class="info">
+      <h3>{{ s.name }}</h3>
+      <p>{{ s.artist }}</p>
+    </div>
+
+    <button>SET RBT</button>
+
+  </div>
+
+</div>
+<!-- CATEGORIES END -->
+
+  <!-- BOTTOM NAV -->
+  <div class="bottom-nav">
+
+    <div class="nav-item active">
+      🎵 <span>Music</span>
+    </div>
+
+    <div class="nav-item">
+      🔥 <span>Top Songs</span>
+    </div>
+
+    <div class="nav-item">
+      ❤️ <span>Favorites</span>
+    </div>
+
+    <div class="nav-item">
+      ⭐ <span>Set RBT</span>
+    </div>
+
+  </div>
+
+</div>
