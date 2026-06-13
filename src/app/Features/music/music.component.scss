@@ -20,13 +20,9 @@
   overflow-x: hidden;
 }
 
-
-
-
-
-
-.content {
-  padding: 0 15px; /* left + right spacing */
+.content{
+  padding-left:18px;
+  padding-right:18px;
 }
 
 /* HEADER */
@@ -113,6 +109,7 @@
 }
 
 /* SONG LIST CARD (UPDATED STYLE) */
+
 .song-card {
   background: #1a1a1a;
   padding: 12px;
@@ -121,62 +118,63 @@
 
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: center;   /* button + text same line */
 
-border-bottom: 1px solid rgba(255, 215, 0, 0.15); 
+  gap: 12px;   /* spacing between left and right */
 
+  border-bottom: 1px solid rgba(255, 215, 0, 0.15);
 }
 
+/* LEFT SIDE (song + artist stacked properly) */
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* SONG NAME */
 .song-card .info h3 {
   margin: 0;
   font-size: 15px;
+
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
+/* ARTIST NAME */
 .song-card .info p {
-  margin: 0;
+  margin: 2px 0 0 0;
   font-size: 12px;
   color: gray;
+
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
+/* BUTTON FIX */
 .song-card button {
-  background: gold;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
+  height: 36px;
+  white-space: nowrap;   /* text wrap na ho */
+  flex-shrink: 0;        /* button squeeze na ho */
 }
 
 
 .section-title {
   font-size: 18px;
-  font-weight: bold;
-  margin: 15px 0 10px 8px;
+  font-weight: 600;
+  margin: 18px 0 12px 8px;
   text-align: left;
 
-  background: linear-gradient(90deg, #ff4da6, #4da6ff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-/* DEFAULT */
-.section-title {
-  font-size: 18px;
-  font-weight: bold;
-  margin: 15px 0 10px 8px;
-  text-align: left;
-  color: white;
-}
+  color: #64b5f6;   /* formal blue */
 
-.section-title {
-  font-size: 18px;
-  font-weight: bold;
-  margin: 15px 0 10px 8px;
-  text-align: left;
-  color: white;
   display: flex;
   align-items: center;
   gap: 8px;
 }
+
+
 
 .icon {
   font-size: 20px;
