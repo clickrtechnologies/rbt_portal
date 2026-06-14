@@ -1,104 +1,214 @@
-<div class="app">
-
-  <!-- HEADER -->
-  <div class="header">
-    <h2>
-      <mat-icon>music_note</mat-icon>
-      RBT Portal
-    </h2>
-  </div>
-
-  <div class="content">
-
-    <!-- HEADER TEXT -->
-    <div class="header-text">
-      <h2>
-        <mat-icon>trending_up</mat-icon>
-        Top RBT Songs of the moment
-      </h2>
-
-      <p>
-        <mat-icon>music_video</mat-icon>
-        Choose Your RBT Tone
-      </p>
-
-      <p>
-        <mat-icon>headphones</mat-icon>
-        Listen & activate your personalized RBT ringtone
-      </p>
-
-      <p class="highlight">
-        <mat-icon>flash_on</mat-icon>
-        Easy & Fast Activation
-      </p>
-    </div>
-
-    <!-- SEARCH -->
-    <div class="search-bar">
-      <mat-icon>search</mat-icon>
-      <input type="text" placeholder="Search songs or artist..." />
-    </div>
-
-    <!-- CATEGORIES START -->
-
-    <!-- PARTY MUSIC -->
-    <div class="category" *ngFor="let cat of categories">
-
-      <h3 class="section-title">
-        <mat-icon>{{ getIcon(cat.title) }}</mat-icon>
-        {{ cat.title }}
-      </h3>
-
-      <div class="song-card" *ngFor="let s of cat.songs">
-
-        <div class="info">
-          <h3>
-            <mat-icon>music_note</mat-icon>
-            {{ s.name }}
-          </h3>
-
-          <p>
-            <mat-icon>person</mat-icon>
-            {{ s.artist }}
-          </p>
+<div class="zik-page">
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo-area">
+        <div class="logo-badge">MTN</div>
+        <div>
+          <div class="logo-zik">ZIK <span aria-hidden="true">&#9835;</span></div>
+          <div class="header-sub">Sonneries Congo B</div>
         </div>
-
-        <button>
-          <mat-icon>play_arrow</mat-icon>
-          SET RBT
-        </button>
-
       </div>
 
+      <div class="header-right">
+        <div class="header-flag">CG</div>
+        <div class="header-country">Congo B</div>
+      </div>
     </div>
+  </header>
 
-    <!-- CATEGORIES END -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <div class="hero-label">Top sons du moment</div>
+        <h1 class="hero-title">Choisissez votre <span>son RBT</span></h1>
+        <p class="hero-desc">
+          Ecoutez, trouvez et activez votre sonnerie MTN ZIK en quelques secondes.
+        </p>
+        <div class="hero-actions">
+          <span class="hero-pill">Activation rapide</span>
+          <span class="hero-pill hero-pill-muted">150 XAF / 30 jours</span>
+        </div>
+      </div>
 
+      <div class="hero-panel" aria-label="Catalogue summary">
+        <div class="hero-stat">
+          <strong>{{ totalSongs }}</strong>
+          <span>Sons</span>
+        </div>
+        <div class="hero-stat">
+          <strong>{{ sections.length }}</strong>
+          <span>Categories</span>
+        </div>
+        <div class="hero-now">
+          <span class="pulse-dot"></span>
+          Catalogue disponible
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="search-wrap">
+    <div class="search-box">
+      <span class="search-icon" aria-hidden="true">&#8981;</span>
+      <input
+        type="text"
+        placeholder="Rechercher une chanson ou artiste..."
+        [value]="searchQuery"
+        (input)="setSearch($event)"
+      />
+      <button
+        *ngIf="searchQuery"
+        type="button"
+        class="clear-search"
+        aria-label="Clear search"
+        (click)="clearSearch()"
+      >
+        x
+      </button>
+    </div>
   </div>
 
-  <!-- BOTTOM NAV -->
-  <div class="bottom-nav">
+  <main class="content" id="mainContent">
+    <ng-container *ngIf="filteredSections.length; else emptyState">
+      <ng-container
+        *ngFor="let section of filteredSections; let last = last; trackBy: trackSection"
+      >
+        <section class="category-section" [attr.data-cat]="section.key">
+          <div class="cat-header" [ngClass]="'cat--' + section.key">
+            <div class="cat-icon-wrap">{{ section.icon }}</div>
+            <div class="cat-text">
+              <h2 class="cat-name">{{ section.name }}</h2>
+              <div class="cat-sub">{{ section.subtitle }}</div>
+            </div>
+            <div class="cat-count">{{ section.songs.length }} sons</div>
+          </div>
 
-    <div class="nav-item active">
-      <mat-icon>music_note</mat-icon>
-      <span>Music</span>
+          <div class="cat-stripe" [ngClass]="'cat--' + section.key"></div>
+
+          <div class="song-list">
+            <article
+              class="song-card"
+              *ngFor="let song of section.songs; trackBy: trackSong"
+              [class.playing]="isPlaying && activeSongId === song.id"
+              [attr.data-id]="song.id"
+              [attr.data-title]="song.title"
+              [attr.data-artist]="song.artist"
+              (click)="openSong(song)"
+            >
+              <div class="thumb-wrap" [ngStyle]="songArtStyle(song)">
+                <div class="thumb-art">{{ song.icon }}</div>
+                <div class="play-overlay">
+                  <div class="play-btn-inner">&#9654;</div>
+                </div>
+              </div>
+
+              <div class="song-info">
+                <h3 class="song-title">{{ song.title }}</h3>
+                <div class="song-artist">{{ song.artist }}</div>
+              </div>
+
+              <div class="playing-bars" aria-hidden="true">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+              </div>
+
+              <button
+                type="button"
+                class="rbt-btn"
+                (click)="$event.stopPropagation(); openSong(song)"
+              >
+                SET RBT
+              </button>
+            </article>
+          </div>
+        </section>
+
+        <div class="section-divider" *ngIf="!last"></div>
+      </ng-container>
+    </ng-container>
+
+    <ng-template #emptyState>
+      <section class="empty-state">
+        <div class="empty-icon">&#9835;</div>
+        <h2>Aucun son trouve</h2>
+        <p>Essayez un autre titre ou artiste.</p>
+        <button type="button" (click)="clearSearch()">Voir tout le catalogue</button>
+      </section>
+    </ng-template>
+  </main>
+
+  <div
+    class="modal-overlay"
+    [class.open]="selectedSong"
+    (click)="closeModalOnBg($event)"
+  >
+    <div class="modal-sheet" *ngIf="selectedSong as song">
+      <div class="modal-handle"></div>
+
+      <div class="modal-song-art" [ngStyle]="songArtStyle(song)">
+        {{ song.icon }}
+      </div>
+      <div class="modal-title">{{ song.title }}</div>
+      <div class="modal-artist">{{ song.artist }}</div>
+
+      <div class="audio-player-bar">
+        <div class="ap-label">Ecouter l'extrait</div>
+        <div class="ap-controls">
+          <button type="button" class="ap-play-btn" (click)="togglePreview()">
+            {{ isPlaying ? "II" : ">" }}
+          </button>
+          <div class="ap-waveform" (click)="seekPreview($event)">
+            <div class="ap-progress" [style.width.%]="previewProgress"></div>
+            <div class="ap-waveform-bars">
+              <div
+                class="wbar"
+                *ngFor="let height of waveformBars"
+                [style.height.px]="height"
+              ></div>
+            </div>
+          </div>
+          <div class="ap-time">{{ previewTime }}</div>
+        </div>
+      </div>
+
+      <div class="activate-info">
+        <div class="ai-row">
+          <span class="ai-label">Son</span>
+          <span class="ai-value">{{ song.title }}</span>
+        </div>
+        <div class="ai-row">
+          <span class="ai-label">Artiste</span>
+          <span class="ai-value">{{ song.artist }}</span>
+        </div>
+        <div class="ai-row">
+          <span class="ai-label">Tarif</span>
+          <div>
+            <span class="ai-price">150 XAF</span>
+            <span class="ai-period"> / 30 jours</span>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="activate-cta" (click)="activateRBT()">
+        Activer comme MTN ZIK
+      </button>
+      <button type="button" class="modal-dismiss" (click)="closeModal()">Annuler</button>
     </div>
-
-    <div class="nav-item">
-      <mat-icon>whatshot</mat-icon>
-      <span>Top Songs</span>
-    </div>
-
-    <div class="nav-item">
-      <mat-icon>favorite</mat-icon>
-      <span>Favorites</span>
-    </div>
-
-    <div class="nav-item">
-      <mat-icon>star</mat-icon>
-      <span>Set RBT</span>
-    </div>
-
   </div>
 
+  <div class="toast" [class.show]="showToast">{{ toastMessage }}</div>
+
+  <nav class="footer-nav">
+    <button
+      type="button"
+      class="nav-item"
+      *ngFor="let item of navItems; trackBy: trackNav"
+      [class.active]="activeNav === item.id"
+      (click)="setActiveNav(item.id)"
+    >
+      <span class="nav-icon">{{ item.icon }}</span>
+      <span class="nav-label">{{ item.label }}</span>
+    </button>
+  </nav>
 </div>
