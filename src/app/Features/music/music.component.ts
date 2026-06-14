@@ -146,4 +146,20 @@ getIcon(title: string): string {
   }
 }
 
+goToMusic() {
+  alert("Music clicked");
+}
+
+goToTopSongs() {
+  alert("Top Songs clicked");
+}
+
+goToFavorites() {
+  alert("Favorites clicked");
+}
+
+goToSetRbt() {
+  alert("Set RBT clicked");
+}
+
 }

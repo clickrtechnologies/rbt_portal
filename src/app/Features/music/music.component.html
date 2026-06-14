@@ -92,28 +92,28 @@
   </div>
 
   <!-- BOTTOM NAV -->
-  <div class="bottom-nav">
+<div class="bottom-nav">
 
-    <div class="nav-item active">
-      <mat-icon>music_note</mat-icon>
-      <span>Music</span>
-    </div>
-
-    <div class="nav-item">
-      <mat-icon>whatshot</mat-icon>
-      <span>Top Songs</span>
-    </div>
-
-    <div class="nav-item">
-      <mat-icon>favorite</mat-icon>
-      <span>Favorites</span>
-    </div>
-
-    <div class="nav-item">
-      <mat-icon>star</mat-icon>
-      <span>Set RBT</span>
-    </div>
-
+  <div class="nav-item active" (click)="goToMusic()">
+    <mat-icon>music_note</mat-icon>
+    <span>Music</span>
   </div>
+
+  <div class="nav-item" (click)="goToTopSongs()">
+    <mat-icon>whatshot</mat-icon>
+    <span>Top Songs</span>
+  </div>
+
+  <div class="nav-item" (click)="goToFavorites()">
+    <mat-icon>favorite</mat-icon>
+    <span>Favorites</span>
+  </div>
+
+  <div class="nav-item" (click)="goToSetRbt()">
+    <mat-icon>star</mat-icon>
+    <span>Set RBT</span>
+  </div>
+
+</div>
 
 </div>
