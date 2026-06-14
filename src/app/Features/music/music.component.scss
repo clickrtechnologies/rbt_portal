@@ -1,28 +1,18 @@
 .app {
-  width: 100%;
+  width: 100vw;
   min-height: 100vh;
-  background: #000;
-  color: white;
-  overflow-x: hidden; /* 🔥 removes side scroll gap */
-}
-
-.app {
-  width: 100%;
-  min-height: 100vh;
-  background: #000;
+  background: #0b0b0b;
   color: white;
   overflow-x: hidden;
 }
-.app {
-  width: 100vw;   /* 🔥 IMPORTANT (not 100%) */
-  min-height: 100vh;
-  background: #000;
-  overflow-x: hidden;
-}
 
-.content{
-  padding-left:18px;
-  padding-right:18px;
+.content {
+  flex: 1;
+  overflow-y: auto;
+  padding-left: 18px;
+  padding-right: 18px;
+  padding-top: 90px;
+  padding-bottom: 80px;
 }
 
 /* HEADER */
@@ -42,9 +32,59 @@
   border-bottom: 1px solid #222;
 }
 
+
+.header {
+  box-shadow: 0 2px 12px rgba(0,0,0,0.5);
+}
+
 .header h2 {
   margin: 0;
   color: gold;
+}
+
+
+.category-title.party {
+  color: #ffb347 !important;
+}
+
+.category-title.love {
+  color: #ff6fa5 !important;
+}
+
+.category-title.sad {
+  color: #64b5f6 !important;
+}
+
+.category-title.emotional {
+  color: #9575cd !important;
+}
+
+.category-title.bhakti {
+  color: #fbc02d !important;
+}
+
+.category-title.trending {
+  color: #00e676 !important;
+}
+
+.category-title.latest {
+  color: #ff5252 !important;
+}
+
+.category-title.motivational {
+  color: #26c6da !important;
+}
+
+.category-title.friendship {
+  color: #42a5f5 !important;
+}
+
+.category-title.anniversary {
+  color: #ec407a !important;
+}
+
+.category-title.birthday {
+  color: #ffa726 !important;
 }
 
 /* TITLE */
@@ -57,20 +97,25 @@
 }
 
 /* HEADER TEXT */
+
 .header-text {
   text-align: left;
-  margin-bottom: 10px;
+  margin-bottom: 22px;
 }
 
 .header-text h2 {
   color: gold;
-  margin: 0;
+  margin-bottom: 10px;
+  font-size: 28px;
 }
 
 .header-text p {
-  margin: 3px 0;
-  font-size: 13px;
-  color: #ccc;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #bdbdbd;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .header-text .highlight {
@@ -99,31 +144,57 @@
 
 /* CATEGORY SECTION (NEW ADD) */
 .category {
-  margin-bottom: 20px;
-}
-
-.category h3 {
-  margin: 10px 0 4px;
-  font-size: 16px;
-  color: #fff;
+  margin-bottom: 35px;
 }
 
 /* SONG LIST CARD (UPDATED STYLE) */
 
 .song-card {
-  background: #1a1a1a;
-  padding: 12px;
-  margin-bottom: 8px;
-  border-radius: 12px;
+  background: #121212;
+
+  border: 1px solid rgba(255,255,255,0.06);
+
+  padding: 14px;
+
+  border-radius: 14px;
 
   display: flex;
   justify-content: space-between;
-  align-items: center;   /* button + text same line */
+  align-items: center;
 
-  gap: 12px;   /* spacing between left and right */
+  margin-bottom: 10px;
 
-  border-bottom: 1px solid rgba(255, 215, 0, 0.15);
+  transition: 0.3s ease;
 }
+
+.song-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255,215,0,0.25);
+}
+
+.song-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.song-icon {
+  width: 36px;
+  height: 36px;
+
+  border-radius: 10px;
+
+  background: rgba(255,255,255,0.05);
+
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+
+  padding: 6px;
+}
+
+
+
 
 /* LEFT SIDE (song + artist stacked properly) */
 .info {
@@ -160,71 +231,114 @@
   flex-shrink: 0;        /* button squeeze na ho */
 }
 
+.song-card button {
+  background: #ffe95c;
 
-.section-title {
-  font-size: 18px;
-  font-weight: 600;
-  margin: 18px 0 12px 8px;
-  text-align: left;
+  border: none;
 
-  color: #64b5f6;   /* formal blue */
+  color: black;
 
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  font-weight: 700;
+
+  font-size: 11px;
+
+  padding: 10px 16px;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  min-width: 95px;
 }
 
+.song-card button:hover {
+  opacity: 0.9;
+}
+
+.category-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 10px;
+}
+
+.category-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: linear-gradient(135deg, #ffb347, #ff6b00);
+}
+
+.category-title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.category-info p {
+  margin: 3px 0;
+  color: #888;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.party {
+  color: #ffb347;
+}
+
+.love {
+  color: #ff7aa8;
+}
+
+.sad {
+  color: #69b7ff;
+}
+
+.emotional {
+  color: #9b7dff;
+}
+
+.bhakti {
+  color: #ffc107;
+}
+
+.trending {
+  color: #00d26a;
+}
+
+.latest {
+  color: #ff5252;
+}
+
+.category-line {
+  height: 2px;
+  margin-bottom: 15px;
+
+  background: linear-gradient(
+    90deg,
+    #ff9800,
+    rgba(255, 255, 255, 0.05)
+  );
+
+  border-radius: 10px;
+}
+
+.songs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
 
 
 .icon {
   font-size: 20px;
 }
-.content {
-  flex: 1;
-  overflow-y: auto;   /* 🔥 scroll enable */
-  padding-top: 70px;  /* header space */
-  padding-bottom: 80px; /* bottom nav space */
-}
-
-
-
-
-
-/* PARTY */
-.Party\ Music {
-  color: #ff4da6;
-}
-
-/* LOVE */
-.Love\ Music {
-  color: #ffcc00;
-}
-
-/* SAD */
-.Sad\ Songs {
-  color: #4da6ff;
-}
-
-/* EMOTIONAL */
-.Emotional\ Songs {
-  color: #9b59b6;
-}
-
-/* BHAKTI */
-.Bhakti\ Songs {
-  color: #f39c12;
-}
-
-/* TRENDING */
-.Trending\ Songs {
-  color: #2ecc71;
-}
-
-/* LATEST */
-.Latest\ Songs {
-  color: #e74c3c;
-}
-
 
 /* IMPORTANT: DO NOT style all h3 globally */
 

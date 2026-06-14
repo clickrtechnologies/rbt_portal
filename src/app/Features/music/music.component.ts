@@ -78,6 +78,43 @@ categories = [
      
     ]
   },
+
+{
+  key: 'motivational',
+  title: 'Motivational Songs',
+  songs: [
+    { name: 'Hall of Fame', artist: 'The Script' },
+    { name: 'Believer', artist: 'Imagine Dragons' },
+    { name: 'Stronger', artist: 'Kanye West' }
+  ]
+},
+{
+  key: 'friendship',
+  title: 'Friendship Songs',
+  songs: [
+    { name: 'Count on Me', artist: 'Bruno Mars' },
+    { name: 'Lean on Me', artist: 'Bill Withers' },
+    { name: 'Best Friend', artist: 'Saweetie' }
+  ]
+},
+{
+  key: 'anniversary',
+  title: 'Anniversary Songs',
+  songs: [
+    { name: 'Perfect', artist: 'Ed Sheeran' },
+    { name: 'A Thousand Years', artist: 'Christina Perri' },
+    { name: 'Marry You', artist: 'Bruno Mars' }
+  ]
+},
+{
+  key: 'birthday',
+  title: 'Birthday Songs',
+  songs: [
+    { name: 'Birthday', artist: 'Katy Perry' },
+    { name: 'In Da Club', artist: '50 Cent' },
+    { name: 'Birthday Cake', artist: 'Rihanna' }
+  ]
+},
   {
     key: 'latest',
     title: 'Latest Songs',
@@ -99,6 +136,12 @@ getIcon(title: string): string {
     case 'Bhakti Songs': return 'self_improvement';
     case 'Trending Songs': return 'trending_up';
     case 'Latest Songs': return 'new_releases';
+    case 'Motivational Songs': return 'emoji_events';
+    case 'Friendship Songs': return 'groups';
+    case 'Anniversary Songs': return 'card_giftcard';
+    case 'Birthday Songs': return 'cake';
+
+
     default: return 'music_note';
   }
 }
