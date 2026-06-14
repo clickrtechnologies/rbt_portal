@@ -218,7 +218,6 @@
   margin: 2px 0 0 0;
   font-size: 12px;
   color: gray;
-
   display: flex;
   align-items: center;
   gap: 6px;
@@ -328,6 +327,53 @@
 
   border-radius: 10px;
 }
+
+/* CATEGORY LINE COLORS */
+
+.party.category-line {
+  background: linear-gradient(90deg, #ffb347, rgba(255,255,255,0.05));
+}
+
+.love.category-line {
+  background: linear-gradient(90deg, #ff6fa5, rgba(255,255,255,0.05));
+}
+
+.sad.category-line {
+  background: linear-gradient(90deg, #64b5f6, rgba(255,255,255,0.05));
+}
+
+.emotional.category-line {
+  background: linear-gradient(90deg, #9575cd, rgba(255,255,255,0.05));
+}
+
+.bhakti.category-line {
+  background: linear-gradient(90deg, #fbc02d, rgba(255,255,255,0.05));
+}
+
+.trending.category-line {
+  background: linear-gradient(90deg, #00e676, rgba(255,255,255,0.05));
+}
+
+.latest.category-line {
+  background: linear-gradient(90deg, #ff5252, rgba(255,255,255,0.05));
+}
+
+.motivational.category-line {
+  background: linear-gradient(90deg, #26c6da, rgba(255,255,255,0.05));
+}
+
+.friendship.category-line {
+  background: linear-gradient(90deg, #42a5f5, rgba(255,255,255,0.05));
+}
+
+.anniversary.category-line {
+  background: linear-gradient(90deg, #ec407a, rgba(255,255,255,0.05));
+}
+
+.birthday.category-line {
+  background: linear-gradient(90deg, #ffa726, rgba(255,255,255,0.05));
+}
+
 
 .songs-grid {
   display: grid;
