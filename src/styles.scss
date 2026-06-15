@@ -20,3 +20,22 @@ app-root {
   min-height: 100vh;
   background: #000;
 }
+
+/* Chrome, Edge, Brave */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000;     /* pure black background */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #222;     /* dark gray handle */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #444;
+}

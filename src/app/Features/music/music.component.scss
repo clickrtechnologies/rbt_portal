@@ -106,21 +106,18 @@
 .header-text h2 {
   color: gold;
   margin-bottom: 10px;
-  font-size: 28px;
+  font-size: 22px;
 }
 
-.header-text p {
+.header-text p,
+.header-text .highlight {
   margin-bottom: 8px;
-  font-size: 14px;
-  color: #bdbdbd;
+  font-size: 14px;      /* same size for all 3 */
+  font-weight: 400;     /* same normal weight */
+  color: #bdbdbd;       /* same color */
   display: flex;
   align-items: center;
   gap: 8px;
-}
-
-.header-text .highlight {
-  color: #fff;
-  font-weight: bold;
 }
 
 /* SEARCH BAR */
@@ -131,6 +128,13 @@
   padding: 10px;
   border-radius: 10px;
   margin: 10px 0;
+}
+
+.search-bar mat-icon {
+  font-size: 18px;     /* pehle default 24px hota hai */
+  width: 18px;
+  height: 18px;
+  color: #888;         /* optional, thoda subtle */
 }
 
 .search-bar input {
@@ -261,10 +265,10 @@
   margin-bottom: 10px;
 }
 
-.category-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
+ .category-icon {
+  width: 36px;      /* pehle 48 */
+  height: 36px;     /* pehle 48 */
+  border-radius: 10px;
 
   display: flex;
   justify-content: center;
@@ -272,6 +276,14 @@
 
   background: linear-gradient(135deg, #ffb347, #ff6b00);
 }
+
+.category-icon mat-icon {
+  font-size: 18px;   /* default 24 tha */
+  width: 18px;
+  height: 18px;
+}
+
+
 
 .category-title {
   margin: 0;
