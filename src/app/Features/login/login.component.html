@@ -1,0 +1,29 @@
+<div class="login-page">
+
+  <!-- TOP HEADER -->
+  <div class="login-header">
+    <h2>
+      <mat-icon>music_note</mat-icon>
+      RBT Portal
+    </h2>
+  </div>
+
+  <!-- LOGIN CARD -->
+  <div class="login-card">
+
+    <p>Login to manage your RBT tones</p>
+
+    <div class="input-box">
+      <mat-icon>phone</mat-icon>
+      <input
+        type="text"
+        placeholder="Enter Mobile Number"
+        [(ngModel)]="mobileNumber"
+      />
+    </div>
+
+    <button (click)="login()">LOGIN</button>
+
+  </div>
+
+</div>
