@@ -120,6 +120,46 @@
   gap: 8px;
 }
 
+.player-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.player-card {
+  background: #121212;
+  color: white;
+  padding: 20px;
+  border-radius: 15px;
+  width: 300px;
+  text-align: center;
+  border: 1px solid gold;
+}
+
+.close-btn {
+  position: absolute;
+  margin-left: 120px;
+  cursor: pointer;
+  color: gold;
+  font-size: 20px;
+}
+
+.controls button {
+  background: gold;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 15px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
 /* SEARCH BAR */
 .search-bar {
   display: flex;

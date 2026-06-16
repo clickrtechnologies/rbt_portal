@@ -1,0 +1,122 @@
+<div class="rbt-container">
+
+  <!-- BACK BUTTON -->
+  <button class="close-btn" (click)="goBack()">
+    ✖
+  </button>
+
+  <!-- SONG INFO -->
+  <div class="title">
+    <h2>{{ song?.name }}</h2>
+    <p>{{ song?.artist }}</p>
+  </div>
+
+  <!-- PROGRESS BAR -->
+  <div class="player-box">
+
+    <!-- PREVIOUS -->
+    <button class="control-btn" (click)="prevSong()">
+      ⏮
+    </button>
+
+    <!-- PLAY / PAUSE -->
+    <button class="play-btn" (click)="togglePlay()">
+
+      <span *ngIf="!isPlaying">▶</span>
+      <span *ngIf="isPlaying">⏸</span>
+
+    </button>
+
+    <!-- NEXT -->
+    <button class="control-btn" (click)="nextSong()">
+      ⏭
+    </button>
+
+  </div>
+
+  <!-- SEEK BAR -->
+  <div class="progress-wrapper">
+
+    <input
+      type="range"
+      min="0"
+      [max]="duration"
+      [value]="currentTime"
+      (input)="seek($event)"
+      class="slider"
+    />
+
+  </div>
+
+  <!-- TIME -->
+  <div class="time-box">
+
+    <span>
+      {{ formatTime(currentTime) }}
+    </span>
+
+    <span>
+      {{ formatTime(duration) }}
+    </span>
+
+  </div>
+
+  <!-- EXTRA CONTROLS -->
+  <div class="extra-controls">
+
+    <!-- REPEAT -->
+    <button
+      class="small-btn"
+      (click)="toggleRepeat()">
+
+      {{ isRepeat ? '🔁 ON' : '🔁' }}
+
+    </button>
+
+    <!-- SHUFFLE -->
+    <button
+      class="small-btn"
+      (click)="toggleShuffle()">
+
+      {{ isShuffle ? '🔀 ON' : '🔀' }}
+
+    </button>
+
+    <!-- FAVORITE -->
+    <button
+      class="small-btn"
+      (click)="toggleFavorite()">
+
+      {{ isFavorite ? '❤️' : '🤍' }}
+
+    </button>
+
+  </div>
+
+  <!-- LISTEN SECTION -->
+  <div class="section">
+
+    <h3>LISTEN PREVIEW</h3>
+
+    <button
+      class="listen-btn"
+      (click)="togglePlay()">
+
+      {{ isPlaying ? 'PAUSE' : 'PLAY' }}
+
+    </button>
+
+  </div>
+
+  <!-- PRICE BOX -->
+  <div class="price">
+    <h3>149 XAF</h3>
+    <p>30 Days</p>
+  </div>
+
+  <!-- ACTIVATE BUTTON -->
+  <button class="activate-btn">
+    ACTIVATE AS RBT
+  </button>
+
+</div>

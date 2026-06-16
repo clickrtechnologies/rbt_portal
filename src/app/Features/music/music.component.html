@@ -39,81 +39,84 @@
       <input type="text" placeholder="Search songs or artist..." />
     </div>
 
-    <!-- CATEGORIES START -->
+    <!-- CATEGORY LOOP -->
+    <div class="category" *ngFor="let cat of categories">
 
-    <!-- PARTY MUSIC -->
-    
+      <!-- CATEGORY HEADER -->
+      <div class="category-header">
 
-    <!-- CATEGORIES START -->
-<div class="category" *ngFor="let cat of categories">
+        <div class="category-icon">
+          <mat-icon>{{ getIcon(cat.title) }}</mat-icon>
+        </div>
 
-  <!-- CATEGORY HEADER -->
-  <div class="category-header">
-
-    <div class="category-icon">
-      <mat-icon>{{ getIcon(cat.title) }}</mat-icon>
-    </div>
-
-    <div class="category-info">
-  <h3 class="category-title" [ngClass]="cat.key">
-    {{ cat.title }}
-  </h3>
-  <p>Premium RBT Collection</p>
-</div>
-
-  </div>
-
-  <div class="category-line" [ngClass]="cat.key"></div>
-
-  <!-- SONG GRID -->
-  <div class="songs-grid">
-
-    <div class="song-card" *ngFor="let s of cat.songs">
-
-      <div class="song-left">
-
-        <mat-icon class="song-icon">play_arrow</mat-icon>
-
-        <div class="info">
-          <h3>{{ s.name }}</h3>
-          <p>{{ s.artist }}</p>
+        <div class="category-info">
+          <h3 class="category-title" [ngClass]="cat.key">
+            {{ cat.title }}
+          </h3>
+          <p>Premium RBT Collection</p>
         </div>
 
       </div>
 
-      <button>SET RBT</button>
+      <div class="category-line" [ngClass]="cat.key"></div>
+
+      <!-- SONG GRID -->
+      <div class="songs-grid">
+
+        <div class="song-card" *ngFor="let s of cat.songs">
+
+          <div class="song-left">
+
+            <!-- PLAY BUTTON -->
+            <!-- SAME FUNCTION AS SET RBT -->
+            <mat-icon class="song-icon" (click)="openPlayer(s)">
+              play_arrow
+            </mat-icon>
+
+            <div class="info">
+              <h3>{{ s.name }}</h3>
+              <p>{{ s.artist }}</p>
+            </div>
+
+          </div>
+
+          <!-- SET RBT BUTTON -->
+          <!-- SAME FUNCTION -->
+          <button (click)="openPlayer(s)">
+            SET RBT
+          </button>
+
+        </div>
+
+      </div>
 
     </div>
 
   </div>
 
-</div>
-
-  </div>
-
   <!-- BOTTOM NAV -->
-<div class="bottom-nav">
+  <div class="bottom-nav">
 
-  <div class="nav-item active" (click)="goToMusic()">
-    <mat-icon>music_note</mat-icon>
-    <span>Music</span>
+    <div class="nav-item active" (click)="goToMusic()">
+      <mat-icon>music_note</mat-icon>
+      <span>Music</span>
+    </div>
+
+    <div class="nav-item" (click)="goToTopSongs()">
+      <mat-icon>whatshot</mat-icon>
+      <span>Top Songs</span>
+    </div>
+
+    <div class="nav-item" (click)="goToFavorites()">
+      <mat-icon>favorite</mat-icon>
+      <span>Favorites</span>
+    </div>
+
+    <div class="nav-item" (click)="goToSetRbt()">
+      <mat-icon>star</mat-icon>
+      <span>Set RBT</span>
+    </div>
+
   </div>
-
-  <div class="nav-item" (click)="goToTopSongs()">
-    <mat-icon>whatshot</mat-icon>
-    <span>Top Songs</span>
-  </div>
-
-  <div class="nav-item" (click)="goToFavorites()">
-    <mat-icon>favorite</mat-icon>
-    <span>Favorites</span>
-  </div>
-
-  <div class="nav-item" (click)="goToSetRbt()">
-    <mat-icon>star</mat-icon>
-    <span>Set RBT</span>
-  </div>
-
-</div>
 
 </div>
