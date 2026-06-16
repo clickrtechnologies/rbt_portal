@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
-import { SongService } from '../../services/song.service';
+import { MatDialog } from '@angular/material/dialog';
+import { RbtDialogComponent } from '../rbt-dialog/rbt-dialog.component';
+import { RbtService } from '../../services/rbt.service';
 
 @Component({
   selector: 'app-music',
@@ -15,31 +17,34 @@ export class MusicComponent {
 
   isExistingUser: boolean = false;
 
-  // EXISTING USER ACTIVE RBT DETAILS
   existingRbt = {
     name: 'Believer',
     plan: 'Monthly',
     validity: '25 Days Left'
   };
 
-  constructor(private router: Router,private songService: SongService) {
-
+  constructor(
+    private router: Router,
+    private dialog: MatDialog,
+    private rbtService: RbtService   // ✅ FIX
+  ) {
     const nav = this.router.getCurrentNavigation();
 
     this.isExistingUser =
       nav?.extras?.state?.['isExistingUser'] || false;
   }
 
-  // OPEN SET RBT PAGE (PASS USER TYPE + SONG)
+  // ================= OPEN POPUP =================
+
   openPlayer(song: any) {
-
-    this.router.navigate(['/set-rbt'], {
-      state: {
-        song: song,
-        isExistingUser: this.isExistingUser
-      }
+    this.dialog.open(RbtDialogComponent, {
+      width: '420px',
+      maxWidth: '90vw',
+      panelClass: 'spotify-dialog',
+      backdropClass: 'spotify-backdrop',
+      disableClose: false,
+      data: song
     });
-
   }
 
   // ================= SONG DATA =================
@@ -52,7 +57,10 @@ export class MusicComponent {
       songs: [
         { name: 'Taki Taki', artist: 'DJ Snake' },
         { name: 'In Da Club', artist: '50 Cent' },
-        { name: 'Turn Down for What', artist: 'DJ Snake' }
+        { name: 'Turn Down for What', artist: 'DJ Snake' },
+       { name: 'Uptown Funk', artist: 'Bruno Mars' },
+      { name: 'Party Rock Anthem', artist: 'LMFAO' },
+      { name: 'Titanium', artist: 'David Guetta' }
       ]
     },
     {
@@ -62,7 +70,10 @@ export class MusicComponent {
       songs: [
         { name: 'Perfect', artist: 'Ed Sheeran' },
         { name: 'All of Me', artist: 'John Legend' },
-        { name: 'Thinking Out Loud', artist: 'Ed Sheeran' }
+        { name: 'Thinking Out Loud', artist: 'Ed Sheeran' },
+        { name: 'Photograph', artist: 'Ed Sheeran' },
+      { name: 'Until I Found You', artist: 'Stephen Sanchez' },
+      { name: 'I Will Always Love You', artist: 'Whitney Houston' }
       ]
     },
     {
@@ -72,7 +83,10 @@ export class MusicComponent {
       songs: [
         { name: 'Someone Like You', artist: 'Adele' },
         { name: 'Let Her Go', artist: 'Passenger' },
-        { name: 'Fix You', artist: 'Coldplay' }
+        { name: 'Fix You', artist: 'Coldplay' },
+        { name: 'Hurt', artist: 'Johnny Cash' },
+      { name: 'Stay With Me', artist: 'Sam Smith' },
+      { name: 'When I Was Your Man', artist: 'Bruno Mars' }
       ]
     },
     {
@@ -82,7 +96,10 @@ export class MusicComponent {
       songs: [
         { name: 'The Night We Met', artist: 'Lord Huron' },
         { name: 'Say Something', artist: 'A Great Big World' },
-        { name: 'Photograph', artist: 'Ed Sheeran' }
+        { name: 'Photograph', artist: 'Ed Sheeran' },
+        { name: 'Someone You Loved', artist: 'Lewis Capaldi' },
+      { name: 'Let Me Down Slowly', artist: 'Alec Benjamin' },
+      { name: 'Ocean Eyes', artist: 'Billie Eilish' }
       ]
     },
     {
@@ -92,7 +109,10 @@ export class MusicComponent {
       songs: [
         { name: 'Hanuman Chalisa', artist: 'Hariharan' },
         { name: 'Om Jai Jagdish Hare', artist: 'Aarti Singer' },
-        { name: 'Shree Ram Jay Ram', artist: 'Anuradha Paudwal' }
+        { name: 'Shree Ram Jay Ram', artist: 'Anuradha Paudwal' },
+        { name: 'Mera Aapki Kripa Se', artist: 'Various' },
+      { name: 'Achyutam Keshavam', artist: 'Krishna Bhajan' },
+      { name: 'Govind Bolo Hari Gopal Bolo', artist: 'Bhajan Singer' }
       ]
     },
     {
@@ -102,7 +122,10 @@ export class MusicComponent {
       songs: [
         { name: 'Blinding Lights', artist: 'The Weeknd' },
         { name: 'Shape of You', artist: 'Ed Sheeran' },
-        { name: 'Despacito', artist: 'Luis Fonsi' }
+        { name: 'Despacito', artist: 'Luis Fonsi' },
+          { name: 'Calm Down', artist: 'Rema' },
+      { name: 'As It Was', artist: 'Harry Styles' },
+      { name: 'Flowers', artist: 'Miley Cyrus' }
       ]
     },
     {
@@ -111,8 +134,12 @@ export class MusicComponent {
       songs: [
         { name: 'Hall of Fame', artist: 'The Script' },
         { name: 'Believer', artist: 'Imagine Dragons' },
-        { name: 'Stronger', artist: 'Kanye West' }
-      ]
+        { name: 'Stronger', artist: 'Kanye West' },
+          { name: 'Eye of the Tiger', artist: 'Survivor' },
+      { name: 'Lose Yourself', artist: 'Eminem' },
+      { name: 'Unstoppable', artist: 'Sia' }
+    ]
+      
     },
     {
       key: 'friendship',
@@ -120,7 +147,11 @@ export class MusicComponent {
       songs: [
         { name: 'Count on Me', artist: 'Bruno Mars' },
         { name: 'Lean on Me', artist: 'Bill Withers' },
-        { name: 'Best Friend', artist: 'Saweetie' }
+        { name: 'Best Friend', artist: 'Saweetie' },
+         { name: 'Yaaron', artist: 'KK' },
+      { name: 'Tera Yaar Hoon Main', artist: 'Arijit Singh' },
+      { name: 'Illahi', artist: 'Arijit Singh' }
+
       ]
     },
     {
@@ -129,7 +160,10 @@ export class MusicComponent {
       songs: [
         { name: 'Perfect', artist: 'Ed Sheeran' },
         { name: 'A Thousand Years', artist: 'Christina Perri' },
-        { name: 'Marry You', artist: 'Bruno Mars' }
+        { name: 'Marry You', artist: 'Bruno Mars' },
+         { name: 'All of Me', artist: 'John Legend' },
+      { name: 'You Are The Reason', artist: 'Calum Scott' },
+      { name: 'Thinking Out Loud', artist: 'Ed Sheeran' }
       ]
     },
     {
@@ -138,7 +172,11 @@ export class MusicComponent {
       songs: [
         { name: 'Birthday', artist: 'Katy Perry' },
         { name: 'In Da Club', artist: '50 Cent' },
-        { name: 'Birthday Cake', artist: 'Rihanna' }
+        { name: 'Birthday Cake', artist: 'Rihanna' },
+         { name: 'Happy Birthday Song', artist: 'Traditional' },
+      { name: 'Celebrate', artist: 'Kool & The Gang' },
+      { name: 'Best Day of My Life', artist: 'American Authors' }
+    
       ]
     },
     {
@@ -148,7 +186,10 @@ export class MusicComponent {
       songs: [
         { name: 'Calm Down', artist: 'Rema' },
         { name: 'Cruel Summer', artist: 'Taylor Swift' },
-        { name: 'Kill Bill', artist: 'SZA' }
+        { name: 'Kill Bill', artist: 'SZA' },
+          { name: 'Paint The Town Red', artist: 'Doja Cat' },
+      { name: 'Seven', artist: 'Jungkook' },
+      { name: 'Water', artist: 'Tyla' }
       ]
     }
   ];
@@ -171,7 +212,6 @@ export class MusicComponent {
     }
   }
 
-  // NAVIGATION
   goToMusic() { alert("Music clicked"); }
   goToTopSongs() { alert("Top Songs clicked"); }
   goToFavorites() { alert("Favorites clicked"); }

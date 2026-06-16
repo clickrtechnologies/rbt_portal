@@ -44,3 +44,41 @@ html, body {
   height: 100%;
   margin: 0;
 }
+
+.cdk-overlay-container {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.cdk-global-overlay-wrapper {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.spotify-dialog .mat-mdc-dialog-container {
+  padding: 0 !important;
+  border-radius: 16px !important;
+  overflow: hidden;
+  background: transparent;
+}
+
+.spotify-backdrop {
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(8px);
+}
+
+
+.cdk-overlay-container {
+  position: fixed !important;
+  inset: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.cdk-global-overlay-wrapper {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}

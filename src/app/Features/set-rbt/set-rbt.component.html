@@ -4,24 +4,9 @@
   <button class="close-btn" (click)="goBack()">
     ✖
   </button>
-
-  <!-- SONG INFO -->
-  <div class="title">
-    <h2>{{ song?.name }}</h2>
-    <p>{{ song?.artist }}</p>
-  </div>
-
   <div class="rbt-box">
 
-    <!-- EXISTING USER INFO -->
-    <div class="info-box" *ngIf="isExistingUser">
-      <h3>Current Plan</h3>
-      <p>Subscription Cost: <span>100 ZAR</span></p>
-      <p>Validity: <span>30 Days</span></p>
-    </div>
-
-
-  </div>
+  
 
   <!-- EXISTING USER POPUP INFO -->
   <div *ngIf="isExistingUser">

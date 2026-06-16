@@ -1,0 +1,37 @@
+<div class="spotify-popup">
+
+  <!-- Close -->
+  <button class="close-btn" (click)="close()">✕</button>
+
+  <!-- Song Info -->
+  <div class="song-info">
+    <h2>{{ data?.name }}</h2>
+    <p>{{ data?.artist }}</p>
+  </div>
+
+  <!-- Spotify style card -->
+  <div class="card">
+
+    <div class="label">Subscription</div>
+
+    <div class="price">₹100</div>
+    <div class="validity">Valid for 30 Days</div>
+
+    <div class="divider"></div>
+
+    <!-- Pack Select -->
+    <select [(ngModel)]="selectedPack">
+      <option value="">Select Plan</option>
+      <option value="daily">Daily</option>
+      <option value="weekly">Weekly</option>
+      <option value="monthly">Monthly</option>
+    </select>
+
+    <!-- Activate -->
+    <button (click)="activate()" [disabled]="!selectedPack">
+      ACTIVATE RBT
+    </button>
+
+  </div>
+
+</div>

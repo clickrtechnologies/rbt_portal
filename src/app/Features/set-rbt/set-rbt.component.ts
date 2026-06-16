@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { RbtDialogComponent } from '../rbt-dialog/rbt-dialog.component';
 
 @Component({
   selector: 'app-set-rbt',
@@ -40,7 +42,7 @@ export class SetRbtComponent implements OnInit {
   selectedPack: string = '';
   showActivate: boolean = false;
 
-  constructor(private location: Location) {}
+  constructor(private location: Location, private dialog: MatDialog) {}
 
   ngOnInit(): void {
 
@@ -160,26 +162,28 @@ export class SetRbtComponent implements OnInit {
 
   // ================= ACTIVATE RBT =================
 
-  activateRbt() {
+activateRbt() {
 
-  if (!this.selectedPack) {
-    alert('Please select subscription pack');
-    return;
-  }
+  const dialogRef = this.dialog.open(RbtDialogComponent, {
+    data: {
+      song: this.song
+    }
+  });
 
-  // EXISTING USER FLOW
-  if (this.isExistingUser) {
-    alert('RBT Changed Successfully');
-  }
+  dialogRef.afterClosed().subscribe(result => {
 
-  // NEW USER FLOW
-  else {
-    alert('RBT Activated Successfully');
-  }
+    if (result?.success) {
 
-  this.location.back();
+      if (this.isExistingUser) {
+        alert('RBT Changed Successfully');
+      } else {
+        alert('RBT Activated Successfully');
+      }
+
+      this.location.back();
+    }
+  });
 }
-
   // ================= BACK =================
 
   goBack() {

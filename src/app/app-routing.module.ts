@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { MusicComponent } from './Features/Home/Home.component';
 import { LoginComponent } from './Features/login/login.component';
-import { SetRbtComponent } from './Features/set-rbt/set-rbt.component';
+
 
 const routes: Routes = [
 
@@ -12,8 +12,6 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
 
   { path: 'music', component: MusicComponent },
-
-  { path: 'set-rbt', component: SetRbtComponent }
 
 ];
 
