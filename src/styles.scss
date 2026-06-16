@@ -39,3 +39,8 @@ app-root {
 ::-webkit-scrollbar-thumb:hover {
   background: #444;
 }
+
+html, body {
+  height: 100%;
+  margin: 0;
+}

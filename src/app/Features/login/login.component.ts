@@ -40,24 +40,25 @@ export class LoginComponent {
 
 
   // STEP 2 → VERIFY OTP
-
+  
   verifyOtp() {
 
-    // dummy OTP for testing
+  if (this.otp === '1234') {
 
-    if (this.otp === '1234') {
+    alert('Login Successful');
 
-      alert('Login Successful');
+    // EXISTING USER LOGIC (dummy rule)
+    const isExistingUser = this.mobileNumber === '9999999999';
 
-      // redirect to music page
+    this.router.navigate(['/music'], {
+      state: {
+        isExistingUser: isExistingUser
+      }
+    });
 
-      this.router.navigate(['/music']);
-
-    }
-
-    else {
-      alert('Invalid OTP');
-    }
+  } else {
+    alert('Invalid OTP');
   }
 
+}
 }

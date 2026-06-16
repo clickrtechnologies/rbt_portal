@@ -165,6 +165,86 @@
   font-weight: bold;
 }
 
+.rbt-box {
+  background: #0b0b0b;
+  color: #fff;
+  padding: 20px;
+  border-radius: 16px;
+  max-width: 350px;
+  margin: 20px auto;
+  box-shadow: 0 0 20px rgba(0,0,0,0.6);
+  border: 1px solid #222;
+}
+
+/* EXISTING USER BOX */
+.info-box {
+  background: #151515;
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  border-left: 4px solid #ffd700;
+}
+
+.info-box h3 {
+  margin: 0 0 10px 0;
+  color: #ffd700;
+}
+
+.info-box p {
+  margin: 5px 0;
+  color: #ccc;
+}
+
+.info-box span {
+  color: #fff;
+  font-weight: bold;
+}
+
+/* DROPDOWN */
+.pack-box {
+  margin-bottom: 15px;
+}
+
+.pack-box label {
+  display: block;
+  margin-bottom: 8px;
+  color: #ccc;
+}
+
+.pack-box select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  background: #1a1a1a;
+  color: #fff;
+  border: 1px solid #333;
+  outline: none;
+}
+
+.pack-box select:focus {
+  border-color: #ffd700;
+}
+
+/* BUTTON */
+.activate-btn {
+  width: 100%;
+  padding: 12px;
+  background: #ffd700;
+  color: #000;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.activate-btn:hover {
+  background: #ffcc00;
+  transform: scale(1.02);
+}
+
+
+
 /* PRICE */
 .price {
   margin-top: 30px;

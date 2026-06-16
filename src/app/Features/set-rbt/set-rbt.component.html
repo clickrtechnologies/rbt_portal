@@ -11,15 +11,33 @@
     <p>{{ song?.artist }}</p>
   </div>
 
-  <!-- PROGRESS BAR -->
+  <div class="rbt-box">
+
+    <!-- EXISTING USER INFO -->
+    <div class="info-box" *ngIf="isExistingUser">
+      <h3>Current Plan</h3>
+      <p>Subscription Cost: <span>100 ZAR</span></p>
+      <p>Validity: <span>30 Days</span></p>
+    </div>
+
+
+  </div>
+
+  <!-- EXISTING USER POPUP INFO -->
+  <div *ngIf="isExistingUser">
+    <p>Subscription Cost: 100 ZAR</p>
+    <p>Validity: 30 Days</p>
+  </div>
+
+
+
+  <!-- PROGRESS BAR CONTROLS -->
   <div class="player-box">
 
-    <!-- PREVIOUS -->
     <button class="control-btn" (click)="prevSong()">
       ⏮
     </button>
 
-    <!-- PLAY / PAUSE -->
     <button class="play-btn" (click)="togglePlay()">
 
       <span *ngIf="!isPlaying">▶</span>
@@ -27,7 +45,6 @@
 
     </button>
 
-    <!-- NEXT -->
     <button class="control-btn" (click)="nextSong()">
       ⏭
     </button>
@@ -37,58 +54,31 @@
   <!-- SEEK BAR -->
   <div class="progress-wrapper">
 
-    <input
-      type="range"
-      min="0"
-      [max]="duration"
-      [value]="currentTime"
-      (input)="seek($event)"
-      class="slider"
-    />
+    <input type="range" min="0" [max]="duration" [value]="currentTime" (input)="seek($event)" class="slider" />
 
   </div>
 
   <!-- TIME -->
   <div class="time-box">
 
-    <span>
-      {{ formatTime(currentTime) }}
-    </span>
-
-    <span>
-      {{ formatTime(duration) }}
-    </span>
+    <span>{{ formatTime(currentTime) }}</span>
+    <span>{{ formatTime(duration) }}</span>
 
   </div>
 
   <!-- EXTRA CONTROLS -->
   <div class="extra-controls">
 
-    <!-- REPEAT -->
-    <button
-      class="small-btn"
-      (click)="toggleRepeat()">
-
+    <button class="small-btn" (click)="toggleRepeat()">
       {{ isRepeat ? '🔁 ON' : '🔁' }}
-
     </button>
 
-    <!-- SHUFFLE -->
-    <button
-      class="small-btn"
-      (click)="toggleShuffle()">
-
+    <button class="small-btn" (click)="toggleShuffle()">
       {{ isShuffle ? '🔀 ON' : '🔀' }}
-
     </button>
 
-    <!-- FAVORITE -->
-    <button
-      class="small-btn"
-      (click)="toggleFavorite()">
-
+    <button class="small-btn" (click)="toggleFavorite()">
       {{ isFavorite ? '❤️' : '🤍' }}
-
     </button>
 
   </div>
@@ -98,25 +88,34 @@
 
     <h3>LISTEN PREVIEW</h3>
 
-    <button
-      class="listen-btn"
-      (click)="togglePlay()">
-
+    <button class="listen-btn" (click)="togglePlay()">
       {{ isPlaying ? 'PAUSE' : 'PLAY' }}
-
     </button>
 
   </div>
 
   <!-- PRICE BOX -->
   <div class="price">
-    <h3>149 XAF</h3>
-    <p>30 Days</p>
+
+    <h3>100 ZAR</h3>
+    <p>Validity: 30 Days</p>
+
   </div>
 
-  <!-- ACTIVATE BUTTON -->
-  <button class="activate-btn">
-    ACTIVATE AS RBT
-  </button>
 
+ <div class="pack-box">
+    <label>Select Subscription Pack</label>
+
+    <select (change)="selectPack($event)">
+      <option value="">Choose Pack</option>
+      <option value="daily">Daily</option>
+      <option value="weekly">Weekly</option>
+      <option value="monthly">Monthly</option>
+    </select>
+  </div>
+
+   <!-- ACTIVATE BUTTON -->
+  <button class="activate-btn" (click)="activateRbt()">
+    ACTIVATE RBT
+  </button>
 </div>

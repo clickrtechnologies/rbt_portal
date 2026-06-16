@@ -1,15 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { SetRbtComponent } from './set-rbt.component';
 
 describe('SetRbtComponent', () => {
   let component: SetRbtComponent;
   let fixture: ComponentFixture<SetRbtComponent>;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [SetRbtComponent]
-    });
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [SetRbtComponent]   // ✅ FIX HERE
+    }).compileComponents();
+
     fixture = TestBed.createComponent(SetRbtComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

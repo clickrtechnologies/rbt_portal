@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
+import { SongService } from '../../services/song.service';
 
 @Component({
   selector: 'app-music',
@@ -12,14 +13,36 @@ import { Router } from '@angular/router';
 })
 export class MusicComponent {
 
-  constructor(private router: Router) {}
+  isExistingUser: boolean = false;
 
-  // SINGLE FUNCTION FOR BOTH PLAY + SET RBT
-  openPlayer(song: any) {
-    this.router.navigate(['/set-rbt'], {
-      state: { song: song }
-    });
+  // EXISTING USER ACTIVE RBT DETAILS
+  existingRbt = {
+    name: 'Believer',
+    plan: 'Monthly',
+    validity: '25 Days Left'
+  };
+
+  constructor(private router: Router,private songService: SongService) {
+
+    const nav = this.router.getCurrentNavigation();
+
+    this.isExistingUser =
+      nav?.extras?.state?.['isExistingUser'] || false;
   }
+
+  // OPEN SET RBT PAGE (PASS USER TYPE + SONG)
+  openPlayer(song: any) {
+
+    this.router.navigate(['/set-rbt'], {
+      state: {
+        song: song,
+        isExistingUser: this.isExistingUser
+      }
+    });
+
+  }
+
+  // ================= SONG DATA =================
 
   categories = [
     {
@@ -130,6 +153,7 @@ export class MusicComponent {
     }
   ];
 
+  // ICON MAPPING
   getIcon(title: string): string {
     switch (title) {
       case 'Party Music': return 'celebration';
@@ -147,19 +171,9 @@ export class MusicComponent {
     }
   }
 
-  goToMusic() {
-    alert("Music clicked");
-  }
-
-  goToTopSongs() {
-    alert("Top Songs clicked");
-  }
-
-  goToFavorites() {
-    alert("Favorites clicked");
-  }
-
-  goToSetRbt() {
-    alert("Set RBT clicked");
-  }
+  // NAVIGATION
+  goToMusic() { alert("Music clicked"); }
+  goToTopSongs() { alert("Top Songs clicked"); }
+  goToFavorites() { alert("Favorites clicked"); }
+  goToSetRbt() { alert("Set RBT clicked"); }
 }

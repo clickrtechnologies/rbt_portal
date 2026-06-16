@@ -39,6 +39,17 @@
       <input type="text" placeholder="Search songs or artist..." />
     </div>
 
+    <!-- ⭐ EXISTING USER SECTION (ADDED) -->
+    <div class="existing-box" *ngIf="isExistingUser">
+
+      <h3>Your Active RBT</h3>
+
+      <p><b>RBT:</b> {{ existingRbt.name }}</p>
+      <p><b>Plan:</b> {{ existingRbt.plan }}</p>
+      <p><b>Validity:</b> {{ existingRbt.validity }}</p>
+
+    </div>
+
     <!-- CATEGORY LOOP -->
     <div class="category" *ngFor="let cat of categories">
 
@@ -68,7 +79,6 @@
           <div class="song-left">
 
             <!-- PLAY BUTTON -->
-            <!-- SAME FUNCTION AS SET RBT -->
             <mat-icon class="song-icon" (click)="openPlayer(s)">
               play_arrow
             </mat-icon>
@@ -81,7 +91,6 @@
           </div>
 
           <!-- SET RBT BUTTON -->
-          <!-- SAME FUNCTION -->
           <button (click)="openPlayer(s)">
             SET RBT
           </button>

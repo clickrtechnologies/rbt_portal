@@ -18,9 +18,15 @@ export class SetRbtComponent implements OnInit {
   isFavorite = false;
 
   currentTime = 0;
-  duration = 0;
+  duration = 0
 
-  // temporary song list
+ // ✅ ADD THESE INSIDE CLASS (FIXED)
+  isExistingUser: boolean = false;
+
+  cost: number = 100;
+  validity: string = '30 Days';
+
+  // SONG LIST
   songs = [
     { name: 'Taki Taki', artist: 'DJ Snake', file: 'assets/songs/sample.mp3' },
     { name: 'Perfect', artist: 'Ed Sheeran', file: 'assets/songs/sample.mp3' },
@@ -29,19 +35,32 @@ export class SetRbtComponent implements OnInit {
 
   currentIndex = 0;
 
+  // ================= NEW REQUIREMENT =================
+
+  selectedPack: string = '';
+  showActivate: boolean = false;
+
   constructor(private location: Location) {}
 
   ngOnInit(): void {
 
-    this.song = history.state.song;
+  this.song = history.state.song;
+  this.isExistingUser = history.state.isExistingUser || false;
 
-    if (this.song) {
-      this.currentIndex =
-        this.songs.findIndex(s => s.name === this.song.name);
+  if (this.song) {
 
-      this.loadSong();
+    this.currentIndex =
+      this.songs.findIndex(s => s.name === this.song.name);
+
+    if (this.currentIndex < 0) {
+      this.currentIndex = 0;
     }
+
+    this.loadSong();
   }
+}
+
+  // ================= AUDIO LOAD =================
 
   loadSong() {
 
@@ -72,6 +91,8 @@ export class SetRbtComponent implements OnInit {
     this.play();
   }
 
+  // ================= PLAY CONTROLS =================
+
   play() {
     this.audio.play();
     this.isPlaying = true;
@@ -83,11 +104,7 @@ export class SetRbtComponent implements OnInit {
   }
 
   togglePlay() {
-    if (this.isPlaying) {
-      this.pause();
-    } else {
-      this.play();
-    }
+    this.isPlaying ? this.pause() : this.play();
   }
 
   nextSong() {
@@ -112,10 +129,14 @@ export class SetRbtComponent implements OnInit {
     this.loadSong();
   }
 
+  // ================= SEEK BAR =================
+
   seek(event: any) {
     this.audio.currentTime = event.target.value;
     this.currentTime = event.target.value;
   }
+
+  // ================= EXTRA CONTROLS =================
 
   toggleRepeat() {
     this.isRepeat = !this.isRepeat;
@@ -129,10 +150,47 @@ export class SetRbtComponent implements OnInit {
     this.isFavorite = !this.isFavorite;
   }
 
+  // ================= SUBSCRIPTION PACK =================
+
+  selectPack(event: any) {
+    this.selectedPack = event.target.value;
+
+    this.showActivate = this.selectedPack !== '';
+  }
+
+  // ================= ACTIVATE RBT =================
+
+  activateRbt() {
+
+  if (!this.selectedPack) {
+    alert('Please select subscription pack');
+    return;
+  }
+
+  // EXISTING USER FLOW
+  if (this.isExistingUser) {
+    alert('RBT Changed Successfully');
+  }
+
+  // NEW USER FLOW
+  else {
+    alert('RBT Activated Successfully');
+  }
+
+  this.location.back();
+}
+
+  // ================= BACK =================
+
   goBack() {
-    this.audio.pause();
+    if (this.audio) {
+      this.audio.pause();
+    }
+
     this.location.back();
   }
+
+  // ================= TIME FORMAT =================
 
   formatTime(seconds: number): string {
 

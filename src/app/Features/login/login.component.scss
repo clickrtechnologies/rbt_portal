@@ -10,6 +10,24 @@
   padding: 0;
 }
 
+.login-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-footer {
+  width: 100%;
+  text-align: center;
+  color: #888;
+  font-size: 13px;
+
+  padding: 15px 0;
+  border-top: 1px solid #222;
+
+  background: #050505;
+}
 /* ================= TOP HEADER ================= */
 
 .login-header {
@@ -49,6 +67,26 @@
   font-size: 28px;
   width: 28px;
   height: 28px;
+}
+
+.login-footer {
+  width: 100%;
+  text-align: center;
+  color: #ffd700;
+  font-size: 12px;
+  padding: 12px 0;
+  margin-top: 30px;
+  border-top: 1px solid #222;
+  background: #050505;
+  letter-spacing: 0.5px;
+}
+
+.login-content {
+  flex: 1;               /* pushes footer down */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 /* ================= LOGIN CARD ================= */
