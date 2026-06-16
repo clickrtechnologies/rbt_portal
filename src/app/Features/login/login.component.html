@@ -13,16 +13,46 @@
 
     <p>Login to manage your RBT tones</p>
 
-    <div class="input-box">
+    <!-- MOBILE NUMBER FIELD -->
+
+    <div class="input-box" *ngIf="!otpSent">
       <mat-icon>phone</mat-icon>
+
       <input
         type="text"
         placeholder="Enter Mobile Number"
+        maxlength="10"
         [(ngModel)]="mobileNumber"
       />
     </div>
 
-    <button (click)="login()">LOGIN</button>
+
+    <!-- SEND OTP BUTTON -->
+
+    <button *ngIf="!otpSent" (click)="sendOtp()">
+      SEND OTP
+    </button>
+
+
+    <!-- OTP FIELD -->
+
+    <div class="input-box" *ngIf="otpSent">
+      <mat-icon>lock</mat-icon>
+
+      <input
+        type="text"
+        placeholder="Enter OTP"
+        maxlength="4"
+        [(ngModel)]="otp"
+      />
+    </div>
+
+
+    <!-- VERIFY BUTTON -->
+
+    <button *ngIf="otpSent" (click)="verifyOtp()">
+      VERIFY OTP
+    </button>
 
   </div>
 

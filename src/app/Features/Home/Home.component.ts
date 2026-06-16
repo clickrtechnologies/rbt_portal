@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   selector: 'app-music',
   standalone: true,
   imports: [CommonModule, MatIconModule],
-  templateUrl: './music.component.html',
+  templateUrl: './Home.component.html',
   styleUrls: ['./music.component.scss']
 })
 export class MusicComponent {

@@ -11,17 +11,52 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
+
 export class LoginComponent {
 
   mobileNumber: string = '';
+  otp: string = '';
+
+  otpSent: boolean = false;
 
   constructor(private router: Router) {}
 
-  login() {
-    if (this.mobileNumber) {
+
+  // STEP 1 → SEND OTP
+
+  sendOtp() {
+
+    if (!this.mobileNumber || this.mobileNumber.length !== 10) {
+      alert('Please enter valid mobile number');
+      return;
+    }
+
+    // simulate OTP sending
+
+    this.otpSent = true;
+
+    alert('OTP Sent Successfully');
+  }
+
+
+  // STEP 2 → VERIFY OTP
+
+  verifyOtp() {
+
+    // dummy OTP for testing
+
+    if (this.otp === '1234') {
+
+      alert('Login Successful');
+
+      // redirect to music page
+
       this.router.navigate(['/music']);
-    } else {
-      alert('Please enter mobile number');
+
+    }
+
+    else {
+      alert('Invalid OTP');
     }
   }
 

@@ -14,7 +14,7 @@
 
 .login-header {
   width: 100%;
-  background: #050505;   
+  background: #050505;
 
   display: flex;
   justify-content: center;
@@ -24,16 +24,14 @@
   margin-bottom: 80px;
 
   border-bottom: 1px solid #222;
-
-  box-shadow: 0 2px 12px rgba(0,0,0,0.5);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
 }
 
 /* HEADER TEXT */
 
 .login-header h2 {
   margin: 0;
-
-  color: #ffd700 !important;  
+  color: #ffd700 !important;
 
   font-size: 28px;
   font-weight: 700;
@@ -46,7 +44,7 @@
 /* HEADER ICON */
 
 .login-header mat-icon {
-  color: #ffd700 !important; 
+  color: #ffd700 !important;
 
   font-size: 28px;
   width: 28px;
@@ -60,23 +58,25 @@
   max-width: 380px;
 
   background: #151515;
-
-  padding: 24px;
+  padding: 28px;
 
   border-radius: 18px;
 
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 
-  box-shadow: 0 4px 18px rgba(0,0,0,0.45);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45);
+
+  transition: 0.3s ease;
 }
 
 .login-card p {
   color: #d0d0d0;
   margin-bottom: 20px;
   font-size: 18px;
+  text-align: center;
 }
 
-/* ================= INPUT ================= */
+/* ================= INPUT BOX ================= */
 
 .input-box {
   display: flex;
@@ -84,17 +84,30 @@
 
   background: #222;
 
-  padding: 12px;
+  padding: 14px;
 
   border-radius: 12px;
 
-  margin-bottom: 16px;
+  margin-bottom: 18px;
+
+  border: 1px solid transparent;
+
+  transition: 0.3s ease;
+}
+
+/* INPUT FOCUS EFFECT */
+
+.input-box:focus-within {
+  border: 1px solid #ffd700;
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.25);
 }
 
 .input-box mat-icon {
   color: #aaa;
   font-size: 22px;
 }
+
+/* INPUT FIELD */
 
 .input-box input {
   width: 100%;
@@ -109,6 +122,12 @@
   font-size: 16px;
 }
 
+/* PLACEHOLDER */
+
+.input-box input::placeholder {
+  color: #888;
+}
+
 /* ================= BUTTON ================= */
 
 button {
@@ -119,16 +138,27 @@ button {
 
   border: none;
 
-  padding: 8px;
+  padding: 12px;
 
-  border-radius: 8px;
+  border-radius: 10px;
 
   font-weight: 700;
-  font-size: 13px;
+  font-size: 14px;
 
   cursor: pointer;
+
+  transition: 0.3s ease;
 }
+
+/* BUTTON HOVER */
 
 button:hover {
   opacity: 0.92;
+  transform: scale(1.01);
+}
+
+/* BUTTON CLICK */
+
+button:active {
+  transform: scale(0.98);
 }
