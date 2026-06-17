@@ -11,7 +11,7 @@ import { RbtService } from '../../services/rbt.service';
   standalone: true,
   imports: [CommonModule, MatIconModule],
   templateUrl: './Home.component.html',
-  styleUrls: ['./music.component.scss']
+  styleUrls: ['./Home.component.scss']
 })
 export class MusicComponent {
 

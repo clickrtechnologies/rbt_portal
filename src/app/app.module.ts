@@ -4,28 +4,23 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 
-import { MusicComponent } from './Features/Home/Home.component';
-import { RbtDialogComponent } from './Features/rbt-dialog/rbt-dialog.component';
+// ✅ ADD THIS IMPORT
+import { SetRbtComponent } from './Features/set-rbt/set-rbt.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SetRbtComponent   // ✅ ADD HERE
   ],
 
   imports: [
     BrowserModule,
     AppRoutingModule,
-    RouterModule,
     BrowserAnimationsModule,
-    MatDialogModule,
-
-    // ✅ standalone components go here
-    MusicComponent,
-    RbtDialogComponent
+    MatDialogModule
   ],
 
   providers: [],

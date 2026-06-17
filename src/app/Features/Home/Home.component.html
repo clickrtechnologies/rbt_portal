@@ -39,7 +39,7 @@
       <input type="text" placeholder="Search songs or artist..." />
     </div>
 
-    <!-- ⭐ EXISTING USER SECTION (ADDED) -->
+    <!-- EXISTING USER SECTION -->
     <div class="existing-box" *ngIf="isExistingUser">
 
       <h3>Your Active RBT</h3>
@@ -71,18 +71,22 @@
 
       <div class="category-line" [ngClass]="cat.key"></div>
 
-      <!-- SONG GRID -->
+      <!-- UPDATED SONG GRID -->
       <div class="songs-grid">
 
         <div class="song-card" *ngFor="let s of cat.songs">
 
+          <!-- LEFT PART -->
           <div class="song-left">
 
-            <!-- PLAY BUTTON -->
-            <mat-icon class="song-icon" (click)="openPlayer(s)">
-              play_arrow
-            </mat-icon>
+            <!-- ICON BOX -->
+            <div class="icon-box">
+              <mat-icon class="song-icon" (click)="openPlayer(s)">
+                play_arrow
+              </mat-icon>
+            </div>
 
+            <!-- SONG INFO -->
             <div class="info">
               <h3>{{ s.name }}</h3>
               <p>{{ s.artist }}</p>
@@ -90,7 +94,7 @@
 
           </div>
 
-          <!-- SET RBT BUTTON -->
+          <!-- BUTTON -->
           <button (click)="openPlayer(s)">
             SET RBT
           </button>

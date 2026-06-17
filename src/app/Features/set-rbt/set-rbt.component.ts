@@ -62,6 +62,14 @@ export class SetRbtComponent implements OnInit {
   }
 }
 
+setRbt(song: any) {
+  console.log("RBT selected for song:", song);
+
+  // TODO: your logic here (API call / selection)
+  alert(`${song.name} selected as RBT`);
+}
+
+
   // ================= AUDIO LOAD =================
 
   loadSong() {
