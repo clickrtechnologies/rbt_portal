@@ -82,3 +82,10 @@ html, body {
   align-items: center !important;
   justify-content: center !important;
 }
+
+
+body.cdk-global-scrollblock {
+  position: static !important;
+  width: auto !important;
+  overflow: auto !important;
+}
