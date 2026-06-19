@@ -260,6 +260,15 @@ export class MusicComponent {
     this.durationInSec = 0;
   }
 
+audio = new Audio();
+
+playSong() {
+  this.audio.src = 'assets/nyonika.mp3';
+  this.audio.load();
+  this.audio.play();
+}
+
+
 // ================= MISSING CONTROLS =================
 
 seek(event: any) {

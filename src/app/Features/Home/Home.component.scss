@@ -5,7 +5,6 @@
   color: white;
   overflow-x: hidden;
 }
-
 /* HEADER */
 .header {
   position: fixed;
@@ -19,7 +18,6 @@
   align-items: center;
   padding: 12px 0;
 }
-
 .header h2 {
   margin: 0;
   color: gold;
@@ -236,9 +234,9 @@
 
 /* CARD */
 .popup-card {
-  width: 380px;
+  width: 320px;
   background: #0b0b0b;
-  border: 2px solid #ffcc00;
+  border: 1px solid #ffcc00;
   border-radius: 16px;
   padding: 20px;
   color: white;
@@ -284,13 +282,28 @@
 /* INFO BOX */
 .info-box {
   background: #111;
-  padding: 10px;
-  border-radius: 10px;
+  padding: 6px;
+  border-radius: 9px;
   margin-bottom: 10px;
   border-left: 1px solid #ffcc00;
   border-right:1px solid #ffcc00;
   border-top:1px solid #ffcc00;
   border-bottom:1px solid #ffcc00;
+}
+
+
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  padding-bottom: 20px !important;
+}
+
+.info-box {
+  margin-top: 10px !important;
+  position: relative;
 }
 
 /* SELECT */
@@ -310,10 +323,6 @@ select {
   justify-content: space-between;
   margin-top: 15px;
 }
-
-
-
-
 
 /* BUTTONS */
 .cancel {
@@ -362,7 +371,7 @@ select {
 .subscription-box {
   margin: 16px;                /* charo taraf spacing */
   padding: 12px;
-  border-radius: 10px;
+  border-radius: 6px;
 
   background: #1a1a1a;
   border: 1px solid #333;
@@ -418,9 +427,8 @@ audio {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 18px;
-
-  margin-top: 10px;
+  gap: 16px;
+  margin-button: 22px;
 }
 
 /* ICON BUTTONS */
@@ -434,14 +442,14 @@ audio {
 
 /* PLAY BUTTON (MAIN) */
 .play-btn {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  border-radius: 48%;
 
   background: #ffd000;
   border: none;
 
-  font-size: 18px;
+  font-size: 12px;
   color: #000;
   cursor: pointer;
 }
@@ -476,8 +484,6 @@ audio {
   margin-top: 4px;
   color: #ccc;
 }
-
-
 
 
 @media (max-width: 768px) {
