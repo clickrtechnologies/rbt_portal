@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
-import { ViewChild, ElementRef } from '@angular/core';
+import { RbtService } from '../../services/rbt.service';
 
 @Component({
   selector: 'app-music',
@@ -11,16 +11,14 @@ import { ViewChild, ElementRef } from '@angular/core';
   templateUrl: './Home.component.html',
   styleUrls: ['./Home.component.scss']
 })
-export class MusicComponent {
+export class MusicComponent implements OnInit {
+
+constructor(private rbtService: RbtService) {}
 
   // ================= USER =================
   isExistingUser = false;
-
-  existingRbt = {
-    name: 'Believer',
-    plan: 'Monthly',
-    validity: '25 Days Left'
-  };
+  msisdn: string = '';
+existingRbt: { name: string; plan: string; validity: string } | null = null;
 
   // ================= NEW RBT FLOW =================
   selectedSong: any = null;
@@ -30,6 +28,10 @@ export class MusicComponent {
   isSuccess: boolean = false;
   popupMessage: string = '';
 
+backendSongs: any[] = [];
+searchKeyword: string = '';
+
+
   // ================= AUDIO PLAYER =================
   @ViewChild('audioPlayer') audioPlayer!: ElementRef<HTMLAudioElement>;
 
@@ -38,9 +40,90 @@ export class MusicComponent {
   currentTime = '0:00';
   duration = '0:00';
 
-  // ⭐ ADDED (YOUR REQUEST)
-  currentTimeInSec = 0;
-  durationInSec = 0;
+ngOnInit() {
+  this.fetchToneCatalog();
+
+  const navData = history.state;
+
+  if (navData.msisdn) {
+    this.msisdn = navData.msisdn;
+    this.checkExistingUser();
+  }
+}
+
+
+// API 1 → Fetch Tone Catalogue
+fetchToneCatalog() {
+  this.rbtService.getToneCatalog().subscribe({
+    next: (data: any) => {
+      console.log("Backend data:", data);
+
+      this.backendSongs = data; // ⭐ ADD THIS
+    },
+    error: (err: any) => {
+      console.log(err);
+    }
+  });
+}
+
+checkExistingUser() {
+  this.rbtService.getUser(Number(this.msisdn)).subscribe({
+    next: (data: any) => {
+
+      console.log("Existing User:", data);
+
+      // handle null / empty response safely
+      if (data && Object.keys(data).length > 0) {
+
+        this.isExistingUser = true;
+
+        this.existingRbt = {
+          name: data.toneName ?? 'Existing Tone',
+          plan: data.plan ?? 'Monthly',
+          validity: '30 Days Left'
+        };
+
+      } else {
+        this.isExistingUser = false;
+        this.existingRbt = null;
+      }
+    },
+
+    error: (err: any) => {
+      console.log("API Error:", err);
+      this.isExistingUser = false;
+      this.existingRbt = null;
+    }
+  });
+}
+
+
+searchTone() {
+
+console.log("Searching:", this.searchKeyword); 
+
+  if (!this.searchKeyword) {
+    return;
+  }
+
+  this.rbtService.searchTone(this.searchKeyword).subscribe({
+    next: (data: any) => {
+      console.log("Search Result:", data);
+
+      // abhi sirf console check karenge
+      // later UI pe show karenge
+    },
+
+    error: (err: any) => {
+      console.log(err);
+    }
+  });
+}
+
+
+// ⭐ ADDED
+currentTimeInSec = 0;
+durationInSec = 0;
 
   // ================= CATEGORIES =================
   categories = [
@@ -51,7 +134,7 @@ export class MusicComponent {
         { name: 'Taki Taki', artist: 'DJ Snake', previewUrl: 'assets/audio/taki-taki.mp3' },
         { name: 'Lean On', artist: 'Major Lazer', previewUrl: 'assets/audio/lean-on.mp3' },
         { name: 'On My Way', artist: 'Alan Walker', previewUrl: 'assets/audio/on-my-way.mp3' },
-        { name: 'Faded', artist: 'Alan Walker', previewUrl: 'assets/audio/faded.mp3' },
+        { name: 'myonika', artist: 'Alan Walker', previewUrl: 'assets/audio/myonika.mp3' },
         { name: 'Animals', artist: 'Martin Garrix', previewUrl: 'assets/audio/animals.mp3' },
         { name: 'Despacito', artist: 'Luis Fonsi', previewUrl: 'assets/audio/despacito.mp3' }
       ]
@@ -178,24 +261,47 @@ export class MusicComponent {
   }
 
   activateRbt() {
-    if (!this.selectedPlan) {
-      alert("Select plan first");
-      return;
-    }
 
-    this.showPopup = false;
-    this.isSuccess = true;
-
-    if (!this.isExistingUser) {
-      this.popupMessage = `RBT Activated (${this.selectedPlan})`;
-    } else {
-      this.popupMessage = `RBT Changed! Cost: 100 ZAR | Validity: 30 Days`;
-    }
-
-    setTimeout(() => {
-      this.isSuccess = false;
-    }, 2000);
+  if (!this.selectedPlan) {
+    alert("Select plan first");
+    return;
   }
+
+  const payload = {
+    msisdn: this.msisdn || 9999999999,
+    toneName: this.selectedSong.name,
+    plan: this.selectedPlan
+  };
+
+  this.rbtService.activateRbt(payload).subscribe({
+
+    next: (res: any) => {
+      console.log("RBT Activated:", res);
+
+      this.showPopup = false;
+      this.isSuccess = true;
+
+      if (!this.isExistingUser) {
+        this.popupMessage = `RBT Activated (${this.selectedPlan})`;
+      } else {
+        this.popupMessage = `RBT Changed Successfully`;
+      }
+
+      setTimeout(() => {
+        this.isSuccess = false;
+      }, 2000);
+    },
+
+    error: (err: any) => {
+      console.log(err);
+      alert("API Error while activating RBT");
+    }
+
+  });
+}
+
+
+
 
   openPlayer(song: any) {
     this.openRbtFlow(song);

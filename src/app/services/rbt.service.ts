@@ -7,22 +7,18 @@ import { HttpClient } from '@angular/common/http';
 })
 export class RbtService {
 
-  // Spring Boot backend URL
   private baseUrl = 'http://localhost:8080';
 
   constructor(private http: HttpClient) {}
 
-  // local state sharing
   private rbtSubject = new BehaviorSubject<any>(null);
-
   rbt$ = this.rbtSubject.asObservable();
 
-  // RESTORED OLD METHOD NAME
   setRbt(data: any) {
     this.rbtSubject.next(data);
   }
 
-  // Backend API → Save subscription
+  // POST API
   activateRbt(data: any): Observable<any> {
     return this.http.post(
       `${this.baseUrl}/api/subscription/set-rbt`,
@@ -30,10 +26,24 @@ export class RbtService {
     );
   }
 
-  // Backend API → Check existing user
+  // Existing user API
   getUser(msisdn: number): Observable<any> {
     return this.http.get(
       `${this.baseUrl}/api/subscription/user/${msisdn}`
+    );
+  }
+
+  // Fetch tone catalog API
+  getToneCatalog(): Observable<any> {
+    return this.http.get(
+      `${this.baseUrl}/api/tone-catalogue`
+    );
+  }
+
+  // Search API
+  searchTone(keyword: string): Observable<any> {
+    return this.http.get(
+      `${this.baseUrl}/api/tones/search?keyword=${keyword}`
     );
   }
 }

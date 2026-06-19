@@ -21,9 +21,7 @@ export class LoginComponent {
 
   constructor(private router: Router) {}
 
-
   // STEP 1 → SEND OTP
-
   sendOtp() {
 
     if (!this.mobileNumber || this.mobileNumber.length !== 10) {
@@ -32,33 +30,30 @@ export class LoginComponent {
     }
 
     // simulate OTP sending
-
     this.otpSent = true;
-
     alert('OTP Sent Successfully');
   }
 
-
   // STEP 2 → VERIFY OTP
-  
   verifyOtp() {
 
-  if (this.otp === '1234') {
+    if (this.otp === '1234') {
 
-    alert('Login Successful');
+      alert('Login Successful');
 
-    // EXISTING USER LOGIC (dummy rule)
-    const isExistingUser = this.mobileNumber === '9999999999';
+      // EXISTING USER LOGIC (dummy rule)
+      const isExistingUser = this.mobileNumber === '9999999999';
 
-    this.router.navigate(['/music'], {
-      state: {
-        isExistingUser: isExistingUser
-      }
-    });
+      // pass mobile number also
+      this.router.navigate(['/music'], {
+        state: {
+          isExistingUser: isExistingUser,
+          msisdn: this.mobileNumber
+        }
+      });
 
-  } else {
-    alert('Invalid OTP');
+    } else {
+      alert('Invalid OTP');
+    }
   }
-
-}
 }

@@ -25,7 +25,12 @@
     <!-- SEARCH -->
     <div class="search-bar">
       <mat-icon>search</mat-icon>
-      <input type="text" placeholder="Search songs..." />
+      <input
+  type="text"
+  placeholder="Search songs..."
+  [(ngModel)]="searchKeyword"
+  (keyup)="searchTone()"
+/>
     </div>
 
     <!-- EXISTING USER -->
@@ -33,63 +38,58 @@
 
       <h3>Your Active RBT</h3>
 
-      <p><b>RBT:</b> {{ existingRbt.name }}</p>
-      <p><b>Plan:</b> {{ existingRbt.plan }}</p>
-      <p><b>Validity:</b> {{ existingRbt.validity }}</p>
+      <p><b>RBT:</b> {{ existingRbt?.name }}</p>
+      <p><b>Plan:</b> {{ existingRbt?.plan }}</p>
+      <p><b>Validity:</b> {{ existingRbt?.validity }}</p>
 
     </div>
 
-    <!-- CATEGORY LIST (FIXED STRUCTURE) -->
-    <div class="category" *ngFor="let cat of categories" [ngClass]="cat.key">
-
-      <!-- CATEGORY HEADER -->
-      <div class="category-header">
-
-        <div class="category-icon">
-          <mat-icon>{{ getIcon(cat.title) }}</mat-icon>
-        </div>
-
-        <div class="category-info">
-          <h3>{{ cat.title }}</h3>
-          <p>Premium RBT Collection</p>
-        </div>
-
-      </div>
-
-      <!-- CATEGORY LINE -->
-      <div class="category-line"></div>
-
-      <!-- SONGS -->
-      <div class="songs-grid">
-
-        <div class="song-card" *ngFor="let s of cat.songs">
-
-          <div class="song-left">
-
-            <div class="icon-box">
-              <mat-icon (click)="openPlayer(s)">play_arrow</mat-icon>
-            </div>
-
-            <div class="info">
-              <h3>{{ s.name }}</h3>
-              <p>{{ s.artist }}</p>
-            </div>
-
-          </div>
-<button (click)="openPlayer(s)">
-   SET RBT 
-  </button>
-          
            
-      
+      <div class="category">
 
+  <div class="category-header">
+    <div class="category-icon">
+      <mat-icon>music_note</mat-icon>
+    </div>
+
+    <div class="category-info">
+      <h3>All Songs (Backend)</h3>
+      <p>Premium RBT Collection</p>
+    </div>
+  </div>
+
+  <div class="category-line"></div>
+
+  <div class="songs-grid">
+
+    <div class="song-card" *ngFor="let s of backendSongs">
+
+      <div class="song-left">
+
+        <div class="icon-box">
+          <mat-icon (click)="openPlayer(s)">play_arrow</mat-icon>
+        </div>
+
+        <div class="info">
+          <h3>{{ s.name }}</h3>
+          <p>{{ s.artist }}</p>
         </div>
 
       </div>
+
+      <button (click)="openPlayer(s)">
+        SET RBT
+      </button>
 
     </div>
 
   </div>
+
+</div>
+
+
+
+
 
   <!-- BOTTOM NAV -->
   <div class="bottom-nav">
