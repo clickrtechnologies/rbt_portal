@@ -134,10 +134,13 @@
 .motivational .category-line { background: #4caf50; }
 .oldclassics .category-line { background: #1832f5; }
 /* SONG GRID */
+
+
 .songs-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 11px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 14px;
+  width: 100%;
 }
 
 /* SONG CARD */
@@ -147,8 +150,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 12px;
+  padding: 12px;
   border-radius: 12px;
+   flex-wrap: wrap;
+  min-width: 0;
 }
 
 /* LEFT */
@@ -156,6 +161,29 @@
   display: flex;
   align-items: center;
   gap: 12px;
+}
+.song-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+}
+
+.info {
+  min-width: 0;
+  flex: 1;
+}
+
+.info h3 {
+  margin: 0;
+  font-size: 13px;
+}
+
+.info p {
+  margin: 2px 0 0;
+  font-size: 11px;
+  opacity: 0.7;
 }
 
 .icon-box {
@@ -181,13 +209,14 @@
 
 /* BUTTON */
 .song-card button {
-  padding: 7px 9px;
-  font-size: 10px;
+  padding: 8px 12px;
+  font-size: 11px;
   font-weight: bold;
   background: #ffe95c;
   border: none;
   border-radius: 8px;
   cursor: pointer;
+  flex-shrink:0;
 }
 
 /* BOTTOM NAV */
@@ -214,12 +243,6 @@
   color: gold;
 }
 
-/* RESPONSIVE */
-@media (max-width: 1100px) {
-  .songs-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
 
 /* BACKDROP */
 .popup-backdrop {
@@ -362,12 +385,6 @@ select {
   box-shadow: 0 10px 30px rgba(0,0,0,0.4);
 }
 
-
-
-
-
-
-
 .subscription-box {
   margin: 16px;                /* charo taraf spacing */
   padding: 12px;
@@ -486,8 +503,60 @@ audio {
 }
 
 
-@media (max-width: 768px) {
+  @media (min-width: 769px) and (max-width: 1024px) {
+
   .songs-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
+
+  @media (min-width: 769px) and (max-width: 1024px) {
+
+  .songs-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  }
+
+@media (max-width: 768px) {
+
+  .content {
+    padding: 80px 12px 80px;
+  }
+
+  .songs-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px;
+  }
+
+  .song-card {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .song-left {
+    width: 100%;
+  }
+
+  .info {
+    width: 100%;
+  }
+
+  .info h3,
+  .info p {
+    color: white !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
+  }
+
+  .song-card button {
+    width: 100%;
+  }
+
 }
+  }
+
+
+
