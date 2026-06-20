@@ -97,12 +97,10 @@ checkExistingUser() {
   });
 }
 
-
 searchTone() {
 
-console.log("Searching:", this.searchKeyword); 
-
-  if (!this.searchKeyword) {
+  if (!this.searchKeyword.trim()) {
+    this.fetchToneCatalog();   // empty search => all songs
     return;
   }
 
@@ -110,8 +108,7 @@ console.log("Searching:", this.searchKeyword);
     next: (data: any) => {
       console.log("Search Result:", data);
 
-      // abhi sirf console check karenge
-      // later UI pe show karenge
+      this.backendSongs = data;   // ⭐ VERY IMPORTANT
     },
 
     error: (err: any) => {
@@ -119,6 +116,7 @@ console.log("Searching:", this.searchKeyword);
     }
   });
 }
+
 
 
 // ⭐ ADDED

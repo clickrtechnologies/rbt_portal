@@ -39,11 +39,11 @@ export class RbtService {
       `${this.baseUrl}/api/tone-catalogue`
     );
   }
-
+ 
   // Search API
-  searchTone(keyword: string): Observable<any> {
-    return this.http.get(
-      `${this.baseUrl}/api/tones/search?keyword=${keyword}`
-    );
-  }
+searchTone(keyword: string): Observable<any> {
+  return this.http.get(
+    `${this.baseUrl}/api/tone-catalogue/search?keyword=${keyword}`
+  );
+}
 }
