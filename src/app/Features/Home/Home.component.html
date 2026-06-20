@@ -1,5 +1,6 @@
 <div class="app">
 
+<p>Total songs: {{ backendSongs.length }}</p>
   <!-- HEADER -->
   <div class="header">
     <h2>
@@ -71,8 +72,8 @@
         </div>
 
         <div class="info">
-          <h3>{{ s.name }}</h3>
-          <p>{{ s.artist }}</p>
+          <h3>{{ s.toneName }}</h3>
+          <p>{{ s.artistName }}</p>
         </div>
 
       </div>
@@ -133,8 +134,8 @@
 
     <!-- SONG INFO -->
     <div class="song-box">
-      <p><b>Song:</b> {{ selectedSong?.name }}</p>
-      <p><b>Artist:</b> {{ selectedSong?.artist }}</p>
+      <p><b>Song:</b> {{ selectedSong?.toneName }}</p>
+      <p><b>Artist:</b> {{ selectedSong?.artistName}}</p>
     </div>
 
 

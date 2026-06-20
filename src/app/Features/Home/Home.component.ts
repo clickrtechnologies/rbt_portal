@@ -269,7 +269,7 @@ durationInSec = 0;
 
   const payload = {
     msisdn: this.msisdn || 9999999999,
-    toneName: this.selectedSong.name,
+    toneName: this.selectedSong.toneName,
     plan: this.selectedPlan
   };
 
