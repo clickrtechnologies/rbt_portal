@@ -28,7 +28,7 @@ existingRbt: { name: string; plan: string; validity: string } | null = null;
   isSuccess: boolean = false;
   popupMessage: string = '';
 
-backendSongs: any[] = [];
+groupedSongs: any = {};
 searchKeyword: string = '';
 
 
@@ -58,7 +58,7 @@ fetchToneCatalog() {
     next: (data: any) => {
       console.log("Backend data:", data);
 
-      this.backendSongs = data; // ⭐ ADD THIS
+    this.groupedSongs = this.groupByCategory(data);// ⭐ ADD THIS
     },
     error: (err: any) => {
       console.log(err);
@@ -97,6 +97,21 @@ checkExistingUser() {
   });
 }
 
+groupByCategory(data: any[]) {
+  return data.reduce((acc: any, song: any) => {
+    const category = song.category || 'OTHER';
+
+    if (!acc[category]) {
+      acc[category] = [];
+    }
+
+    acc[category].push(song);
+    return acc;
+  }, {});
+}
+
+
+
 searchTone() {
 
   if (!this.searchKeyword.trim()) {
@@ -108,7 +123,7 @@ searchTone() {
     next: (data: any) => {
       console.log("Search Result:", data);
 
-      this.backendSongs = data;   // ⭐ VERY IMPORTANT
+      this.groupedSongs = data;   // ⭐ VERY IMPORTANT
     },
 
     error: (err: any) => {
@@ -116,6 +131,9 @@ searchTone() {
     }
   });
 }
+
+
+
 
 
 

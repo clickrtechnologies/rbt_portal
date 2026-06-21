@@ -1,6 +1,5 @@
 <div class="app">
 
-<p>Total songs: {{ backendSongs.length }}</p>
   <!-- HEADER -->
   <div class="header">
     <h2>
@@ -45,8 +44,7 @@
 
     </div>
 
-           
-      <div class="category">
+<div *ngFor="let cat of ($any(groupedSongs) | keyvalue)" class="category">
 
   <div class="category-header">
     <div class="category-icon">
@@ -54,7 +52,7 @@
     </div>
 
     <div class="category-info">
-      <h3>All Songs (Backend)</h3>
+      <h3>{{ cat.key }}</h3>
       <p>Premium RBT Collection</p>
     </div>
   </div>
@@ -63,7 +61,7 @@
 
   <div class="songs-grid">
 
-    <div class="song-card" *ngFor="let s of backendSongs">
+    <div class="song-card" *ngFor="let s of $any(cat.value)">
 
       <div class="song-left">
 
@@ -87,9 +85,6 @@
   </div>
 
 </div>
-
-
-
 
 
   <!-- BOTTOM NAV -->

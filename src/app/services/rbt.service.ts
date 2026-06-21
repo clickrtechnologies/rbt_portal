@@ -39,6 +39,12 @@ export class RbtService {
       `${this.baseUrl}/api/tone-catalogue`
     );
   }
+
+  getGroupedToneCatalog() {
+ return this.http.get(
+  `${this.baseUrl}/api/tone-catalogue/grouped`
+ );
+}
  
   // Search API
 searchTone(keyword: string): Observable<any> {
