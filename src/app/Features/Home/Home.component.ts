@@ -252,6 +252,43 @@ durationInSec = 0;
     }
   ];
 
+getCategoryClass(category: string): string {
+  switch (category) {
+    case 'AFROBEATS_DANCE':
+      return 'afrobeats';
+
+    case 'COMEDY_MOVIE':
+      return 'comedy';
+
+    case 'FOLK_CULTURE':
+      return 'folk';
+
+    case 'HAUSA_POP':
+      return 'hausa';
+
+    case 'HA_POP':
+      return 'hapop';
+
+    case 'HIPLIFE_HILIFE':
+      return 'hiplife';
+
+    case 'LOVE_WEDDING':
+      return 'love';
+
+    case 'RELIGIOUS_DEVOTIONAL':
+      return 'religious';
+
+    case 'TRENDING':
+      return 'trending';
+
+    default:
+      return 'default-category';
+  }
+}
+
+
+
+
   // ================= ICONS =================
   getIcon(title: string): string {
     switch (title) {

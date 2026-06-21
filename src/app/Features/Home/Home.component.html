@@ -44,7 +44,10 @@
 
     </div>
 
-<div *ngFor="let cat of ($any(groupedSongs) | keyvalue)" class="category">
+<div 
+  *ngFor="let cat of ($any(groupedSongs) | keyvalue)"
+  class="category"
+  [ngClass]="getCategoryClass($any(cat.key))">
 
   <div class="category-header">
     <div class="category-icon">
@@ -85,6 +88,7 @@
   </div>
 
 </div>
+
 
 
   <!-- BOTTOM NAV -->

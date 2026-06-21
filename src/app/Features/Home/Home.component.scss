@@ -367,6 +367,69 @@ select {
   cursor: pointer;
 }
 
+.afrobeats .category-info h3 { color: #ff5722; }      /* Orange */
+.comedy .category-info h3 { color: #ffeb3b; }         /* Yellow */
+.folk .category-info h3 { color: #8bc34a; }           /* Green */
+.hausa .category-info h3 { color: #03a9f4; }          /* Sky Blue */
+.hapop .category-info h3 { color: #9c27b0; }          /* Purple */
+.hiplife .category-info h3 { color: #e91e63; }        /* Pink */
+.love .category-info h3 { color: #f44336; }           /* Red */
+.religious .category-info h3 { color: #ffc107; }      /* Gold */
+.trending .category-info h3 { color: #00bcd4; }       /* Cyan */
+
+
+.afrobeats .category-line { background: #ff5722; }
+.comedy .category-line { background: #ffeb3b; }
+.folk .category-line { background: #8bc34a; }
+.hausa .category-line { background: #03a9f4; }
+.hapop .category-line { background: #9c27b0; }
+.hiplife .category-line { background: #e91e63; }
+.love .category-line { background: #f44336; }
+.religious .category-line { background: #ffc107; }
+.trending .category-line { background: #00bcd4; }
+
+/* CATEGORY ICON COLORS */
+
+.afrobeats .category-icon {
+  background: #ff5722 !important;
+}
+
+.comedy .category-icon {
+  background: #ffeb3b !important;
+  color: black !important;
+}
+
+.folk .category-icon {
+  background: #8bc34a !important;
+}
+
+.hausa .category-icon {
+  background: #03a9f4 !important;
+}
+
+.hapop .category-icon {
+  background: #9c27b0 !important;
+}
+
+.hiplife .category-icon {
+  background: #e91e63 !important;
+}
+
+.love .category-icon {
+  background: #f44336 !important;
+}
+
+.religious .category-icon {
+  background: #ffc107 !important;
+  color: black !important;
+}
+
+.trending .category-icon {
+  background: #00bcd4 !important;
+}
+
+
+
 /* SUCCESS */
 
 .success {
