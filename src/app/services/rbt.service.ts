@@ -19,12 +19,12 @@ export class RbtService {
   }
 
   // POST API
-  activateRbt(data: any): Observable<any> {
-    return this.http.post(
-      `${this.baseUrl}/api/subscription/set-rbt`,
-      data
-    );
-  }
+ activateRbt(data: any): Observable<any> {
+  return this.http.post(
+    `${this.baseUrl}/api/subscription/activate`,
+    data
+  );
+}
 
   // Existing user API
   getUser(msisdn: number): Observable<any> {

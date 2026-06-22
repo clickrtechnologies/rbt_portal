@@ -22,206 +22,159 @@
       <p class="highlight"><mat-icon>flash_on</mat-icon> Easy Activation</p>
     </div>
 
+    
+    <!-- EXISTING USER -->
+    <div class="existing-box" *ngIf="isExistingUser">
+      <h3>Your Active RBT</h3>
+      <p><b>RBT:</b> {{ existingRbt?.name }}</p>
+      <p><b>Plan:</b> {{ existingRbt?.plan }}</p>
+    </div>
+
     <!-- SEARCH -->
     <div class="search-bar">
       <mat-icon>search</mat-icon>
       <input
-  type="text"
-  placeholder="Search songs..."
-  [(ngModel)]="searchKeyword"
-  (keyup)="searchTone()"
-/>
+        type="text"
+        placeholder="Search songs..."
+        [(ngModel)]="searchKeyword"
+        (keyup)="searchTone()"
+      />
     </div>
 
-    <!-- EXISTING USER -->
-    <div class="existing-box" *ngIf="isExistingUser">
+    <!-- SONG LIST -->
+    <div
+      *ngFor="let cat of ($any(groupedSongs) | keyvalue)"
+      class="category"
+      [ngClass]="getCategoryClass($any(cat.key))">
 
-      <h3>Your Active RBT</h3>
-
-      <p><b>RBT:</b> {{ existingRbt?.name }}</p>
-      <p><b>Plan:</b> {{ existingRbt?.plan }}</p>
-      <p><b>Validity:</b> {{ existingRbt?.validity }}</p>
-
-    </div>
-
-<div 
-  *ngFor="let cat of ($any(groupedSongs) | keyvalue)"
-  class="category"
-  [ngClass]="getCategoryClass($any(cat.key))">
-
-  <div class="category-header">
-    <div class="category-icon">
-      <mat-icon>music_note</mat-icon>
-    </div>
-
-    <div class="category-info">
-      <h3>{{ cat.key }}</h3>
-      <p>Premium RBT Collection</p>
-    </div>
-  </div>
-
-  <div class="category-line"></div>
-
-  <div class="songs-grid">
-
-    <div class="song-card" *ngFor="let s of $any(cat.value)">
-
-      <div class="song-left">
-
-        <div class="icon-box">
-          <mat-icon (click)="openPlayer(s)">play_arrow</mat-icon>
+      <div class="category-header">
+        <div class="category-icon">
+          <mat-icon>music_note</mat-icon>
         </div>
 
-        <div class="info">
-          <h3>{{ s.toneName }}</h3>
-          <p>{{ s.artistName }}</p>
+        <div class="category-info">
+          <h3>{{ cat.key }}</h3>
+          <p>Premium RBT Collection</p>
+        </div>
+      </div>
+
+      <div class="category-line"></div>
+
+      <div class="songs-grid">
+
+        <div class="song-card" *ngFor="let s of $any(cat.value)">
+
+          <div class="song-left">
+
+            <div class="icon-box">
+              <mat-icon (click)="openPlayer(s)">play_arrow</mat-icon>
+            </div>
+
+            <div class="info">
+              <h3>{{ s.toneName }}</h3>
+              <p>{{ s.artistName }}</p>
+            </div>
+
+          </div>
+
+          <button (click)="openPlayer(s)">
+            SET RBT
+          </button>
+
         </div>
 
       </div>
-
-      <button (click)="openPlayer(s)">
-        SET RBT
-      </button>
-
     </div>
 
   </div>
 
-</div>
+  <!-- ================= POPUP ================= -->
+  <div class="popup-backdrop" *ngIf="showPopup">
 
+    <div class="popup-card">
 
+      <!-- CLOSE -->
+      <button class="close-btn" (click)="showPopup=false">✕</button>
 
-  <!-- BOTTOM NAV -->
-  <div class="bottom-nav">
+      <h2 class="title">Set RBT</h2>
+      <p class="subtitle">Preview & Activate your tone</p>
 
-    <div class="nav-item active" (click)="goToMusic()">
-      <mat-icon>music_note</mat-icon>
-      <span>Music</span>
+      <!-- SONG INFO -->
+      <div class="song-box">
+        <p><b>Song:</b> {{ selectedSong?.toneName }}</p>
+        <p><b>Artist:</b> {{ selectedSong?.artistName }}</p>
+      </div>
+
+      <!-- AUDIO -->
+      <audio
+        #audioPlayer
+        [src]="selectedSong?.previewUrl"
+        (timeupdate)="onTimeUpdate()"
+        (loadedmetadata)="onLoadedMetadata()">
+      </audio>
+
+      <!-- SEEK BAR -->
+      <div class="seek-container">
+
+        <span class="time">{{ currentTime }}</span>
+
+        <input
+          type="range"
+          class="seek-bar"
+          min="0"
+          [max]="durationInSec"
+          [value]="currentTimeInSec"
+          (input)="seekAudio($event)"
+        />
+
+        <span class="time">{{ duration }}</span>
+
+      </div>
+
+      <!-- CONTROLS -->
+      <div class="controls">
+
+        <button class="icon-btn" (click)="shuffle()">🔀</button>
+        <button class="icon-btn" (click)="prev()">⏮</button>
+
+        <button class="play-btn" (click)="togglePlay()">
+          <span *ngIf="!isPlaying">▶</span>
+          <span *ngIf="isPlaying">❚❚</span>
+        </button>
+
+        <button class="icon-btn" (click)="next()">⏭</button>
+        <button class="icon-btn" (click)="repeat()">🔁</button>
+
+      </div>
+
+      <!-- INFO -->
+      <div class="info-box">
+        <p>💰 Subscription Cost: <b>100 ZAR</b></p>
+        <p>📅 Validity: <b>30 Days</b></p>
+      </div>
+
+      <!-- PLAN -->
+      <label>Select Plan</label>
+
+      <select [(ngModel)]="selectedPlan">
+        <option value="">Select Plan</option>
+        <option value="TSUBD">Daily</option>
+        <option value="TSUBW">Weekly</option>
+        <option value="TSUBM">Monthly</option>
+      </select>
+
+      <!-- BUTTONS -->
+      <div class="btn-row">
+        <button class="cancel" (click)="showPopup=false">Cancel</button>
+        <button class="activate" (click)="activateRbt()">Activate</button>
+      </div>
+
     </div>
-
-    <div class="nav-item">
-      <mat-icon>whatshot</mat-icon>
-      <span>Top Songs</span>
-    </div>
-
-    <div class="nav-item">
-      <mat-icon>favorite</mat-icon>
-      <span>Favorites</span>
-    </div>
-
-    <div class="nav-item">
-      <mat-icon>star</mat-icon>
-      <span>Set RBT</span>
-    </div>
-
   </div>
 
-</div>
-
-
-  <!-- BACKDROP -->
-<div class="popup-backdrop" *ngIf="showPopup">
-
-  <div class="popup-card">
-
-    <!-- CLOSE BUTTON -->
-    <button class="close-btn" (click)="showPopup=false">✕</button>
-
-    <!-- TITLE -->
-    <h2 class="title">Set RBT</h2>
-    <p class="subtitle">Preview & Activate your tone</p>
-
-    <!-- SONG INFO -->
-    <div class="song-box">
-      <p><b>Song:</b> {{ selectedSong?.toneName }}</p>
-      <p><b>Artist:</b> {{ selectedSong?.artistName}}</p>
-    </div>
-
-
-<!-- ================= MUSIC PLAYER ================= -->
-
-<!-- ================= MUSIC PLAYER (UPDATED CLEAN UI) ================= -->
-
-<!-- Hidden Audio -->
-<audio
-  #audioPlayer
-  [src]="selectedSong?.previewUrl"
-  (timeupdate)="onTimeUpdate()"
-  (loadedmetadata)="onLoadedMetadata()">
-</audio>
-
-<!-- SEEK BAR -->
-<div class="seek-container">
-
-  <span class="time">{{ currentTime }}</span>
-
-  <input
-    type="range"
-    class="seek-bar"
-    min="0"
-    [max]="durationInSec"
-    [value]="currentTimeInSec"
-    (input)="seekAudio($event)"
-  />
-
-  <span class="time">{{ duration }}</span>
-
-</div>
-
-<!-- CONTROLS -->
-<div class="controls">
-
-  <button class="icon-btn" (click)="shuffle()">
-    🔀
-  </button>
-
-  <button class="icon-btn" (click)="prev()">
-    ⏮
-  </button>
-
-  <button class="play-btn" (click)="togglePlay()">
-    <span *ngIf="!isPlaying">▶</span>
-    <span *ngIf="isPlaying">❚❚</span>
-  </button>
-
-  <button class="icon-btn" (click)="next()">
-    ⏭
-  </button>
-
-  <button class="icon-btn" (click)="repeat()">
-    🔁
-  </button>
-
-</div>
-  
-
-    <!-- COST BOX -->
-    <div class="info-box">
-      <p>💰 Subscription Cost: <b>100 ZAR</b></p>
-      <p>📅 Validity: <b>30 Days</b></p>
-    </div>
-
-    <!-- PLAN SELECT -->
-    <label>Select Plan</label>
-   <select [(ngModel)]="selectedPlan">
-
-  <option value="">Select Plan</option>
-
-  <option value="TSUBD">Daily</option>
-  <option value="TSUBW">Weekly</option>
-  <option value="TSUBM">Monthly</option>
-
-</select>
-    <!-- BUTTONS -->
-    <div class="btn-row">
-      <button class="cancel" (click)="showPopup=false">Cancel</button>
-      <button class="activate" (click)="activateRbt()">Activate</button>
-    </div>
-
+  <!-- SUCCESS -->
+  <div class="success" *ngIf="isSuccess">
+    🎉 {{ popupMessage }}
   </div>
-</div>
 
-<!-- SUCCESS MESSAGE -->
-<div class="success" *ngIf="isSuccess">
-  🎉 {{ popupMessage }}
 </div>

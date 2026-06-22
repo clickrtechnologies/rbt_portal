@@ -16,8 +16,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 12px 0;
+  padding: 14px 0;
+ /* new styling */
+  border-bottom: 2px solid gold;
+  box-shadow: 0 3px 10px rgba(255, 215, 0, 0.15);
 }
+
 .header h2 {
   margin: 0;
   color: gold;
@@ -27,6 +31,29 @@
 .content {
   padding: 90px 18px 80px;
 }
+.existing-box{
+  width: 30% !important;
+  margin: 18px auto 25px auto !important;
+  background: linear-gradient(135deg, #c49e2e, #ffd54f) !important;
+  border: 2px solid #222 !important;
+  border-radius: 16px !important;
+  padding: 18px !important;
+  text-align: center !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2) !important;
+}
+
+.existing-box h3{
+  color: #111 !important;
+}
+
+.existing-box p{
+  color: #222 !important;
+}
+
+.existing-box b{
+  color: black !important;
+}
+
 
 /* HEADER TEXT */
 .header-text h2 {
@@ -560,13 +587,7 @@ audio {
   margin-top: 4px;
   color: #ccc;
 }
-  @media (min-width: 769px) and (max-width: 1024px) {
-
-  .songs-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-
+ 
   @media (min-width: 769px) and (max-width: 1024px) {
 
   .songs-grid {
@@ -608,12 +629,22 @@ audio {
     text-overflow: unset !important;
   }
 
+/* PAGE WRAPPER (optional safety) */
+.page {
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* EXISTING USER CARD */
+
+.content{
+  display: block !important;   /* test ke liye */
+}
+
   .song-card button {
     width: 100%;
   }
 
 }
-  }
-
-
-
+  

@@ -33,24 +33,25 @@ searchKeyword: string = '';
 
 
   // ================= AUDIO PLAYER =================
-  @ViewChild('audioPlayer') audioPlayer!: ElementRef<HTMLAudioElement>;
+ @ViewChild('audioPlayer') audioPlayer!: ElementRef<HTMLAudioElement>;
 
-  isPlaying = false;
-  progress = 0;
-  currentTime = '0:00';
-  duration = '0:00';
+isPlaying = false;
+progress = 0;
+currentTime = '0:00';
+duration = '0:00';
 
 ngOnInit() {
-  this.fetchToneCatalog();
+  const navData = history.state || {};
 
-  const navData = history.state;
-
-  if (navData.msisdn) {
+  if (navData?.msisdn) {
     this.msisdn = navData.msisdn;
-    this.checkExistingUser();
   }
+
+  this.fetchToneCatalog();
 }
 
+
+activeRbt: any;
 
 // API 1 → Fetch Tone Catalogue
 fetchToneCatalog() {
@@ -58,13 +59,20 @@ fetchToneCatalog() {
     next: (data: any) => {
       console.log("Backend data:", data);
 
-    this.groupedSongs = this.groupByCategory(data);// ⭐ ADD THIS
+      this.groupedSongs = this.groupByCategory(data);
+
+      // catalog load hone ke baad existing user check
+      if (this.msisdn) {
+        this.checkExistingUser();
+      }
     },
+
     error: (err: any) => {
       console.log(err);
     }
   });
 }
+
 
 checkExistingUser() {
   this.rbtService.getUser(Number(this.msisdn)).subscribe({
@@ -72,14 +80,30 @@ checkExistingUser() {
 
       console.log("Existing User:", data);
 
-      // handle null / empty response safely
       if (data && Object.keys(data).length > 0) {
 
         this.isExistingUser = true;
 
+        // default fallback
+        let toneName = 'Existing Tone';
+
+        // toneCode ko groupedSongs me search karo
+        for (let category in this.groupedSongs) {
+
+          const song = this.groupedSongs[category].find(
+            (s: any) => s.toneCode === data.toneCode
+          );
+
+          if (song) {
+            // agar API me song.name hai
+            toneName = song.name || song.toneName;
+            break;
+          }
+        }
+
         this.existingRbt = {
-          name: data.toneCode ?? 'Existing Tone',
-          plan: data.packName ?? 'Monthly',
+          name: toneName,
+          plan: data.packName || 'Monthly',
           validity: '30 Days Left'
         };
 
@@ -286,9 +310,6 @@ getCategoryClass(category: string): string {
   }
 }
 
-
-
-
   // ================= ICONS =================
   getIcon(title: string): string {
     switch (title) {
@@ -321,16 +342,11 @@ getCategoryClass(category: string): string {
     return;
   }
 
-  const payload = {
-  msisdn: this.msisdn || 9999999999,
-
+ const payload = {
+  msisdn: this.msisdn,
   toneCode: this.selectedSong.toneCode,
-
-  packName: this.selectedPlan,    // or selectedPlan if string
-
-  amount: this.selectedPlan === 'Monthly' ? 100 : 50   // example
-  };     // depends structure
-
+  packName: this.selectedPlan
+};
 
  console.log("Sending payload:", payload);
   this.rbtService.activateRbt(payload).subscribe({
@@ -359,48 +375,62 @@ getCategoryClass(category: string): string {
 
   });
 }
+openPlayer(song: any) {
+  this.selectedSong = song;
 
+  this.openRbtFlow(song);
 
+  setTimeout(() => {
+    const audio = this.audioPlayer?.nativeElement;
 
-
-  openPlayer(song: any) {
-    this.openRbtFlow(song);
-  }
-
+    if (audio) {
+      audio.load(); // ⭐ important
+    }
+  }, 0);
+}
   goToMusic() {}
   goToTopSongs() {}
   goToFavorites() {}
   goToSetRbt() {}
 
-  // ================= AUDIO CONTROLS =================
   togglePlay() {
-    const audio = this.audioPlayer.nativeElement;
+  const audio = this.audioPlayer.nativeElement;
 
-    if (this.isPlaying) {
-      audio.pause();
-    } else {
-      audio.play();
-    }
-
-    this.isPlaying = !this.isPlaying;
+  if (!this.selectedSong?.previewUrl) {
+    console.log("No song selected");
+    return;
   }
 
-  onLoadedMetadata() {
-    const audio = this.audioPlayer.nativeElement;
-
-    this.durationInSec = audio.duration; // ⭐ ADDED
-    this.duration = this.formatTime(audio.duration);
+  if (this.isPlaying) {
+    audio.pause();
+    this.isPlaying = false;
+  } else {
+    audio.play()
+      .then(() => {
+        this.isPlaying = true;
+      })
+      .catch(err => {
+        console.log("Play error:", err);
+      });
   }
+}
 
-  onTimeUpdate() {
-    const audio = this.audioPlayer.nativeElement;
+onLoadedMetadata() {
+  const audio = this.audioPlayer.nativeElement;
 
-    this.currentTimeInSec = audio.currentTime; // ⭐ ADDED
-    this.progress = (audio.currentTime / audio.duration) * 100;
-    this.currentTime = this.formatTime(audio.currentTime);
-  }
+  this.durationInSec = audio.duration;
+  this.duration = this.formatTime(audio.duration);
+}
 
-  seekAudio(event: Event) {
+onTimeUpdate() {
+  const audio = this.audioPlayer.nativeElement;
+
+  this.currentTimeInSec = audio.currentTime;
+  this.progress = (audio.currentTime / audio.duration) * 100;
+  this.currentTime = this.formatTime(audio.currentTime);
+}
+
+seekAudio(event: Event) {
   const audio = this.audioPlayer.nativeElement;
 
   const value = Number((event.target as HTMLInputElement).value);
@@ -409,32 +439,27 @@ getCategoryClass(category: string): string {
   this.currentTimeInSec = value;
 }
 
-  formatTime(time: number): string {
-    const min = Math.floor(time / 60);
-    const sec = Math.floor(time % 60);
-    return `${min}:${sec < 10 ? '0' : ''}${sec}`;
-  }
-
-  resetAudio() {
-    this.isPlaying = false;
-    this.progress = 0;
-    this.currentTime = '0:00';
-    this.duration = '0:00';
-
-    // ⭐ ADDED RESET
-    this.currentTimeInSec = 0;
-    this.durationInSec = 0;
-  }
-
-audio = new Audio();
-
-playSong() {
-  this.audio.src = 'assets/nyonika.mp3';
-  this.audio.load();
-  this.audio.play();
+formatTime(time: number): string {
+  const min = Math.floor(time / 60);
+  const sec = Math.floor(time % 60);
+  return `${min}:${sec < 10 ? '0' : ''}${sec}`;
 }
 
+resetAudio() {
+  const audio = this.audioPlayer?.nativeElement;
 
+  if (audio) {
+    audio.pause();
+    audio.currentTime = 0;
+  }
+
+  this.isPlaying = false;
+  this.progress = 0;
+  this.currentTime = '0:00';
+  this.duration = '0:00';
+  this.currentTimeInSec = 0;
+  this.durationInSec = 0;
+}
 // ================= MISSING CONTROLS =================
 
 seek(event: any) {
