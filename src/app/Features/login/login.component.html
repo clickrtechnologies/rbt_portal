@@ -1,65 +1,179 @@
 <div class="login-page">
 
-  <!-- TOP HEADER -->
-  <div class="login-header">
-    <h2>
-      <mat-icon>music_note</mat-icon>
-      RBT Portal
-    </h2>
-  </div>
-
   <!-- LOGIN CARD -->
   <div class="login-card">
 
-    <p>Login to manage your RBT tones</p>
-
-    <!-- MOBILE NUMBER FIELD -->
-
-    <div class="input-box" *ngIf="!otpSent">
-      <mat-icon>phone</mat-icon>
-
-      <input
-        type="text"
-        placeholder="Enter Mobile Number"
-        maxlength="10"
-        [(ngModel)]="mobileNumber"
-      />
+    <!-- LOGO SECTION -->
+    <div class="logo-section">
+      <h2>MOOV Tunes</h2>
+      <p>Caller ring-back tones</p>
     </div>
 
 
-    <!-- SEND OTP BUTTON -->
+    <!-- ================= BEFORE OTP SENT ================= -->
+    <div *ngIf="!otpSent">
 
-    <button *ngIf="!otpSent" (click)="sendOtp()">
-      SEND OTP
-    </button>
+      <!-- HEADING -->
+      <div class="login-text">
+        <h3>Enter your number</h3>
+        <p>
+          We’ll send a one-time code to verify it’s you.
+        </p>
+      </div>
 
+      <!-- MOBILE LABEL -->
+      <label>MOBILE NUMBER</label>
 
-    <!-- OTP FIELD -->
+      <!-- MOBILE INPUT -->
+      <div class="mobile-row">
 
-    <div class="input-box" *ngIf="otpSent">
-      <mat-icon>lock</mat-icon>
+        <!-- COUNTRY CODE -->
+        <div class="country-box">
+          +227
+        </div>
 
-      <input
-        type="text"
-        placeholder="Enter OTP"
-        maxlength="4"
-        [(ngModel)]="otp"
-      />
+        <!-- NUMBER -->
+        <input
+          type="text"
+          placeholder="6XX XXX XXX"
+          [(ngModel)]="mobileNumber"
+          (input)="allowOnlyNumbers($event)"
+        />
+
+      </div>
+
+      <!-- HELP TEXT -->
+      <small>
+        Must start with 6 (min 7 digits)
+      </small>
+
+      <!-- SEND BUTTON -->
+      <button (click)="sendOtp()">
+        Send code
+      </button>
+
     </div>
 
 
-    <!-- VERIFY BUTTON -->
+    <!-- ================= OTP SCREEN ================= -->
+    <div *ngIf="otpSent" class="otp-screen">
 
-    <button *ngIf="otpSent" (click)="verifyOtp()">
-      VERIFY OTP
-    </button>
+      <!-- VERIFY HEADING -->
+      <div class="verify-text">
+
+        <h3>Verify your number</h3>
+
+        <p>
+          Enter the 4-digit code we sent by SMS.
+        </p>
+
+      </div>
+
+
+      <!-- NUMBER PREVIEW -->
+      <div class="number-preview">
+
+        <span>
+          +227 {{ mobileNumber }}
+        </span>
+
+        <button
+          class="edit-btn"
+          (click)="editNumber()">
+
+          Edit
+
+        </button>
+
+      </div>
+
+
+      <!-- OTP LABEL -->
+      <label class="otp-label">
+        ENTER CODE
+      </label>
+
+
+      <!-- OTP BOXES -->
+      
+<div class="otp-boxes">
+
+  <input
+    #otpBox1
+    maxlength="1"
+    [(ngModel)]="otp1"
+    (input)="moveNext($event, otpBox2, '1')"
+    (keydown)="movePrev($event, null)"
+  />
+
+  <input
+    #otpBox2
+    maxlength="1"
+    [(ngModel)]="otp2"
+    (input)="moveNext($event, otpBox3, '2')"
+    (keydown)="movePrev($event, otpBox1)"
+  />
+
+  <input
+    #otpBox3
+    maxlength="1"
+    [(ngModel)]="otp3"
+    (input)="moveNext($event, otpBox4, '3')"
+    (keydown)="movePrev($event, otpBox2)"
+  />
+
+  <input
+    #otpBox4
+    maxlength="1"
+    [(ngModel)]="otp4"
+    (input)="moveNext($event, null, '4')"
+    (keydown)="movePrev($event, otpBox3)"
+  />
+
+</div>
+       
+
+      <!-- RESEND -->
+      <p class="resend-text">
+
+        Didn’t get it?
+
+        <span *ngIf="!canResendOtp">
+          Resend in 30s
+        </span>
+
+        <span
+          *ngIf="canResendOtp"
+          (click)="resendOtp()"
+          class="resend-link">
+
+          Resend OTP
+
+        </span>
+
+      </p>
+
+
+      <!-- VERIFY BUTTON -->
+      <button
+        class="verify-btn"
+        (click)="verifyOtp()">
+
+        Verify
+
+      </button>
+
+
+      <!-- ATTEMPTS -->
+      <p class="attempt-text">
+
+        Attempts Left :
+        {{ maxOtpRetry - otpRetryCount }}
+
+      </p>
+
+    </div>
 
   </div>
-
-
-  <!-- FOOTER -->
-<div class="login-footer">
-  © 2026 All Rights Reserved | RBT Portal
-</div>
 
 </div>

@@ -14,46 +14,220 @@ import { Router } from '@angular/router';
 
 export class LoginComponent {
 
+  // ================= VARIABLES =================
   mobileNumber: string = '';
-  otp: string = '';
+
+  // OTP BOXES (4 separate)
+  otp1: string = '';
+  otp2: string = '';
+  otp3: string = '';
+  otp4: string = '';
+
+  generatedOtp: string = '';
 
   otpSent: boolean = false;
 
+  otpExpiryTime = 300;      // 5 min
+  otpRetryCount = 0;
+  maxOtpRetry = 3;
+
+  canResendOtp = false;
+  resendTimer = 30;         // 30 sec
+
   constructor(private router: Router) {}
 
-  // STEP 1 → SEND OTP
+  // ================= ONLY NUMBERS FOR MSISDN =================
+  allowOnlyNumbers(event: any) {
+
+    let value =
+      event.target.value.replace(/[^0-9]/g, '');
+
+    // first digit must be 6
+    if (value.length === 1 && value !== '6') {
+      value = '';
+    }
+
+    this.mobileNumber = value;
+  }
+
+// auto move next
+moveNext(event: any, nextInput: any, box: string) {
+
+  const value = event.target.value.replace(/[^0-9]/g, '');
+
+  switch (box) {
+    case '1':
+      this.otp1 = value;
+      break;
+    case '2':
+      this.otp2 = value;
+      break;
+    case '3':
+      this.otp3 = value;
+      break;
+    case '4':
+      this.otp4 = value;
+      break;
+  }
+
+  // move to next box automatically
+  if (value.length === 1 && nextInput) {
+    nextInput.focus();
+  }
+}
+
+
+// move previous on backspace
+movePrev(event: KeyboardEvent, prevInput: any) {
+
+  const input = event.target as HTMLInputElement;
+
+  if (event.key === 'Backspace' && input.value === '') {
+    if (prevInput) {
+      prevInput.focus();
+    }
+  }
+}
+
+
+
+
+
+  // ================= SEND OTP =================
   sendOtp() {
 
-    if (!this.mobileNumber || this.mobileNumber.length !== 10) {
-      alert('Please enter valid mobile number');
+    if (
+      !this.mobileNumber ||
+      this.mobileNumber.length < 7 ||
+      !this.mobileNumber.startsWith('6')
+    ) {
+      alert("MSISDN must start with 6 and have minimum 7 digits");
       return;
     }
 
-    // simulate OTP sending
+    // TEMP OTP
+    this.generatedOtp = "1234";
+
+    console.log("Generated OTP:", this.generatedOtp);
+
     this.otpSent = true;
-    alert('OTP Sent Successfully');
+
+    alert("OTP Sent Successfully");
+
+    this.startOtpExpiryTimer();
+    this.startResendTimer();
   }
 
-  // STEP 2 → VERIFY OTP
+  // ================= VERIFY OTP =================
   verifyOtp() {
 
-    if (this.otp === '1234') {
+    if (this.otpRetryCount >= this.maxOtpRetry) {
+      alert("Maximum OTP attempts exceeded");
+      return;
+    }
 
-      alert('Login Successful');
+    // combine 4 boxes
+    const enteredOtp =
+      this.otp1 +
+      this.otp2 +
+      this.otp3 +
+      this.otp4;
 
-      // EXISTING USER LOGIC (dummy rule)
-      const isExistingUser = this.mobileNumber === '9999999999';
+    if (enteredOtp === this.generatedOtp) {
 
-      // pass mobile number also
-      this.router.navigate(['/music'], {
-        state: {
-          isExistingUser: isExistingUser,
-          msisdn: this.mobileNumber
-        }
-      });
+      alert("OTP Verified Successfully");
+
+      // redirect
+      this.router.navigate(
+        ['/music'],
+        { state: { msisdn: this.mobileNumber } }
+      );
 
     } else {
-      alert('Invalid OTP');
+
+      this.otpRetryCount++;
+
+      alert("Invalid OTP");
     }
   }
+
+  // ================= OTP EXPIRY =================
+  startOtpExpiryTimer() {
+
+    setTimeout(() => {
+
+      this.generatedOtp = '';
+
+      alert("OTP Expired");
+
+    }, 300000);
+  }
+
+  // ================= RESEND TIMER =================
+  startResendTimer() {
+
+    this.canResendOtp = false;
+
+    setTimeout(() => {
+
+      this.canResendOtp = true;
+
+    }, 30000);
+  }
+
+  // ================= RESEND OTP =================
+  resendOtp() {
+
+    if (!this.canResendOtp) {
+      alert("Please wait before resending OTP");
+      return;
+    }
+
+    this.generatedOtp = "1234";
+
+    console.log("New OTP:", this.generatedOtp);
+
+    alert("OTP Resent");
+
+    // clear old boxes
+    this.otp1 = '';
+    this.otp2 = '';
+    this.otp3 = '';
+    this.otp4 = '';
+
+    this.startResendTimer();
+  }
+
+  // ================= OTP INPUT ONLY NUMBERS =================
+  allowOnlyOtpNumbers(event: any, box: string) {
+
+    const value =
+      event.target.value.replace(/[^0-9]/g, '');
+
+    switch (box) {
+      case '1':
+        this.otp1 = value;
+        break;
+      case '2':
+        this.otp2 = value;
+        break;
+      case '3':
+        this.otp3 = value;
+        break;
+      case '4':
+        this.otp4 = value;
+        break;
+    }
+  }
+
+  // ================= EDIT NUMBER =================
+  editNumber() {
+    this.otpSent = false;
+
+    this.otp1 = '';
+    this.otp2 = '';
+    this.otp3 = '';
+    this.otp4 = '';
+  }
+
 }

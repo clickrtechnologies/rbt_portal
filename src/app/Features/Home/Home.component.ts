@@ -78,8 +78,8 @@ checkExistingUser() {
         this.isExistingUser = true;
 
         this.existingRbt = {
-          name: data.toneName ?? 'Existing Tone',
-          plan: data.plan ?? 'Monthly',
+          name: data.toneCode ?? 'Existing Tone',
+          plan: data.packName ?? 'Monthly',
           validity: '30 Days Left'
         };
 
@@ -307,6 +307,7 @@ getCategoryClass(category: string): string {
 
   // ================= RBT FLOW =================
   openRbtFlow(song: any) {
+     console.log("Selected Song:", song);
     this.selectedSong = song;
     this.showPopup = true;
     this.selectedPlan = '';
@@ -321,11 +322,17 @@ getCategoryClass(category: string): string {
   }
 
   const payload = {
-    msisdn: this.msisdn || 9999999999,
-    toneName: this.selectedSong.toneName,
-    plan: this.selectedPlan
-  };
+  msisdn: this.msisdn || 9999999999,
 
+  toneCode: this.selectedSong.toneCode,
+
+  packName: this.selectedPlan,    // or selectedPlan if string
+
+  amount: this.selectedPlan === 'Monthly' ? 100 : 50   // example
+  };     // depends structure
+
+
+ console.log("Sending payload:", payload);
   this.rbtService.activateRbt(payload).subscribe({
 
     next: (res: any) => {
