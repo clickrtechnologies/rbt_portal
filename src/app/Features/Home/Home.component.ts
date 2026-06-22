@@ -378,8 +378,9 @@ getCategoryClass(category: string): string {
   });
 }
 openPlayer(song: any) {
-  this.selectedSong = song;
 
+    console.log("Song object =", song);
+  this.selectedSong = song;
   this.openRbtFlow(song);
 
   setTimeout(() => {
@@ -396,26 +397,46 @@ openPlayer(song: any) {
   goToSetRbt() {}
 
   togglePlay() {
-  const audio = this.audioPlayer.nativeElement;
 
-  if (!this.selectedSong?.previewUrl) {
-    console.log("No song selected");
+  console.log("PLAY BUTTON CLICKED");
+
+  const audio = this.audioPlayer?.nativeElement;
+
+  if (!audio) {
+    console.log("Audio element not found");
+    return;
+  }
+
+  console.log("Selected Song =", this.selectedSong);
+  console.log("Tone URL =", this.selectedSong?.toneUrl);
+
+  // force src check
+  audio.src = this.selectedSong?.toneUrl || '';
+
+  if (!this.selectedSong?.toneUrl) {
+    console.log("No toneUrl found");
     return;
   }
 
   if (this.isPlaying) {
     audio.pause();
     this.isPlaying = false;
+    console.log("Audio paused");
   } else {
+
+    audio.load();   // IMPORTANT
+
     audio.play()
       .then(() => {
+        console.log("Audio started successfully");
         this.isPlaying = true;
       })
-      .catch(err => {
-        console.log("Play error:", err);
+      .catch((err: any) => {
+        console.log("Play error =", err);
       });
   }
 }
+  
 
 onLoadedMetadata() {
   const audio = this.audioPlayer.nativeElement;
