@@ -203,13 +203,15 @@
 
     <!-- PLAN SELECT -->
     <label>Select Plan</label>
-    <select [(ngModel)]="selectedPlan">
-      <option value="">Select Plan</option>
-      <option value="Daily">Daily</option>
-      <option value="Weekly">Weekly</option>
-      <option value="Monthly">Monthly</option>
-    </select>
+   <select [(ngModel)]="selectedPlan">
 
+  <option value="">Select Plan</option>
+
+  <option value="TSUBD">Daily</option>
+  <option value="TSUBW">Weekly</option>
+  <option value="TSUBM">Monthly</option>
+
+</select>
     <!-- BUTTONS -->
     <div class="btn-row">
       <button class="cancel" (click)="showPopup=false">Cancel</button>
