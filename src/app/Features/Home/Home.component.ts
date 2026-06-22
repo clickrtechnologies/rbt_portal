@@ -139,15 +139,17 @@ groupByCategory(data: any[]) {
 searchTone() {
 
   if (!this.searchKeyword.trim()) {
-    this.fetchToneCatalog();   // empty search => all songs
+    this.fetchToneCatalog();
     return;
   }
 
   this.rbtService.searchTone(this.searchKeyword).subscribe({
     next: (data: any) => {
+
       console.log("Search Result:", data);
 
-      this.groupedSongs = data;   // ⭐ VERY IMPORTANT
+      // ⭐ IMPORTANT FIX
+      this.groupedSongs = this.groupByCategory(data);
     },
 
     error: (err: any) => {
