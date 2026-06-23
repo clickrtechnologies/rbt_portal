@@ -20,6 +20,7 @@ constructor(private rbtService: RbtService) {}
   msisdn: string = '';
 existingRbt: { name: string; plan: string; validity: string } | null = null;
 
+userType: 'NEW' | 'EXISTING' = 'NEW';
   // ================= NEW RBT FLOW =================
   selectedSong: any = null;
   selectedPlan: string = '';
@@ -83,6 +84,7 @@ checkExistingUser() {
       if (data && Object.keys(data).length > 0) {
 
         this.isExistingUser = true;
+        this.userType = 'EXISTING';
 
         // default fallback
         let toneName = 'Existing Tone';
@@ -109,6 +111,7 @@ checkExistingUser() {
 
       } else {
         this.isExistingUser = false;
+        this.userType = 'NEW';
         this.existingRbt = null;
       }
     },
@@ -116,6 +119,7 @@ checkExistingUser() {
     error: (err: any) => {
       console.log("API Error:", err);
       this.isExistingUser = false;
+       this.userType = 'NEW';
       this.existingRbt = null;
     }
   });
@@ -133,8 +137,6 @@ groupByCategory(data: any[]) {
     return acc;
   }, {});
 }
-
-
 
 searchTone() {
 
@@ -347,33 +349,43 @@ getCategoryClass(category: string): string {
     this.resetAudio();
   }
 
-  activateRbt() {
+ activateRbt() {
 
-  if (!this.selectedPlan) {
+  // NEW USER ke liye plan required
+  if (this.userType === 'NEW' && !this.selectedPlan) {
     alert("Select plan first");
     return;
   }
 
- const payload = {
-  msisdn: this.msisdn,
-  toneCode: this.selectedSong.toneCode,
-  packName: this.selectedPlan
-};
+  const payload = {
+    msisdn: this.msisdn,
+    toneCode: this.selectedSong.toneCode,
+    packName: this.userType === 'NEW' ? this.selectedPlan : this.existingRbt?.plan
+  };
 
- console.log("Sending payload:", payload);
+  console.log("Sending payload:", payload);
+
   this.rbtService.activateRbt(payload).subscribe({
 
     next: (res: any) => {
-      console.log("RBT Activated:", res);
 
+    console.log("RBT Activated:", res);
       this.showPopup = false;
       this.isSuccess = true;
 
-      if (!this.isExistingUser) {
-        this.popupMessage = `RBT Activated (${this.selectedPlan})`;
-      } else {
-        this.popupMessage = `RBT Changed Successfully`;
-      }
+// ⭐ IMPORTANT: UI update here
+  this.isExistingUser = true;
+  this.userType = 'EXISTING';
+
+  this.existingRbt = {
+    name: this.selectedSong.toneName,   // ⭐ SONG NAME UPDATE
+    plan: this.selectedPlan || this.existingRbt?.plan || '',
+     validity: '30 Days Left'
+  };
+
+this.popupMessage = this.userType === 'EXISTING'
+  ? 'RBT Changed Successfully'
+  : `RBT Activated (${this.selectedPlan})`;
 
       setTimeout(() => {
         this.isSuccess = false;
@@ -387,6 +399,7 @@ getCategoryClass(category: string): string {
 
   });
 }
+    
 openPlayer(song: any) {
 
     console.log("Song object =", song);

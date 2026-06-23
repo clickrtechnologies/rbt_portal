@@ -22,12 +22,12 @@
       <p class="highlight"><mat-icon>flash_on</mat-icon> Easy Activation</p>
     </div>
 
-    
-    <!-- EXISTING USER -->
-    <div class="existing-box" *ngIf="isExistingUser">
+    <!-- EXISTING USER BOX (only existing user) -->
+    <div class="existing-box" *ngIf="userType === 'EXISTING'">
       <h3>Your Active RBT</h3>
       <p><b>RBT:</b> {{ existingRbt?.name }}</p>
       <p><b>Plan:</b> {{ getPlanName(existingRbt?.plan) }}</p>
+
     </div>
 
     <!-- SEARCH -->
@@ -147,26 +147,32 @@
 
       </div>
 
-      <!-- INFO -->
-      <div class="info-box">
+      <!-- EXISTING USER INFO (ONLY EXISTING) -->
+      <div class="info-box" *ngIf="userType === 'EXISTING'">
         <p>💰 Subscription Cost: <b>100 ZAR</b></p>
         <p>📅 Validity: <b>30 Days</b></p>
       </div>
 
-      <!-- PLAN -->
-      <label>Select Plan</label>
+      <!-- NEW USER PLAN SELECTION -->
+      <div *ngIf="userType === 'NEW'">
 
-      <select [(ngModel)]="selectedPlan">
-        <option value="">Select Plan</option>
-        <option value="TSUBD">Daily</option>
-        <option value="TSUBW">Weekly</option>
-        <option value="TSUBM">Monthly</option>
-      </select>
+        <label>Select Plan</label>
+
+        <select [(ngModel)]="selectedPlan">
+          <option value="">Select Plan</option>
+          <option value="TSUBD">Daily</option>
+          <option value="TSUBW">Weekly</option>
+          <option value="TSUBM">Monthly</option>
+        </select>
+
+      </div>
 
       <!-- BUTTONS -->
       <div class="btn-row">
         <button class="cancel" (click)="showPopup=false">Cancel</button>
-        <button class="activate" (click)="activateRbt()">Activate</button>
+        <button class="activate" (click)="activateRbt()">
+          Activate
+        </button>
       </div>
 
     </div>
