@@ -159,8 +159,18 @@ searchTone() {
 }
 
 
-
-
+getPlanName(plan: string | undefined): string {
+  switch (plan) {
+    case 'TSUBD':
+      return 'Daily';
+    case 'TSUBW':
+      return 'Weekly';
+    case 'TSUBM':
+      return 'Monthly';
+    default:
+      return plan || '';
+  }
+}
 
 
 // ⭐ ADDED
