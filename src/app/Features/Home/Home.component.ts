@@ -4,8 +4,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { RbtService } from '../../services/rbt.service';
 
+
 @Component({
-  selector: 'app-music',
+  selector: 'app-home',
   standalone: true,
   imports: [CommonModule, MatIconModule, FormsModule],
   templateUrl: './Home.component.html',
