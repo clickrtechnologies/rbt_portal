@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class RbtService {
-
-  private baseUrl = 'http://localhost:8080';
 
   constructor(private http: HttpClient) {}
 
@@ -17,11 +15,12 @@ export class RbtService {
   setRbt(data: any) {
     this.rbtSubject.next(data);
   }
+  private apiUrl = environment.apiUrl;
 
   // POST API
  activateRbt(data: any): Observable<any> {
   return this.http.post(
-    `${this.baseUrl}/api/subscription/activate`,
+    `${this.apiUrl}/api/subscription/activate`,
     data
   );
 }
@@ -29,27 +28,27 @@ export class RbtService {
   // Existing user API
   getUser(msisdn: number): Observable<any> {
     return this.http.get(
-      `${this.baseUrl}/api/subscription/user/${msisdn}`
+      `${this.apiUrl}/api/subscription/user/${msisdn}`
     );
   }
 
   // Fetch tone catalog API
   getToneCatalog(): Observable<any> {
     return this.http.get(
-      `${this.baseUrl}/api/tone-catalogue`
+      `${this.apiUrl}/api/tone-catalogue`
     );
   }
 
   getGroupedToneCatalog() {
  return this.http.get(
-  `${this.baseUrl}/api/tone-catalogue/grouped`
+  `${this.apiUrl}/api/tone-catalogue/grouped`
  );
 }
  
   // Search API
 searchTone(keyword: string): Observable<any> {
   return this.http.get(
-    `${this.baseUrl}/api/tone-catalogue/search?keyword=${keyword}`
+    `${this.apiUrl}/api/tone-catalogue/search?keyword=${keyword}`
   );
 }
 }
