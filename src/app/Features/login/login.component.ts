@@ -74,12 +74,13 @@ export class LoginComponent {
       case '4': this.otp4 = value; break;
     }
 
-    if (value.length === 1 && nextInput) {
-      nextInput.focus();
-    }
+   if (value.length === 1 && nextInput) {
+  setTimeout(() => {
+    nextInput.focus();
+  }, 50);
+}
   }
 
-  // ================= BACKSPACE PREVIOUS =================
   movePrev(event: KeyboardEvent, prevInput: any) {
     const input = event.target as HTMLInputElement;
 
@@ -88,10 +89,8 @@ export class LoginComponent {
     }
   }
 
-  // ================= SEND OTP =================
   sendOtp() {
 
-    // NO RESTRICTION → only check field is not empty
     if (!this.mobileNumber) {
       return;
     }
@@ -164,7 +163,6 @@ export class LoginComponent {
 
     alert("OTP Resent");
 
-    // reset OTP boxes
     this.otp1 = '';
     this.otp2 = '';
     this.otp3 = '';
@@ -172,8 +170,6 @@ export class LoginComponent {
 
     this.startResendTimer();
   }
-
-  // ================= EDIT NUMBER =================
   editNumber() {
 
     this.otpSent = false;

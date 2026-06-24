@@ -9,7 +9,6 @@
       <p>Caller ring-back tones</p>
     </div>
 
-    <!-- ================= BEFORE OTP SENT ================= -->
     <div *ngIf="!otpSent">
 
       <div class="login-text">
@@ -42,10 +41,8 @@
       <button (click)="sendOtp()">
         Send code
       </button>
-
     </div>
 
-    <!-- ================= OTP SCREEN ================= -->
     <div *ngIf="otpSent" class="otp-screen">
 
       <div class="verify-text">
@@ -63,19 +60,24 @@
 
       <label class="otp-label">ENTER CODE</label>
 
-      <!-- OTP BOXES -->
       <div class="otp-boxes">
 
         <input
-          #otpBox1
-          maxlength="1"
-          [(ngModel)]="otp1"
-          (input)="moveNext($event, otpBox2, '1')"
-          (keydown)="movePrev($event, null)"
-        />
+  #otpBox1
+  type="tel"
+  inputmode="numeric"
+  pattern="[0-9]*"
+  maxlength="1"
+  [(ngModel)]="otp1"
+  (input)="moveNext($event, otpBox2, '1')"
+  (keydown)="movePrev($event, null)"
+/>
 
         <input
           #otpBox2
+          type="tel"
+          inputmode="numeric"
+          pattern="[0-9]*"
           maxlength="1"
           [(ngModel)]="otp2"
           (input)="moveNext($event, otpBox3, '2')"
@@ -84,6 +86,9 @@
 
         <input
           #otpBox3
+          type="tel"
+          inputmode="numeric"
+          pattern="[0-9]*"
           maxlength="1"
           [(ngModel)]="otp3"
           (input)="moveNext($event, otpBox4, '3')"
@@ -92,6 +97,9 @@
 
         <input
           #otpBox4
+          type="tel"
+          inputmode="numeric"
+          pattern="[0-9]*"
           maxlength="1"
           [(ngModel)]="otp4"
           (input)="moveNext($event, null, '4')"
@@ -99,11 +107,7 @@
         />
 
       </div>
-
-      <!-- ❌ REMOVED WRONG OTP INPUT -->
-      <!-- (THIS WAS CAUSING ERROR) -->
-
-      <!-- RESEND -->
+      
       <p class="resend-text">
 
         Didn’t get it?
@@ -123,7 +127,6 @@
 
       </p>
 
-      <!-- VERIFY BUTTON -->
       <button
         class="verify-btn"
         (click)="verifyOtp()">
@@ -132,7 +135,6 @@
 
       </button>
 
-      <!-- ATTEMPTS -->
       <p class="attempt-text">
         Attempts Left :
         {{ maxOtpRetry - otpRetryCount }}
