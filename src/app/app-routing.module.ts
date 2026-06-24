@@ -3,8 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
 
-  // Default route → login
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  // DEFAULT → LOGIN
+  {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full'
+  },
 
   // LOGIN PAGE
   {
@@ -14,12 +18,12 @@ const routes: Routes = [
         .then(m => m.LoginComponent)
   },
 
-  // MUSIC PAGE (FIXED ✔️ IMPORTANT)
+  // MUSIC / HOME PAGE
   {
     path: 'music',
     loadComponent: () =>
       import('./Features/Home/Home.component')
-        .then(m => m.MusicComponent)
+        .then(m => m.MusicComponent)   // ✅ FIXED (important)
   },
 
   // SET RBT PAGE
@@ -30,9 +34,19 @@ const routes: Routes = [
         .then(m => m.SetRbtComponent)
   },
 
-  // fallback (optional but safe)
-  { path: '**', redirectTo: 'login' }
+  // MANAGE ACCOUNT / MY RBT PAGE
+  {
+    path: 'manage-account',
+    loadComponent: () =>
+      import('./Features/manage-account/manage-account.component')
+        .then(m => m.ManageAccountComponent)
+  },
 
+  // FALLBACK ROUTE
+  {
+    path: '**',
+    redirectTo: 'login'
+  }
 ];
 
 @NgModule({
