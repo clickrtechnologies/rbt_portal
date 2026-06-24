@@ -14,10 +14,10 @@
 
 .login-card {
   width: 100%;
-  max-width: 390px;
+  max-width: 340px;   /* 390 -> 340 */
   background: #202020;
-  border-radius: 28px;
-  padding: 35px 28px;
+  border-radius: 24px;
+  padding: 24px 20px;   /* kam karo */
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
@@ -193,11 +193,11 @@ button:disabled {
 
 .otp-phone-box{
   background:#303030;
-  padding:14px;
-  border-radius:14px;
+  padding:12px;
+  border-radius:12px;
   display:flex;
   justify-content:space-between;
-  margin-bottom:22px;
+  margin-bottom:20px;
   color:white;
 }
 
@@ -214,7 +214,7 @@ button:disabled {
   display:flex;
   justify-content:center;
   gap:6px;
-  margin-bottom:14px 0 18px 0;
+  margin-bottom:12px 0 16px 0;
 }
 
 .otp-boxes input:focus{
@@ -234,41 +234,41 @@ button:disabled {
 
 /* OTP SCREEN */
 .otp-screen{
-  margin-top:16px;
+  margin-top:4px;
 }
 
 /* VERIFY TEXT */
 .verify-text h3{
-  font-size:20px;
+  font-size:17px;
   color:white;
   text-align:center;
-  margin-bottom:6px;
+  margin-bottom:4px;
   font-weight:600;
 }
 
 .verify-text p{
-  font-size:13px;
+  font-size:11px;
   color:#aaa;
   text-align:center;
-  margin-bottom:18px;
+  margin-bottom:12px;
 }
 
 /* NUMBER BOX */
 .number-preview{
   background:#3a3a3a;
   border-radius:12px;
-  padding:12px 14px;
+  padding:8px 10px;
 
   display:flex;
   justify-content:space-between;
   align-items:center;
 
-  margin-bottom:20px;
+  margin-bottom:12px;
 }
 
 .number-preview span{
   color:white;
-  font-size:16px;
+  font-size:14px;
   font-weight:600;
 }
 
@@ -296,21 +296,21 @@ button:disabled {
 .otp-boxes{
   display:flex;
   justify-content:center;
-  gap:9px;
-  margin-bottom:18px;
+  gap:6px;
+  margin-bottom:12px;
 }
 
 /* EXACT SMALL BOX LIKE IMAGE */
 .otp-boxes input{
-  width:30px;          /* important */
-  height:30px;         /* important */
+  width:26px;          /* important */
+  height:26px;         /* important */
 
   background:#4b4b4b;
   border:1px solid #666;
   border-radius:7px;
   text-align:center;
   color:white;
-  font-size:11px;
+  font-size:10px;
   font-weight:400;
   outline:none;
   padding:0;
@@ -325,8 +325,8 @@ button:disabled {
 .resend-text{
   text-align:center;
   color:#aaa;
-  font-size:13px;
-  margin-bottom:20px;
+  font-size:11px;
+  margin-bottom:14px;
 }
 
 .resend-link{
@@ -338,24 +338,17 @@ button:disabled {
 .verify-btn{
   width:100%;
   background:#e5c24d;
-
   color:black;
   border:none;
-
-  padding:13px;
-  border-radius:14px;
-
-  font-size:16px;
+  padding:10px;
+  border-radius:12px;
+  font-size:14px;
   font-weight:500;
 }
 
-
-
-
-
 /* ================= MOBILE RESPONSIVE ================= */
 
-@media (max-width: 480px) {
+@media (max-width: 460px) {
   .login-card {
     padding: 24px 20px;
   }
