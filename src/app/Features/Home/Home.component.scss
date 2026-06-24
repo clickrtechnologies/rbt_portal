@@ -700,17 +700,35 @@ audio {
   gap: 10px;
   margin-top: 15px;
 }
+
 .cancel {
-  background: #ccc;
-  border: none;
+  background: transparent;
+  border: 1px solid #999;
+  color: white;
   padding: 8px 12px;
+  border-radius: 8px;
+  margin: 0 !important;
+  box-shadow: none !important;
 }
+
+
 .activate {
-  background: #4caf50;
+  background: #fbc02d;
   color: white;
   border: none;
   padding: 8px 12px;
 }
+
+.activate,
+.activate:hover,
+.activate:active,
+.activate:focus {
+  background: #ffd600 !important;
+  color: black !important;
+}
+
+
+
 /* EXISTING USER CARD */
 
 .content{

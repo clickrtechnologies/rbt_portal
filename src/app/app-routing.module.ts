@@ -35,12 +35,12 @@ const routes: Routes = [
   },
 
   // MANAGE ACCOUNT / MY RBT PAGE
-  {
-    path: 'manage-account',
-    loadComponent: () =>
-      import('./Features/manage-account/manage-account.component')
-        .then(m => m.ManageAccountComponent)
-  },
+  // {
+    // path: 'manage-account',
+    // loadComponent: () =>
+      // import('./Features/manage-account/manage-account.component')
+        // .then(m => m.ManageAccountComponent)
+  // },
 
   // FALLBACK ROUTE
   {

@@ -37,7 +37,7 @@ goToManageAccount() {
     ['/manage-account'],
     {
       state: {
-        msisdn: this.msisdn   // jo login se aa raha hai
+        msisdn: this.msisdn  
       }
     }
   );
