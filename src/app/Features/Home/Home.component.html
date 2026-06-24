@@ -27,7 +27,6 @@
       <h3>Your Active RBT</h3>
       <p><b>RBT:</b> {{ existingRbt?.name }}</p>
       <p><b>Plan:</b> {{ getPlanName(existingRbt?.plan) }}</p>
-
     </div>
 
     <!-- SEARCH -->
@@ -88,6 +87,31 @@
 
   </div>
 
+  <!-- ================= FOOTER (ADDED) ================= -->
+<div class="footer">
+
+  <div class="footer-item" (click)="goToSetRbt()">
+    <mat-icon>home</mat-icon>
+    <span>Welcome</span>
+  </div>
+
+  <div class="footer-item" (click)="goToTopSongs()">
+    <mat-icon>person</mat-icon>
+    <span>Profile</span>
+  </div>
+
+   <div class="footer-item" (click)="goToFavorites()">
+    <mat-icon>favorite</mat-icon>
+    <span>Favourites</span>
+  </div>
+  
+  <div class="footer-item" (click)="goToMusic()">
+    <mat-icon>library_music</mat-icon>
+    <span>My RBT</span>
+  </div>
+
+</div>
+
   <!-- ================= POPUP ================= -->
   <div class="popup-backdrop" *ngIf="showPopup">
 
@@ -147,7 +171,7 @@
 
       </div>
 
-      <!-- EXISTING USER INFO (ONLY EXISTING) -->
+      <!-- EXISTING USER INFO -->
       <div class="info-box" *ngIf="userType === 'EXISTING'">
         <p>💰 Subscription Cost: <b>100 ZAR</b></p>
         <p>📅 Validity: <b>30 Days</b></p>
