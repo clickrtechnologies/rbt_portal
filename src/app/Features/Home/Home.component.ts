@@ -3,8 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { RbtService } from '../../services/rbt.service';
-
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -14,7 +13,7 @@ import { RbtService } from '../../services/rbt.service';
 })
 export class MusicComponent implements OnInit {
 
-constructor(private rbtService: RbtService) {}
+constructor(private rbtService: RbtService, private router:Router) {}
 
   // ================= USER =================
   isExistingUser = false;
@@ -33,6 +32,16 @@ userType: 'NEW' | 'EXISTING' = 'NEW';
 groupedSongs: any = {};
 searchKeyword: string = '';
 
+goToManageAccount() {
+  this.router.navigate(
+    ['/manage-account'],
+    {
+      state: {
+        msisdn: this.msisdn   // jo login se aa raha hai
+      }
+    }
+  );
+}
 
   // ================= AUDIO PLAYER =================
  @ViewChild('audioPlayer') audioPlayer!: ElementRef<HTMLAudioElement>;
@@ -400,21 +409,56 @@ this.popupMessage = this.userType === 'EXISTING'
 
   });
 }
-    
 openPlayer(song: any) {
 
-    console.log("Song object =", song);
+  console.log("Song object =", song);
+
   this.selectedSong = song;
+
   this.openRbtFlow(song);
 
   setTimeout(() => {
-    const audio = this.audioPlayer?.nativeElement;
+
+    const audio: HTMLAudioElement =
+      this.audioPlayer?.nativeElement;
 
     if (audio) {
-      audio.load(); // ⭐ important
+
+      // set source explicitly (safe)
+      audio.src = this.selectedSong?.toneUrl || '';
+
+      audio.load();
+
+      // auto play
+      audio.play()
+        .then(() => {
+
+          console.log("Audio playing automatically");
+
+          // ⭐ IMPORTANT FIX
+          // button will switch to pause state automatically
+          this.isPlaying = true;
+
+        })
+        .catch((err) => {
+          console.log("Autoplay blocked or failed:", err);
+        });
+
+      // keep button synced always
+      audio.onpause = () => {
+        this.isPlaying = false;
+      };
+
+      audio.onended = () => {
+        this.isPlaying = false;
+      };
     }
-  }, 0);
+
+  }, 100);
 }
+
+
+
   goToMusic() {}
   goToTopSongs() {}
   goToFavorites() {}
@@ -499,7 +543,6 @@ resetAudio() {
     audio.pause();
     audio.currentTime = 0;
   }
-
   this.isPlaying = false;
   this.progress = 0;
   this.currentTime = '0:00';
@@ -508,29 +551,21 @@ resetAudio() {
   this.durationInSec = 0;
 }
 // ================= MISSING CONTROLS =================
-
 seek(event: any) {
   const audio = this.audioPlayer.nativeElement;
   audio.currentTime = event.target.value;
 }
-
 shuffle() {
   console.log('Shuffle clicked');
 }
-
 prev() {
   console.log('Previous song');
 }
-
 next() {
   console.log('Next song');
 }
-
 repeat() {
   console.log('Repeat clicked');
 }
-
-
-
 
 }

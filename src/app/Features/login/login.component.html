@@ -9,129 +9,99 @@
       <p>Caller ring-back tones</p>
     </div>
 
-
     <!-- ================= BEFORE OTP SENT ================= -->
     <div *ngIf="!otpSent">
 
-      <!-- HEADING -->
       <div class="login-text">
         <h3>Enter your number</h3>
-        <p>
-          We’ll send a one-time code to verify it’s you.
-        </p>
+        <p>We’ll send a one-time code to verify it’s you.</p>
       </div>
 
-      <!-- MOBILE LABEL -->
       <label>MOBILE NUMBER</label>
 
-      <!-- MOBILE INPUT -->
       <div class="mobile-row">
 
-        <!-- COUNTRY CODE -->
         <div class="country-box">
           +227
         </div>
 
-        <!-- NUMBER -->
         <input
           type="text"
-          placeholder="6XX XXX XXX"
+          placeholder="Enter mobile number"
           [(ngModel)]="mobileNumber"
-          (input)="allowOnlyNumbers($event)"
+          (input)="onMobileInput($event)"
+          (keydown)="allowOnlyNumbers($event)"
         />
 
       </div>
 
-      <!-- HELP TEXT -->
       <small>
         Must start with 6 (min 7 digits)
       </small>
 
-      <!-- SEND BUTTON -->
       <button (click)="sendOtp()">
         Send code
       </button>
 
     </div>
 
-
     <!-- ================= OTP SCREEN ================= -->
     <div *ngIf="otpSent" class="otp-screen">
 
-      <!-- VERIFY HEADING -->
       <div class="verify-text">
-
         <h3>Verify your number</h3>
-
-        <p>
-          Enter the 4-digit code we sent by SMS.
-        </p>
-
+        <p>Enter the 4-digit code we sent by SMS.</p>
       </div>
 
-
-      <!-- NUMBER PREVIEW -->
       <div class="number-preview">
+        <span>+227 {{ mobileNumber }}</span>
 
-        <span>
-          +227 {{ mobileNumber }}
-        </span>
-
-        <button
-          class="edit-btn"
-          (click)="editNumber()">
-
+        <button class="edit-btn" (click)="editNumber()">
           Edit
-
         </button>
-
       </div>
 
-
-      <!-- OTP LABEL -->
-      <label class="otp-label">
-        ENTER CODE
-      </label>
-
+      <label class="otp-label">ENTER CODE</label>
 
       <!-- OTP BOXES -->
-      
-<div class="otp-boxes">
+      <div class="otp-boxes">
 
-  <input
-    #otpBox1
-    maxlength="1"
-    [(ngModel)]="otp1"
-    (input)="moveNext($event, otpBox2, '1')"
-    (keydown)="movePrev($event, null)"
-  />
+        <input
+          #otpBox1
+          maxlength="1"
+          [(ngModel)]="otp1"
+          (input)="moveNext($event, otpBox2, '1')"
+          (keydown)="movePrev($event, null)"
+        />
 
-  <input
-    #otpBox2
-    maxlength="1"
-    [(ngModel)]="otp2"
-    (input)="moveNext($event, otpBox3, '2')"
-    (keydown)="movePrev($event, otpBox1)"
-  />
+        <input
+          #otpBox2
+          maxlength="1"
+          [(ngModel)]="otp2"
+          (input)="moveNext($event, otpBox3, '2')"
+          (keydown)="movePrev($event, otpBox1)"
+        />
 
-  <input
-    #otpBox3
-    maxlength="1"
-    [(ngModel)]="otp3"
-    (input)="moveNext($event, otpBox4, '3')"
-    (keydown)="movePrev($event, otpBox2)"
-  />
+        <input
+          #otpBox3
+          maxlength="1"
+          [(ngModel)]="otp3"
+          (input)="moveNext($event, otpBox4, '3')"
+          (keydown)="movePrev($event, otpBox2)"
+        />
 
-  <input
-    #otpBox4
-    maxlength="1"
-    [(ngModel)]="otp4"
-    (input)="moveNext($event, null, '4')"
-    (keydown)="movePrev($event, otpBox3)"
-  />
+        <input
+          #otpBox4
+          maxlength="1"
+          [(ngModel)]="otp4"
+          (input)="moveNext($event, null, '4')"
+          (keydown)="movePrev($event, otpBox3)"
+        />
 
-</div>
-       
+      </div>
+
+      <!-- ❌ REMOVED WRONG OTP INPUT -->
+      <!-- (THIS WAS CAUSING ERROR) -->
 
       <!-- RESEND -->
       <p class="resend-text">
@@ -139,7 +109,7 @@
         Didn’t get it?
 
         <span *ngIf="!canResendOtp">
-          Resend in 30s
+          Resend in {{ resendTimer }}s
         </span>
 
         <span
@@ -153,7 +123,6 @@
 
       </p>
 
-
       <!-- VERIFY BUTTON -->
       <button
         class="verify-btn"
@@ -163,13 +132,10 @@
 
       </button>
 
-
       <!-- ATTEMPTS -->
       <p class="attempt-text">
-
         Attempts Left :
         {{ maxOtpRetry - otpRetryCount }}
-
       </p>
 
     </div>

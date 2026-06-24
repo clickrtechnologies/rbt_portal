@@ -90,28 +90,27 @@
   <!-- ================= FOOTER (ADDED) ================= -->
 <div class="footer">
 
-  <div class="footer-item" (click)="goToSetRbt()">
-    <mat-icon>home</mat-icon>
+  <div class="footer-item ">
+    <mat-icon class="welcome-icon">music_note</mat-icon>
     <span>Welcome</span>
   </div>
 
-  <div class="footer-item" (click)="goToTopSongs()">
-    <mat-icon>person</mat-icon>
-    <span>Profile</span>
+  <div class="footer-item">
+    <mat-icon class="profile-icon">local_fire_department</mat-icon>
+    <span>Top Songs</span>
   </div>
 
-   <div class="footer-item" (click)="goToFavorites()">
-    <mat-icon>favorite</mat-icon>
+  <div class="footer-item">
+    <mat-icon class="fav-icon">favorite</mat-icon>
     <span>Favourites</span>
   </div>
-  
-  <div class="footer-item" (click)="goToMusic()">
-    <mat-icon>library_music</mat-icon>
+
+  <div class="footer-item active">
+    <mat-icon class="rbt-icon">person</mat-icon>
     <span>My RBT</span>
   </div>
 
 </div>
-
   <!-- ================= POPUP ================= -->
   <div class="popup-backdrop" *ngIf="showPopup">
 
@@ -130,46 +129,43 @@
       </div>
 
       <!-- AUDIO -->
-      <audio
-        #audioPlayer
-        [src]="selectedSong?.toneUrl"
-        (timeupdate)="onTimeUpdate()"
-        (loadedmetadata)="onLoadedMetadata()">
-      </audio>
+<audio
+  #audioPlayer
+  [src]="selectedSong?.toneUrl"
+  (timeupdate)="onTimeUpdate()"
+  (loadedmetadata)="onLoadedMetadata()">
+</audio>
 
-      <!-- SEEK BAR -->
-      <div class="seek-container">
+<div class="excerpt-player">
 
-        <span class="time">{{ currentTime }}</span>
+  <p class="excerpt-text">🎧 LISTEN TO THE EXCERPT</p>
 
-        <input
-          type="range"
-          class="seek-bar"
-          min="0"
-          [max]="durationInSec"
-          [value]="currentTimeInSec"
-          (input)="seekAudio($event)"
-        />
+  <div class="player-row">
 
-        <span class="time">{{ duration }}</span>
+    <!-- Play Button -->
+    <button class="circle-play" (click)="togglePlay()">
+      <span *ngIf="!isPlaying">▶</span>
+      <span *ngIf="isPlaying">❚❚</span>
+    </button>
 
-      </div>
+    <!-- Progress -->
+    <input
+      type="range"
+      class="wave-bar"
+      min="0"
+      [max]="durationInSec"
+      [value]="currentTimeInSec"
+      (input)="seekAudio($event)"
+    />
 
-      <!-- CONTROLS -->
-      <div class="controls">
+    <!-- Timer -->
+    <span class="audio-time">{{ currentTime }}</span>
 
-        <button class="icon-btn" (click)="shuffle()">🔀</button>
-        <button class="icon-btn" (click)="prev()">⏮</button>
+  </div>
 
-        <button class="play-btn" (click)="togglePlay()">
-          <span *ngIf="!isPlaying">▶</span>
-          <span *ngIf="isPlaying">❚❚</span>
-        </button>
+</div>
+       
 
-        <button class="icon-btn" (click)="next()">⏭</button>
-        <button class="icon-btn" (click)="repeat()">🔁</button>
-
-      </div>
 
       <!-- EXISTING USER INFO -->
       <div class="info-box" *ngIf="userType === 'EXISTING'">
