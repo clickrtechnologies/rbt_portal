@@ -33,11 +33,9 @@ export class LoginComponent {
 
   constructor(private router: Router) {}
 
-  // ================= ONLY NUMBERS ALLOWED =================
   allowOnlyNumbers(event: KeyboardEvent) {
     const key = event.key;
 
-    // allow navigation/control keys
     if (
       key === 'Backspace' ||
       key === 'Tab' ||
@@ -53,16 +51,10 @@ export class LoginComponent {
       event.preventDefault();
     }
   }
-
-  // ================= MOBILE INPUT CLEANUP =================
   onMobileInput(event: Event) {
     const input = event.target as HTMLInputElement;
-
-    // only numeric allowed (NO RESTRICTION)
     this.mobileNumber = input.value.replace(/[^0-9]/g, '');
   }
-
-  // ================= OTP AUTO NEXT =================
   moveNext(event: any, nextInput: any, box: string) {
 
     const value = event.target.value.replace(/[^0-9]/g, '');
@@ -101,8 +93,6 @@ export class LoginComponent {
     alert("OTP Sent Successfully");
     this.startResendTimer();
   }
-
-  // ================= VERIFY OTP =================
   verifyOtp() {
 
     if (this.otpRetryCount >= this.maxOtpRetry) {
@@ -134,8 +124,6 @@ export class LoginComponent {
       alert("Invalid OTP");
     }
   }
-
-  // ================= RESEND TIMER =================
   startResendTimer() {
 
     this.canResendOtp = false;
@@ -150,8 +138,6 @@ export class LoginComponent {
       }
     }, 1000);
   }
-
-  // ================= RESEND OTP =================
   resendOtp() {
 
     if (!this.canResendOtp) {
