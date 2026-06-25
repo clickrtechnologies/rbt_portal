@@ -50,15 +50,9 @@ toggleProfileMenu() {
 logout() {
 
   this.showProfileMenu = false;
-  this.showLogoutPopup = true;
   localStorage.clear();
-
-  setTimeout(() => {
-    this.showLogoutPopup = false;
-
     this.router.navigate(['/login']);
 
-  }, 2000);
 }
 
 
