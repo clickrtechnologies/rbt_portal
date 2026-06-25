@@ -1,16 +1,22 @@
 <div class="app">
 
-  <!-- HEADER -->
   <div class="header">
-    <h2>
-      <mat-icon>music_note</mat-icon>
-      RBT Portal
-    </h2>
+
+  <h2>🎵 RBT Portal</h2>
+
+  <!-- PROFILE -->
+  <div class="profile-section" (click)="toggleProfileMenu()">
+    <span class="profile-icon">👤</span>
+
+    <div class="profile-menu" *ngIf="showProfileMenu">
+      <button (click)="logout()">Logout</button>
+    </div>
   </div>
 
-  <div class="content">
+</div>
 
-    <!-- HEADER TEXT -->
+  <div class="content">
+    
     <div class="header-text">
       <h2>
         <mat-icon>trending_up</mat-icon>
@@ -22,14 +28,12 @@
       <p class="highlight"><mat-icon>flash_on</mat-icon> Easy Activation</p>
     </div>
 
-    <!-- EXISTING USER BOX (only existing user) -->
     <div class="existing-box" *ngIf="userType === 'EXISTING'">
       <h3>Your Active RBT</h3>
       <p><b>RBT:</b> {{ existingRbt?.name }}</p>
       <p><b>Plan:</b> {{ getPlanName(existingRbt?.plan) }}</p>
     </div>
 
-    <!-- SEARCH -->
     <div class="search-bar">
       <mat-icon>search</mat-icon>
       <input
@@ -40,7 +44,6 @@
       />
     </div>
 
-    <!-- SONG LIST -->
     <div
       *ngFor="let cat of ($any(groupedSongs) | keyvalue)"
       class="category"
@@ -87,7 +90,6 @@
 
   </div>
 
-  <!-- ================= FOOTER (ADDED) ================= -->
 <div class="footer">
 
   <div class="footer-item ">
@@ -116,19 +118,16 @@
 
     <div class="popup-card">
 
-      <!-- CLOSE -->
       <button class="close-btn" (click)="showPopup=false">✕</button>
 
       <h2 class="title">Set RBT</h2>
       <p class="subtitle">Preview & Activate your tone</p>
 
-      <!-- SONG INFO -->
       <div class="song-box">
         <p><b>Song:</b> {{ selectedSong?.toneName }}</p>
         <p><b>Artist:</b> {{ selectedSong?.artistName }}</p>
       </div>
 
-      <!-- AUDIO -->
 <audio
   #audioPlayer
   [src]="selectedSong?.toneUrl"
@@ -142,13 +141,11 @@
 
   <div class="player-row">
 
-    <!-- Play Button -->
     <button class="circle-play" (click)="togglePlay()">
       <span *ngIf="!isPlaying">▶</span>
       <span *ngIf="isPlaying">❚❚</span>
     </button>
 
-    <!-- Progress -->
     <input
       type="range"
       class="wave-bar"
@@ -158,22 +155,17 @@
       (input)="seekAudio($event)"
     />
 
-    <!-- Timer -->
     <span class="audio-time">{{ currentTime }}</span>
 
   </div>
 
 </div>
-       
 
-
-      <!-- EXISTING USER INFO -->
       <div class="info-box" *ngIf="userType === 'EXISTING'">
         <p>💰 Subscription Cost: <b>100 ZAR</b></p>
         <p>📅 Validity: <b>30 Days</b></p>
       </div>
 
-      <!-- NEW USER PLAN SELECTION -->
       <div *ngIf="userType === 'NEW'">
 
         <label>Select Plan</label>
@@ -187,7 +179,6 @@
 
       </div>
 
-      <!-- BUTTONS -->
       <div class="btn-row">
         <button class="cancel" (click)="showPopup=false">Cancel</button>
         <button class="activate" (click)="activateRbt()">
@@ -197,8 +188,6 @@
 
     </div>
   </div>
-
-  <!-- SUCCESS -->
   <div class="success" *ngIf="isSuccess">
     🎉 {{ popupMessage }}
   </div>

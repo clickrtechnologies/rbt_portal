@@ -14,14 +14,12 @@ import { Router } from '@angular/router';
 export class MusicComponent implements OnInit {
 
 constructor(private rbtService: RbtService, private router:Router) {}
-
-  // ================= USER =================
   isExistingUser = false;
   msisdn: string = '';
 existingRbt: { name: string; plan: string; validity: string } | null = null;
 
 userType: 'NEW' | 'EXISTING' = 'NEW';
-  // ================= NEW RBT FLOW =================
+
   selectedSong: any = null;
   selectedPlan: string = '';
   showPopup: boolean = false;
@@ -43,7 +41,19 @@ goToManageAccount() {
   );
 }
 
-  // ================= AUDIO PLAYER =================
+showProfileMenu = false;
+toggleProfileMenu() {
+  this.showProfileMenu = !this.showProfileMenu;
+}
+
+logout() {
+  localStorage.clear();
+  this.router.navigate(['/login']);
+}
+
+
+
+
  @ViewChild('audioPlayer') audioPlayer!: ElementRef<HTMLAudioElement>;
 
 isPlaying = false;
@@ -61,7 +71,6 @@ ngOnInit() {
   this.fetchToneCatalog();
 }
 
-
 activeRbt: any;
 
 // API 1 → Fetch Tone Catalogue
@@ -72,7 +81,6 @@ fetchToneCatalog() {
 
       this.groupedSongs = this.groupByCategory(data);
 
-      // catalog load hone ke baad existing user check
       if (this.msisdn) {
         this.checkExistingUser();
       }
@@ -83,7 +91,6 @@ fetchToneCatalog() {
     }
   });
 }
-
 
 checkExistingUser() {
   this.rbtService.getUser(Number(this.msisdn)).subscribe({
@@ -99,7 +106,6 @@ checkExistingUser() {
         // default fallback
         let toneName = 'Existing Tone';
 
-        // toneCode ko groupedSongs me search karo
         for (let category in this.groupedSongs) {
 
           const song = this.groupedSongs[category].find(
@@ -107,7 +113,6 @@ checkExistingUser() {
           );
 
           if (song) {
-            // agar API me song.name hai
             toneName = song.name || song.toneName;
             break;
           }
@@ -160,7 +165,6 @@ searchTone() {
 
       console.log("Search Result:", data);
 
-      // ⭐ IMPORTANT FIX
       this.groupedSongs = this.groupByCategory(data);
     },
 
@@ -184,12 +188,9 @@ getPlanName(plan: string | undefined): string {
   }
 }
 
-
-// ⭐ ADDED
 currentTimeInSec = 0;
 durationInSec = 0;
 
-  // ================= CATEGORIES =================
   categories = [
     {
       key: 'party',
@@ -333,8 +334,6 @@ getCategoryClass(category: string): string {
       return 'default-category';
   }
 }
-
-  // ================= ICONS =================
   getIcon(title: string): string {
     switch (title) {
       case 'Party Music': return 'celebration';
@@ -350,7 +349,6 @@ getCategoryClass(category: string): string {
     }
   }
 
-  // ================= RBT FLOW =================
   openRbtFlow(song: any) {
      console.log("Selected Song:", song);
     this.selectedSong = song;
@@ -361,7 +359,6 @@ getCategoryClass(category: string): string {
 
  activateRbt() {
 
-  // NEW USER ke liye plan required
   if (this.userType === 'NEW' && !this.selectedPlan) {
     alert("Select plan first");
     return;
@@ -373,22 +370,24 @@ getCategoryClass(category: string): string {
     packName: this.userType === 'NEW' ? this.selectedPlan : this.existingRbt?.plan
   };
 
+  console.log("User Type =", this.userType);
+    console.log("Activate payload =", payload);
   console.log("Sending payload:", payload);
 
   this.rbtService.activateRbt(payload).subscribe({
 
+    
     next: (res: any) => {
 
     console.log("RBT Activated:", res);
       this.showPopup = false;
       this.isSuccess = true;
 
-// ⭐ IMPORTANT: UI update here
   this.isExistingUser = true;
   this.userType = 'EXISTING';
 
   this.existingRbt = {
-    name: this.selectedSong.toneName,   // ⭐ SONG NAME UPDATE
+    name: this.selectedSong.toneName, 
     plan: this.selectedPlan || this.existingRbt?.plan || '',
      validity: '30 Days Left'
   };
@@ -423,8 +422,6 @@ openPlayer(song: any) {
       this.audioPlayer?.nativeElement;
 
     if (audio) {
-
-      // set source explicitly (safe)
       audio.src = this.selectedSong?.toneUrl || '';
 
       audio.load();
@@ -435,8 +432,6 @@ openPlayer(song: any) {
 
           console.log("Audio playing automatically");
 
-          // ⭐ IMPORTANT FIX
-          // button will switch to pause state automatically
           this.isPlaying = true;
 
         })
@@ -444,7 +439,6 @@ openPlayer(song: any) {
           console.log("Autoplay blocked or failed:", err);
         });
 
-      // keep button synced always
       audio.onpause = () => {
         this.isPlaying = false;
       };
@@ -456,8 +450,6 @@ openPlayer(song: any) {
 
   }, 100);
 }
-
-
 
   goToMusic() {}
   goToTopSongs() {}
@@ -478,7 +470,6 @@ openPlayer(song: any) {
   console.log("Selected Song =", this.selectedSong);
   console.log("Tone URL =", this.selectedSong?.toneUrl);
 
-  // force src check
   audio.src = this.selectedSong?.toneUrl || '';
 
   if (!this.selectedSong?.toneUrl) {
@@ -492,7 +483,7 @@ openPlayer(song: any) {
     console.log("Audio paused");
   } else {
 
-    audio.load();   // IMPORTANT
+    audio.load();   
 
     audio.play()
       .then(() => {
@@ -550,7 +541,7 @@ resetAudio() {
   this.currentTimeInSec = 0;
   this.durationInSec = 0;
 }
-// ================= MISSING CONTROLS =================
+
 seek(event: any) {
   const audio = this.audioPlayer.nativeElement;
   audio.currentTime = event.target.value;

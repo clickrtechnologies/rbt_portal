@@ -6,6 +6,72 @@
   overflow-x: hidden;
 }
 /* HEADER */
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #000;
+  z-index: 1000;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 12px 0;
+  border-bottom: 2px solid gold;
+  box-shadow: 0 3px 10px rgba(255, 215, 0, 0.15);
+
+  position: fixed;
+}
+
+/* profile right side */
+.profile-section {
+  position: absolute;
+  right: 18px;
+  cursor: pointer;
+}
+
+/* icon */
+.profile-icon {
+  font-size: 22px;
+  color: gold;
+}
+
+/* popup */
+.profile-menu {
+  position: absolute;
+  top: 35px;
+  right: 0;
+
+  background: #111;
+  border: 1px solid gold;
+  border-radius: 8px;
+
+  padding: 8px;
+  min-width: 100px;
+
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+/* logout button */
+.profile-menu button {
+  width: 100%;
+  background: transparent;
+  border: none;
+
+  color: white;
+  cursor: pointer;
+
+  font-size: 14px;
+  padding: 6px;
+}
+
+.profile-menu button:hover {
+  color: gold;
+}
+
 .header {
   position: fixed;
   top: 0;
@@ -17,7 +83,7 @@
   justify-content: center;
   align-items: center;
   padding: 12px 0;
- /* new styling */
+
   border-bottom: 2px solid gold;
   box-shadow: 0 3px 10px rgba(255, 215, 0, 0.15);
 }
@@ -32,7 +98,7 @@
   padding: 90px 18px 80px;
 }
 .existing-box{
-  width: 30% !important;
+  width: 100% !important;
   margin: 18px auto 25px auto !important;
   background: linear-gradient(135deg, #c49e2e, #ffd54f) !important;
   border: 2px solid #222 !important;
@@ -62,9 +128,8 @@
   font-size: 22px;
 }
 .header-text p {
-  margin: 6px 0;       /* NORMAL GAP */
+  margin: 6px 0;      
 }
-/* FIRST LINE (Choose Your RBT Tone) KO THODA SPACE DO */
 .header-text p:first-of-type {
   margin-top: 14px;
 }
@@ -96,12 +161,11 @@
   width: 100%;
 }
 
-/* CATEGORY */
+
 .category {
   margin-bottom: 25px;
 }
 
-/* CATEGORY HEADER */
 .category-header {
   display: flex;
   align-items: center;
@@ -148,7 +212,6 @@
   margin: 10px 0 15px;
 }
 
-/* LINE COLORS */
 .party .category-line { background: #ff4081; }
 .love .category-line { background: #e91e63; }
 .sad .category-line { background: #3f51b5; }
@@ -157,7 +220,7 @@
 .romantic .category-line { background: #c725e3; }
 .motivational .category-line { background: #4caf50; }
 .oldclassics .category-line { background: #1832f5; }
-/* SONG GRID */
+
 
 
 .songs-grid {
@@ -167,7 +230,7 @@
   width: 100%;
 }
 
-/* SONG CARD */
+
 .song-card {
   background: #1b1b1b;
   border: 1px solid rgba(255,255,255,0.1);
@@ -179,8 +242,6 @@
    flex-wrap: wrap;
   min-width: 0;
 }
-
-/* LEFT */
 .song-left {
   display: flex;
   align-items: center;
@@ -243,7 +304,7 @@
   flex-shrink:0;
 }
 
-/* BOTTOM NAV */
+
 .bottom-nav {
   position: fixed;
   bottom: 0;
@@ -268,7 +329,6 @@
 }
 
 
-/* BACKDROP */
 .popup-backdrop {
   position: fixed;
   inset: 0;
@@ -279,7 +339,6 @@
   z-index: 9999;
 }
 
-/* CARD */
 .popup-card {
   width: 320px;
   background: #0b0b0b;
@@ -291,7 +350,6 @@
   box-shadow: 0 0 25px rgba(255,204,0,0.3);
 }
 
-/* CLOSE BUTTON */
 .close-btn {
   position: absolute;
   right: 12px;
@@ -303,7 +361,6 @@
   cursor: pointer;
 }
 
-/* TITLE */
 .title {
   text-align: center;
   color: #ffcc00;
@@ -317,7 +374,6 @@
   margin-bottom: 15px;
 }
 
-/* SONG BOX */
 .song-box {
   background: #111;
   padding: 10px;
@@ -326,7 +382,6 @@
   border-left: 3px solid #ffcc00;
 }
 
-/* INFO BOX */
 .info-box {
   background: #111111 !important;
   color: #ffffff !important;
@@ -337,7 +392,6 @@
 
   border: 1px solid #ffcc00 !important;
 
-  /* mobile/browser override fix */
   -webkit-appearance: none;
   appearance: none;
 
@@ -357,7 +411,6 @@
   position: relative;
 }
 
-/* SELECT */
 select {
   width: 100%;
   padding: 8px;
@@ -368,14 +421,12 @@ select {
   margin-top: 5px;
 }
 
-/* BUTTON ROW */
 .btn-row {
   display: flex;
   justify-content: space-between;
   margin-top: 15px;
 }
 
-/* BUTTONS */
 .cancel {
   background: transparent;
   border: 1px solid #999;
@@ -395,15 +446,15 @@ select {
   cursor: pointer;
 }
 
-.afrobeats .category-info h3 { color: #ff5722; }      /* Orange */
-.comedy .category-info h3 { color: #ffeb3b; }         /* Yellow */
-.folk .category-info h3 { color: #8bc34a; }           /* Green */
-.hausa .category-info h3 { color: #03a9f4; }          /* Sky Blue */
-.hapop .category-info h3 { color: #9c27b0; }          /* Purple */
-.hiplife .category-info h3 { color: #e91e63; }        /* Pink */
-.love .category-info h3 { color: #f44336; }           /* Red */
-.religious .category-info h3 { color: #ffc107; }      /* Gold */
-.trending .category-info h3 { color: #00bcd4; }       /* Cyan */
+.afrobeats .category-info h3 { color: #ff5722; }      
+.comedy .category-info h3 { color: #ffeb3b; }         
+.folk .category-info h3 { color: #8bc34a; }        
+.hausa .category-info h3 { color: #03a9f4; }          
+.hapop .category-info h3 { color: #9c27b0; }          
+.hiplife .category-info h3 { color: #e91e63; }        
+.love .category-info h3 { color: #f44336; }           
+.religious .category-info h3 { color: #ffc107; }      
+.trending .category-info h3 { color: #00bcd4; }       
 
 
 .afrobeats .category-line { background: #ff5722; }
@@ -416,7 +467,7 @@ select {
 .religious .category-line { background: #ffc107; }
 .trending .category-line { background: #00bcd4; }
 
-/* CATEGORY ICON COLORS */
+
 
 .afrobeats .category-icon {
   background: #ff5722 !important;
@@ -475,7 +526,7 @@ select {
 }
 
 .subscription-box {
-  margin: 16px;                /* charo taraf spacing */
+  margin: 16px;            
   padding: 12px;
   border-radius: 6px;
 
@@ -497,7 +548,6 @@ select {
   border: 1px solid #333;
 }
 
-/* SEEK BAR */
 .seek-container {
   display: flex;
   align-items: center;
@@ -544,7 +594,6 @@ audio {
   padding: 0;
   
 }
-/* CONTROLS */
 .controls {
   display: flex;
   justify-content: center;
@@ -553,7 +602,7 @@ audio {
   margin-button: 22px;
 }
 
-/* ICON BUTTONS */
+
 .icon-btn {
   background: transparent;
   border: none;
@@ -562,7 +611,7 @@ audio {
   cursor: pointer;
 }
 
-/* PLAY BUTTON (MAIN) */
+
 .play-btn {
   width: 30px;
   height: 30px;
@@ -575,7 +624,7 @@ audio {
   color: #000;
   cursor: pointer;
 }
-/* REMOVE ANY OUTER PLAYER BOX */
+
 .audio-box,
 .audio-container,
 .player-card {
@@ -586,7 +635,6 @@ audio {
   margin: 0 !important;
 }
 
-/* PROGRESS SLIDER */
 .progress-container {
   width: 100%;
   margin-top: 10px;
@@ -594,11 +642,10 @@ audio {
 
 .progress-slider {
   width: 100%;
-  accent-color: #ffcc00; /* yellow dot */
+  accent-color: #ffcc00; 
   cursor: pointer;
 }
 
-/* TIME DISPLAY */
 .time {
   display: flex;
   justify-content: space-between;
@@ -648,7 +695,6 @@ audio {
     text-overflow: unset !important;
   }
 
-/* PAGE WRAPPER (optional safety) */
 .page {
   width: 100%;
   padding: 20px;
@@ -727,10 +773,6 @@ audio {
   color: black !important;
 }
 
-
-
-/* EXISTING USER CARD */
-
 .content{
   display: block !important; 
 }
@@ -739,7 +781,7 @@ audio {
     width: 100%;
   }
 } 
-/* whole dark box */
+
 .excerpt-player {
   background: #353535;
   border-radius: 16px;
@@ -747,7 +789,6 @@ audio {
   margin-top: 15px;
 }
 
-/* top text */
 .excerpt-text {
   color: #cfcfcf;
   font-size: 11px;
@@ -756,14 +797,13 @@ audio {
   font-weight: 600;
 }
 
-/* row */
+
 .player-row {
   display: flex;
   align-items: center;
   gap: 16px;
 }
 
-/* yellow play button */
 .circle-play {
   width: 36px;
   height: 36px;
@@ -775,7 +815,6 @@ audio {
   flex-shrink: 0;
 }
 
-/* waveform/progress */
 .wave-bar {
   flex: 1;
   height: 4px;
@@ -783,14 +822,12 @@ audio {
   accent-color: #f7ea39;
 }
 
-/* time */
 .audio-time {
   color: #d9d9d9;
   font-size: 12px;
   min-width: 35px;
 }
 
-/* ===== FINAL FOOTER FIX ===== */
 .footer {
   position: fixed;
   bottom: 0;
@@ -820,12 +857,11 @@ audio {
   margin-bottom: 3px;
 }
 
-/* active */
+
 .footer-item.active span {
   color: #ffd400;
 }
 
-/* icon colors */
 .welcome-icon {
   color: rgb(131, 29, 199) !important;
 }

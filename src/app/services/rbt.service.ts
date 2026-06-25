@@ -17,7 +17,6 @@ export class RbtService {
   }
   private apiUrl = environment.apiUrl;
 
-  // POST API
  activateRbt(data: any): Observable<any> {
   return this.http.post(
     `${this.apiUrl}/api/subscription/activate`,
@@ -25,14 +24,12 @@ export class RbtService {
   );
 }
 
-  // Existing user API
   getUser(msisdn: number): Observable<any> {
     return this.http.get(
       `${this.apiUrl}/api/subscription/user/${msisdn}`
     );
   }
 
-  // Fetch tone catalog API
   getToneCatalog(): Observable<any> {
     return this.http.get(
       `${this.apiUrl}/api/tone-catalogue`
@@ -45,7 +42,6 @@ export class RbtService {
  );
 }
  
-  // Search API
 searchTone(keyword: string): Observable<any> {
   return this.http.get(
     `${this.apiUrl}/api/tone-catalogue/search?keyword=${keyword}`

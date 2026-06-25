@@ -1,4 +1,3 @@
-/* ================= PAGE ================= */
 
 .login-page {
   min-height: 100vh;
@@ -10,19 +9,15 @@
   padding: 20px;
 }
 
-/* ================= LOGIN CARD ================= */
-
 .login-card {
   width: 100%;
-  max-width: 340px;   /* 390 -> 340 */
+  max-width: 340px; 
   background: #202020;
   border-radius: 24px;
-  padding: 24px 20px;   /* kam karo */
+  padding: 24px 20px;  
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
-
-/* ================= LOGO ================= */
 
 .logo-section {
   text-align: center;
@@ -43,7 +38,6 @@
   font-size: 12px;
 }
 
-/* ================= LOGIN TEXT ================= */
 
 .login-text {
   text-align: center;
@@ -64,7 +58,6 @@
   line-height: 1.5;
 }
 
-/* ================= LABEL ================= */
 
 label {
   display: block;
@@ -75,15 +68,11 @@ label {
   letter-spacing: 0.5px;
 }
 
-/* ================= MOBILE ROW ================= */
-
 .mobile-row {
   display: flex;
   gap: 12px;
   margin-bottom: 10px;
 }
-
-/* COUNTRY CODE */
 
 .country-box {
   width: 90px;
@@ -98,7 +87,6 @@ label {
   border: 1px solid #444;
 }
 
-/* ================= INPUT ================= */
 
 .mobile-row input,
 .otp-section input {
@@ -113,7 +101,6 @@ label {
   transition: 0.3s ease;
 }
 
-/* OTP INPUT FULL WIDTH */
 
 .otp-section input {
   width: 100%;
@@ -121,7 +108,6 @@ label {
   margin-bottom: 15px;
 }
 
-/* INPUT FOCUS */
 
 .mobile-row input:focus,
 .otp-section input:focus {
@@ -129,13 +115,11 @@ label {
   box-shadow: 0 0 8px rgba(255, 212, 0, 0.2);
 }
 
-/* PLACEHOLDER */
 
 input::placeholder {
   color: #888;
 }
 
-/* ================= SMALL TEXT ================= */
 
 small {
   display: block;
@@ -144,7 +128,6 @@ small {
   margin-bottom: 18px;
 }
 
-/* ================= BUTTON ================= */
 
 button {
   width: 100%;
@@ -160,27 +143,22 @@ button {
   transition: 0.3s ease;
 }
 
-/* HOVER */
-
 button:hover {
   transform: translateY(-1px);
   opacity: 0.95;
 }
 
-/* DISABLED */
 
 button:disabled {
   background: #8c8145;
   cursor: not-allowed;
 }
 
-/* ================= OTP SECTION ================= */
 
 .otp-section {
   margin-top: 9px;
 }
 
-/* ================= RETRY TEXT ================= */
 
 .retry-text {
   text-align: center;
@@ -232,12 +210,10 @@ button:disabled {
 }
 
 
-/* OTP SCREEN */
 .otp-screen{
   margin-top:4px;
 }
 
-/* VERIFY TEXT */
 .verify-text h3{
   font-size:17px;
   color:white;
@@ -253,7 +229,6 @@ button:disabled {
   margin-bottom:12px;
 }
 
-/* NUMBER BOX */
 .number-preview{
   background:#3a3a3a;
   border-radius:12px;
@@ -282,7 +257,7 @@ button:disabled {
   padding:0;
 }
 
-/* ENTER CODE */
+
 .otp-label{
   display:block;
   text-align:center;
@@ -292,18 +267,15 @@ button:disabled {
   letter-spacing:1px;
 }
 
-/* OTP BOXES EXACT SMALL */
 .otp-boxes{
   display:flex;
   justify-content:center;
   gap:6px;
   margin-bottom:12px;
 }
-
-/* EXACT SMALL BOX LIKE IMAGE */
 .otp-boxes input{
-  width:26px;          /* important */
-  height:26px;         /* important */
+  width:26px;         
+  height:26px;         
 
   background:#4b4b4b;
   border:1px solid #666;
@@ -316,12 +288,11 @@ button:disabled {
   padding:0;
 }
 
-/* FOCUS */
+
 .otp-boxes input:focus{
   border:1px solid #ffd700;
 }
 
-/* RESEND */
 .resend-text{
   text-align:center;
   color:#aaa;
@@ -334,8 +305,6 @@ button:disabled {
   cursor:pointer;
 }
 
-
-/* VERIFY BUTTON */
 .verify-btn{
   width:100%;
   background:#e5c24d;
@@ -347,7 +316,6 @@ button:disabled {
   font-weight:500;
 }
 
-/* ================= MOBILE RESPONSIVE ================= */
 
 @media (max-width: 460px) {
   .login-card {
