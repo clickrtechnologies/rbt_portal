@@ -418,72 +418,56 @@ this.popupMessage = this.userType === 'EXISTING'
   });
 }
 openPlayer(song: any) {
-
   console.log("Song object =", song);
 
   this.selectedSong = song;
-
   this.openRbtFlow(song);
 
-  setTimeout(() => {
+  const audio: HTMLAudioElement = this.audioPlayer?.nativeElement;
 
-    const audio: HTMLAudioElement =
-      this.audioPlayer?.nativeElement;
+  if (!audio || !this.selectedSong?.toneUrl) return;
 
-    if (audio) {
-      audio.src = this.selectedSong?.toneUrl || '';
+  audio.src = this.selectedSong.toneUrl;
+  audio.load();
 
-      audio.load();
+  audio.play()
+    .then(() => {
+      console.log("Audio playing automatically");
+      this.isPlaying = true;
+    })
+    .catch((err) => {
+      console.log("Autoplay blocked:", err);
+    });
 
-      // auto play
-      audio.play()
-        .then(() => {
-
-          console.log("Audio playing automatically");
-
-          this.isPlaying = true;
-
-        })
-        .catch((err) => {
-          console.log("Autoplay blocked or failed:", err);
-        });
-
-      audio.onpause = () => {
-        this.isPlaying = false;
-      };
-
-      audio.onended = () => {
-        this.isPlaying = false;
-      };
-    }
-
-  }, 100);
+  audio.onpause = () => this.isPlaying = false;
+  audio.onended = () => this.isPlaying = false;
 }
+
 
   goToMusic() {}
   goToTopSongs() {}
   goToFavorites() {}
   goToSetRbt() {}
 
-  togglePlay() {
+ togglePlay() {
 
   console.log("PLAY BUTTON CLICKED");
 
-  const audio = this.audioPlayer?.nativeElement;
+  const audio: HTMLAudioElement = this.audioPlayer?.nativeElement;
 
   if (!audio) {
     console.log("Audio element not found");
     return;
   }
 
-  console.log("Selected Song =", this.selectedSong);
-  console.log("Tone URL =", this.selectedSong?.toneUrl);
-
-  audio.src = this.selectedSong?.toneUrl || '';
-
   if (!this.selectedSong?.toneUrl) {
     console.log("No toneUrl found");
     return;
+  }
+
+  // Set src ONLY if different song
+  if (audio.src !== this.selectedSong.toneUrl) {
+    audio.src = this.selectedSong.toneUrl;
   }
 
   if (this.isPlaying) {
@@ -492,19 +476,16 @@ openPlayer(song: any) {
     console.log("Audio paused");
   } else {
 
-    audio.load();   
-
     audio.play()
       .then(() => {
-        console.log("Audio started successfully");
         this.isPlaying = true;
+        console.log("Audio started successfully");
       })
-      .catch((err: any) => {
+      .catch((err) => {
         console.log("Play error =", err);
       });
   }
 }
-  
 
 onLoadedMetadata() {
   const audio = this.audioPlayer.nativeElement;
