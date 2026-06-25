@@ -909,19 +909,17 @@ audio {
 .profile-section {
   position: absolute;
   right: 15px;
-
-  width: 36px;
-  height: 36px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
-
   background: #1a1a1a;
   border: 1px solid #ffd400;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   cursor: pointer;
+  top:30%;
+ 
 }
 
 .profile-section mat-icon {

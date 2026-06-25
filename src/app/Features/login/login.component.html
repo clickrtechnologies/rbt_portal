@@ -33,10 +33,6 @@
 
       </div>
 
-      <small>
-        Must start with 6 (min 7 digits)
-      </small>
-
       <button (click)="sendOtp()">
         Send code
       </button>
@@ -133,11 +129,6 @@
         Verify
 
       </button>
-
-      <p class="attempt-text">
-        Attempts Left :
-        {{ maxOtpRetry - otpRetryCount }}
-      </p>
 
     </div>
 
