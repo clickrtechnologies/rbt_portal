@@ -16,7 +16,6 @@ export class LoginComponent {
   // ================= VARIABLES =================
   mobileNumber: string = '';
 
-  // OTP BOXES
   otp1: string = '';
   otp2: string = '';
   otp3: string = '';
@@ -33,6 +32,7 @@ export class LoginComponent {
 
   constructor(private router: Router) {}
 
+  // ================= MOBILE VALIDATION =================
   allowOnlyNumbers(event: KeyboardEvent) {
     const key = event.key;
 
@@ -46,15 +46,17 @@ export class LoginComponent {
       return;
     }
 
-    // block non-numeric keys
     if (!/^[0-9]$/.test(key)) {
       event.preventDefault();
     }
   }
+
   onMobileInput(event: Event) {
     const input = event.target as HTMLInputElement;
     this.mobileNumber = input.value.replace(/[^0-9]/g, '');
   }
+
+  // ================= OTP INPUT =================
   moveNext(event: any, nextInput: any, box: string) {
 
     const value = event.target.value.replace(/[^0-9]/g, '');
@@ -66,11 +68,9 @@ export class LoginComponent {
       case '4': this.otp4 = value; break;
     }
 
-   if (value.length === 1 && nextInput) {
-  setTimeout(() => {
-    nextInput.focus();
-  }, 50);
-}
+    if (value.length === 1 && nextInput) {
+      setTimeout(() => nextInput.focus(), 50);
+    }
   }
 
   movePrev(event: KeyboardEvent, prevInput: any) {
@@ -81,11 +81,10 @@ export class LoginComponent {
     }
   }
 
+  // ================= SEND OTP =================
   sendOtp() {
 
-    if (!this.mobileNumber) {
-      return;
-    }
+    if (!this.mobileNumber) return;
 
     this.generatedOtp = "1234";
     this.otpSent = true;
@@ -93,6 +92,8 @@ export class LoginComponent {
     alert("OTP Sent Successfully");
     this.startResendTimer();
   }
+
+  // ================= VERIFY OTP =================
   verifyOtp() {
 
     if (this.otpRetryCount >= this.maxOtpRetry) {
@@ -100,11 +101,10 @@ export class LoginComponent {
       return;
     }
 
+    localStorage.setItem('auth', 'true');
+this.router.navigate(['/music']);
     const enteredOtp =
-      this.otp1 +
-      this.otp2 +
-      this.otp3 +
-      this.otp4;
+      this.otp1 + this.otp2 + this.otp3 + this.otp4;
 
     if (enteredOtp.length < 4) {
       alert("Enter complete OTP");
@@ -114,6 +114,9 @@ export class LoginComponent {
     if (enteredOtp === this.generatedOtp) {
 
       alert("OTP Verified Successfully");
+
+    
+      localStorage.setItem('auth', 'true');
 
       this.router.navigate(['/music'], {
         state: { msisdn: this.mobileNumber }
@@ -138,6 +141,7 @@ export class LoginComponent {
       }
     }, 1000);
   }
+
   resendOtp() {
 
     if (!this.canResendOtp) {
@@ -156,6 +160,7 @@ export class LoginComponent {
 
     this.startResendTimer();
   }
+
   editNumber() {
 
     this.otpSent = false;

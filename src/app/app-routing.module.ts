@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [
+import { AuthGuard } from './guards/auth.guard';
 
-  // DEFAULT → LOGIN
+const routes: Routes = [
   {
     path: '',
     redirectTo: 'login',
@@ -18,15 +18,15 @@ const routes: Routes = [
         .then(m => m.LoginComponent)
   },
 
-  // MUSIC / HOME PAGE
+  // 🔐 PROTECTED MUSIC PAGE (UPDATED)
   {
     path: 'music',
     loadComponent: () =>
       import('./Features/Home/Home.component')
-        .then(m => m.MusicComponent)   // ✅ FIXED (important)
+        .then(m => m.MusicComponent),
+    canActivate: [AuthGuard]   
   },
 
-  // SET RBT PAGE
   {
     path: 'set-rbt',
     loadComponent: () =>
@@ -34,12 +34,12 @@ const routes: Routes = [
         .then(m => m.SetRbtComponent)
   },
 
-  // MANAGE ACCOUNT / MY RBT PAGE
+  // MANAGE ACCOUNT / MY RBT PAGE (COMMENTED AS IT IS)
   // {
-    // path: 'manage-account',
-    // loadComponent: () =>
-      // import('./Features/manage-account/manage-account.component')
-        // .then(m => m.ManageAccountComponent)
+  //   path: 'manage-account',
+  //   loadComponent: () =>
+  //     import('./Features/manage-account/manage-account.component')
+  //       .then(m => m.ManageAccountComponent)
   // },
 
   // FALLBACK ROUTE
