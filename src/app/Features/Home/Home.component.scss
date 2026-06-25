@@ -105,6 +105,102 @@
   color: gold;
 }
 
+
+.excerpt-player {
+  background: #2f3138;
+  border-radius: 18px;
+  padding: 14px 18px;
+  margin-top: 15px;
+  overflow:hidden;
+}
+
+.listen-label {
+  color: #b5b5b5;
+  font-size: 12px;
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+  font-weight: 500;
+}
+
+.player-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width:100%;
+  overflow:hidden;
+
+}
+
+.circle-play {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: none;
+  background: #f7e81b;
+  color: black;
+  font-size: 22px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.waveform {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 30px;
+overflow: hidden;
+max-width:330px;
+
+}
+
+.waveform span {
+  width: 3px;
+  background: #f7e81b;
+  border-radius: 4px;
+  flex-shrink:0;
+}
+
+/* waveform pattern */
+.waveform span:nth-child(1) { height: 12px; }
+.waveform span:nth-child(2) { height: 20px; }
+.waveform span:nth-child(3) { height: 28px; }
+.waveform span:nth-child(4) { height: 16px; }
+.waveform span:nth-child(5) { height: 24px; }
+.waveform span:nth-child(6) { height: 30px; }
+.waveform span:nth-child(7) { height: 14px; }
+.waveform span:nth-child(8) { height: 26px; }
+
+/* repeat feel */
+.waveform span:nth-child(odd) {
+  height: 14px;
+}
+
+.waveform span:nth-child(even) {
+  height: 24px;
+}
+.waveform span.playing {
+  animation: bounce 0.7s infinite alternate;
+}
+
+@keyframes bounce {
+  from {
+    transform: scaleY(0.6);
+  }
+  to {
+    transform: scaleY(1.2);
+  }
+}
+
+.audio-time {
+  color: #ffffff;
+  font-size: 15px;
+  min-width: 35px;
+  font-weight: 500;
+}
+
+
 .header {
   position: fixed;
   top: 0;

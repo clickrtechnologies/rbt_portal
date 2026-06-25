@@ -70,6 +70,8 @@ progress = 0;
 currentTime = '0:00';
 duration = '0:00';
 
+  waveBars = Array(30).fill(0);
+
 ngOnInit() {
   const navData = history.state || {};
 

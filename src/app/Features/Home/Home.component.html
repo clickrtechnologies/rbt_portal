@@ -137,7 +137,7 @@
 
 <audio
   #audioPlayer
- playsinline
+  playsinline
   [src]="selectedSong?.toneUrl"
   (timeupdate)="onTimeUpdate()"
   (loadedmetadata)="onLoadedMetadata()">
@@ -145,7 +145,7 @@
 
 <div class="excerpt-player">
 
-  <p class="excerpt-text">🎧 LISTEN TO THE EXCERPT</p>
+  <p class="listen-label">🎧 LISTEN TO THE EXCERPT</p>
 
   <div class="player-row">
 
@@ -154,16 +154,17 @@
       <span *ngIf="isPlaying">❚❚</span>
     </button>
 
-    <input
-      type="range"
-      class="wave-bar"
-      min="0"
-      [max]="durationInSec"
-      [value]="currentTimeInSec"
-      (input)="seekAudio($event)"
-    />
+    <div class="waveform">
 
-    <span class="audio-time">{{ currentTime }}</span>
+      <span *ngFor="let bar of waveBars"
+            [class.playing]="isPlaying">
+      </span>
+
+    </div>
+
+    <span class="audio-time">
+      {{ currentTime || '0:00' }}
+    </span>
 
   </div>
 
