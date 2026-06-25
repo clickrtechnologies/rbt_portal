@@ -1,29 +1,26 @@
 <div class="app">
 
- <div class="header">
+  <!-- HEADER -->
+  <div class="header">
 
-  <h2>🎵 RBT Portal</h2>
+    <h2>🎵 RBT Portal</h2>
 
-  <!-- Profile Section -->
-  <div class="profile-section" (click)="toggleProfileMenu()">
-    <mat-icon>person</mat-icon>
+    <!-- PROFILE ICON -->
+    <div class="profile-section" (click)="toggleProfileMenu()">
+      <mat-icon>person</mat-icon>
+    </div>
+
   </div>
 
-  <!-- Dropdown -->
   <div class="profile-menu" *ngIf="showProfileMenu">
     <button (click)="logout()">Logout</button>
   </div>
 
-</div>
-
-<!-- Logout Success Popup -->
-<div class="logout-popup" *ngIf="showLogoutPopup">
-  <div class="logout-card">
-    <h3>Logged Out Successfully </h3>
+  <div class="logout-popup" *ngIf="showLogoutPopup">
+    <div class="logout-card">
+      <h3>Logged Out Successfully ✅</h3>
+    </div>
   </div>
-</div>
-
-</div>
 
   <div class="content">
     
