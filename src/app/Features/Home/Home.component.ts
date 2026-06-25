@@ -23,6 +23,8 @@ userType: 'NEW' | 'EXISTING' = 'NEW';
   selectedSong: any = null;
   selectedPlan: string = '';
   showPopup: boolean = false;
+  showProfileMenu = false;
+showLogoutPopup = false;
 
   isSuccess: boolean = false;
   popupMessage: string = '';
@@ -41,16 +43,23 @@ goToManageAccount() {
   );
 }
 
-showProfileMenu = false;
 toggleProfileMenu() {
   this.showProfileMenu = !this.showProfileMenu;
 }
 
 logout() {
-  localStorage.clear();
-  this.router.navigate(['/login']);
-}
 
+  this.showProfileMenu = false;
+  this.showLogoutPopup = true;
+  localStorage.clear();
+
+  setTimeout(() => {
+    this.showLogoutPopup = false;
+
+    this.router.navigate(['/login']);
+
+  }, 2000);
+}
 
 
 
