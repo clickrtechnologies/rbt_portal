@@ -14,7 +14,7 @@ export class UserService {
 
   login(msisdn: number): Observable<any> {
     return this.http.post(
-      `${this.apiUrl}/user/login`,
+      `${this.apiUrl}/api/user/login`,
       { msisdn: msisdn }
     );
   }
