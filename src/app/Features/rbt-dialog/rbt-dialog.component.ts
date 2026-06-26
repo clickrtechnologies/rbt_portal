@@ -40,17 +40,14 @@ export class RbtDialogComponent implements OnDestroy {
 
     alert('RBT Activated Successfully');
 
-    this.cleanupDialog();
-
-    // close with success
+    this.cleanupDialog();  
     this.dialogRef.close({ success: true });
   }
 
   ngOnDestroy(): void {
     this.cleanupDialog();
   }
-
-  // IMPORTANT FIX
+ 
   cleanupDialog() {
     document.body.style.overflow = 'auto';
     document.body.style.position = 'static';

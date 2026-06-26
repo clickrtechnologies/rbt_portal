@@ -1,17 +1,14 @@
 <div class="rbt-container">
 
-  <!-- BACK BUTTON -->
   <button class="close-btn" (click)="goBack()">✖</button>
 
   <div class="rbt-box">
 
-    <!-- EXISTING USER POPUP INFO -->
     <div *ngIf="isExistingUser">
       <p>Subscription Cost: 100 ZAR</p>
       <p>Validity: 30 Days</p>
     </div>
 
-    <!-- PLAYER CONTROLS -->
     <div class="player-box">
       <button class="control-btn" (click)="prevSong()">⏮</button>
 
@@ -22,8 +19,6 @@
 
       <button class="control-btn" (click)="nextSong()">⏭</button>
     </div>
-
-    <!-- SEEK BAR -->
     <div class="progress-wrapper">
       <input type="range"
              min="0"
@@ -33,13 +28,11 @@
              class="slider" />
     </div>
 
-    <!-- TIME -->
+  
     <div class="time-box">
       <span>{{ formatTime(currentTime) }}</span>
       <span>{{ formatTime(duration) }}</span>
     </div>
-
-    <!-- EXTRA CONTROLS -->
     <div class="extra-controls">
       <button class="small-btn" (click)="toggleRepeat()">
         {{ isRepeat ? '🔁 ON' : '🔁' }}
@@ -54,7 +47,7 @@
       </button>
     </div>
 
-    <!-- LISTEN SECTION -->
+  
     <div class="section">
       <h3>LISTEN PREVIEW</h3>
 
@@ -63,13 +56,12 @@
       </button>
     </div>
 
-    <!-- PRICE BOX -->
+
     <div class="price">
       <h3>100 ZAR</h3>
       <p>Validity: 30 Days</p>
     </div>
 
-    <!-- PACK SELECTION -->
     <div class="pack-box">
       <label>Select Subscription Pack</label>
 
@@ -81,25 +73,27 @@
       </select>
     </div>
 
-    <!-- ACTIVATION -->
+
     <button class="activate-btn" (click)="activateRbt()">
       ACTIVATE RBT
     </button>
-
-    <!-- ⭐ NEW: COMPACT SONG LIST SECTION -->
     <div class="song-list">
 
       <div *ngFor="let song of songs" class="song-item">
 
-        <div class="song-name">
-          {{ song.name }}
-        </div>
+  <div style="color:red; font-size:30px;">
+    TEST ICON
+  </div>
 
-        <button class="set-rbt-btn" (click)="setRbt(song)">
-          Set RBT
-        </button>
+  <div class="song-name">
+    {{ song.name }}
+  </div>
 
-      </div>
+  <button class="set-rbt-btn" (click)="setRbt(song)">
+    Set RBT
+  </button>
+
+</div>
 
     </div>
 

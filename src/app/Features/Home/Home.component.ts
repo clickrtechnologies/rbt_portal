@@ -43,6 +43,33 @@ goToManageAccount() {
   );
 }
 
+songIcons: string[] = [
+  'music_note',
+  'queue_music',
+  'graphic_eq',
+  'album',
+  'library_music',
+  'headphones'
+];
+
+getSongIcon(index: number): string {
+  return this.songIcons[index % this.songIcons.length];
+}
+
+
+iconColors: string[] = [
+  '#e91e63',   
+  '#ff9800',   
+  '#2196f3',   
+  '#9c27b0',   
+  '#4caf50',   
+  '#f44336'    
+];
+
+getIconColor(index: number): string {
+  return this.iconColors[index % this.iconColors.length];
+}
+
 toggleProfileMenu() {
   this.showProfileMenu = !this.showProfileMenu;
 }
@@ -74,7 +101,6 @@ ngOnInit() {
 
 activeRbt: any;
 
-// API 1 → Fetch Tone Catalogue
 fetchToneCatalog() {
   this.rbtService.getToneCatalog().subscribe({
     next: (data: any) => {
@@ -104,7 +130,6 @@ checkExistingUser() {
         this.isExistingUser = true;
         this.userType = 'EXISTING';
 
-        // default fallback
         let toneName = '';
 
         for (let category in this.groupedSongs) {

@@ -10,7 +10,6 @@ const routes: Routes = [
     pathMatch: 'full'
   },
 
-  // LOGIN PAGE
   {
     path: 'login',
     loadComponent: () =>
@@ -18,7 +17,6 @@ const routes: Routes = [
         .then(m => m.LoginComponent)
   },
 
-  // 🔐 PROTECTED MUSIC PAGE (UPDATED)
   {
     path: 'music',
     loadComponent: () =>

@@ -7,7 +7,7 @@ describe('SetRbtComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SetRbtComponent]   // ✅ FIX HERE
+      imports: [SetRbtComponent]   
     }).compileComponents();
 
     fixture = TestBed.createComponent(SetRbtComponent);

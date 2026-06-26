@@ -1,11 +1,8 @@
 <div class="app">
 
-  <!-- HEADER -->
   <div class="header">
 
     <h2>🎵 RBT Portal</h2>
-
-    <!-- PROFILE ICON -->
     <div class="profile-section" (click)="toggleProfileMenu()">
       <mat-icon>person</mat-icon>
     </div>
@@ -65,28 +62,34 @@
 
       <div class="songs-grid">
 
-        <div class="song-card" *ngFor="let s of $any(cat.value)">
+  <div class="song-card" *ngFor="let s of $any(cat.value); let i = index">
 
-          <div class="song-left">
+    <div class="song-left">
 
-            <div class="icon-box">
-              <mat-icon (click)="openPlayer(s)">play_arrow</mat-icon>
-            </div>
-
-            <div class="info">
-              <h3>{{ s.toneName }}</h3>
-              <p>{{ s.artistName }}</p>
-            </div>
-
-          </div>
-
-          <button (click)="openPlayer(s)">
-            SET RBT
-          </button>
-
-        </div>
-
+      <div class="icon-box">
+       <mat-icon
+  [style.color]="getIconColor(i)"
+  (click)="openPlayer(s)">
+  {{ getSongIcon(i) }}
+</mat-icon>
       </div>
+
+      <div class="info">
+        <h3>{{ s.toneName }}</h3>
+        <p>{{ s.artistName }}</p>
+      </div>
+
+    </div>
+
+    <button (click)="openPlayer(s)">
+      SET RBT
+    </button>
+
+  </div>
+
+</div>
+
+      
     </div>
 
   </div>
