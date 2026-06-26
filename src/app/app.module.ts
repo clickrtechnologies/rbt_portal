@@ -8,14 +8,12 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { HttpClientModule } from '@angular/common/http';
-
-// ✅ ADD THIS IMPORT
 import { SetRbtComponent } from './Features/set-rbt/set-rbt.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SetRbtComponent   // ✅ ADD HERE
+    SetRbtComponent   
   ],
 
   imports: [

@@ -52,11 +52,7 @@ logout() {
   this.showProfileMenu = false;
   localStorage.clear();
     this.router.navigate(['/login']);
-
 }
-
-
-
  @ViewChild('audioPlayer') audioPlayer!: ElementRef<HTMLAudioElement>;
 
 isPlaying = false;
@@ -109,7 +105,7 @@ checkExistingUser() {
         this.userType = 'EXISTING';
 
         // default fallback
-        let toneName = 'Existing Tone';
+        let toneName = '';
 
         for (let category in this.groupedSongs) {
 
@@ -118,16 +114,14 @@ checkExistingUser() {
           );
 
           if (song) {
-            toneName = song.name || song.toneName;
+            toneName = song.tonename || song.name;
             break;
           }
-        }
-
-        this.existingRbt = {
-          name: toneName,
+        }this.existingRbt = {
+          name: toneName || 'No RBT Selected',
           plan: data.packName || 'Monthly',
           validity: '30 Days Left'
-        };
+};
 
       } else {
         this.isExistingUser = false;

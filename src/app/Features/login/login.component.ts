@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
+import { UserService } from '../../services/user.service'; 
 
 @Component({
   selector: 'app-login',
@@ -12,8 +13,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-
-  // ================= VARIABLES =================
   mobileNumber: string = '';
 
   otp1: string = '';
@@ -30,9 +29,11 @@ export class LoginComponent {
   canResendOtp = false;
   resendTimer = 30;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private userService: UserService
+  ) {}
 
-  // ================= MOBILE VALIDATION =================
   allowOnlyNumbers(event: KeyboardEvent) {
     const key = event.key;
 
@@ -56,7 +57,6 @@ export class LoginComponent {
     this.mobileNumber = input.value.replace(/[^0-9]/g, '');
   }
 
-  // ================= OTP INPUT =================
   moveNext(event: any, nextInput: any, box: string) {
 
     const value = event.target.value.replace(/[^0-9]/g, '');
@@ -81,7 +81,6 @@ export class LoginComponent {
     }
   }
 
-  // ================= SEND OTP =================
   sendOtp() {
 
     if (!this.mobileNumber) return;
@@ -93,7 +92,6 @@ export class LoginComponent {
     this.startResendTimer();
   }
 
-  // ================= VERIFY OTP =================
   verifyOtp() {
 
     if (this.otpRetryCount >= this.maxOtpRetry) {
@@ -101,8 +99,6 @@ export class LoginComponent {
       return;
     }
 
-    localStorage.setItem('auth', 'true');
-this.router.navigate(['/music']);
     const enteredOtp =
       this.otp1 + this.otp2 + this.otp3 + this.otp4;
 
@@ -114,19 +110,33 @@ this.router.navigate(['/music']);
     if (enteredOtp === this.generatedOtp) {
 
       alert("OTP Verified Successfully");
+      this.userService.login(Number(this.mobileNumber))
+        .subscribe({
 
-    
-      localStorage.setItem('auth', 'true');
+          next: (res: any) => {
 
-      this.router.navigate(['/music'], {
-        state: { msisdn: this.mobileNumber }
-      });
+            console.log("Login API Success:", res);
+
+            localStorage.setItem('auth', 'true');
+
+            this.router.navigate(['/music'], {
+              state: { msisdn: this.mobileNumber }
+            });
+          },
+
+          error: (err: any) => {
+            console.log("Login API Error:", err);
+            alert("Login API Failed");
+          }
+
+        });
 
     } else {
       this.otpRetryCount++;
       alert("Invalid OTP");
     }
   }
+
   startResendTimer() {
 
     this.canResendOtp = false;
