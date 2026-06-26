@@ -123,7 +123,8 @@ checkExistingUser() {
   this.rbtService.getUser(Number(this.msisdn)).subscribe({
     next: (data: any) => {
 
-      console.log("Existing User:", data);
+      console.log("========== EXISTING USER API ==========");
+      console.log("Existing User Response =", data);
 
       if (data && Object.keys(data).length > 0) {
 
@@ -132,23 +133,58 @@ checkExistingUser() {
 
         let toneName = '';
 
+        console.log("Backend user data =", data);
+        console.log("Grouped songs =", this.groupedSongs);
+
+        console.log("Backend toneCode =", data.toneCode);
+
         for (let category in this.groupedSongs) {
 
+          console.log("Checking category =", category);
+
           const song = this.groupedSongs[category].find(
-            (s: any) => s.toneCode === data.toneCode
+            (s: any) => {
+
+            
+              console.log("Song object =", s);
+
+            
+              console.log("Song toneCode =", s.toneCode);
+              console.log("Song tone_code =", s.tone_code);
+              console.log("Song code =", s.code);
+
+            
+              return (
+                String(s.toneCode) === String(data.toneCode) ||
+                String(s.tone_code) === String(data.toneCode) ||
+                String(s.code) === String(data.toneCode)
+              );
+            }
           );
 
+          console.log("Matched song =", song);
+
           if (song) {
-            toneName = song.tonename || song.name;
+            toneName =
+              song.toneName ||
+              song.tonename ||
+              song.name ||
+              'No RBT Selected';
+
             break;
           }
-        }this.existingRbt = {
+        }
+
+        this.existingRbt = {
           name: toneName || 'No RBT Selected',
           plan: data.packName || 'Monthly',
           validity: '30 Days Left'
-};
+        };
+
+        console.log("Final existingRbt =", this.existingRbt);
 
       } else {
+
         this.isExistingUser = false;
         this.userType = 'NEW';
         this.existingRbt = null;
@@ -157,12 +193,18 @@ checkExistingUser() {
 
     error: (err: any) => {
       console.log("API Error:", err);
+
       this.isExistingUser = false;
-       this.userType = 'NEW';
+      this.userType = 'NEW';
       this.existingRbt = null;
     }
   });
 }
+
+
+
+
+  
 
 groupByCategory(data: any[]) {
   return data.reduce((acc: any, song: any) => {
@@ -382,7 +424,6 @@ getCategoryClass(category: string): string {
   }
 
  activateRbt() {
-
   if (this.userType === 'NEW' && !this.selectedPlan) {
     alert("Select plan first");
     return;
