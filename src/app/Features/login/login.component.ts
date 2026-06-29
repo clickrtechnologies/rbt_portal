@@ -84,8 +84,7 @@ export class LoginComponent {
 
   sendOtp() {
 
-  if (!/^6\d{6}$/.test(this.mobileNumber)) {
-    alert("Mobile number must be 7 digits and start with 6");
+  if (!this.mobileNumber) {
     return;
   }
 
@@ -148,9 +147,6 @@ verifyOtp() {
   }
 }
     
-
-    
-     
   startResendTimer() {
 
     this.canResendOtp = false;
