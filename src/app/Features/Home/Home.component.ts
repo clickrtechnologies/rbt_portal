@@ -98,7 +98,6 @@ ngOnInit() {
 
   this.fetchToneCatalog();
 }
-
 activeRbt: any;
 
 fetchToneCatalog() {
@@ -120,7 +119,6 @@ fetchToneCatalog() {
     }
   });
 }
-
 checkExistingUser() {
   this.rbtService.getUser(Number(this.msisdn)).subscribe({
     next: (data: any) => {
@@ -179,10 +177,8 @@ checkExistingUser() {
     }
   });
 }
-
-        
-    
-         
+     
+      
 groupByCategory(data: any[]) {
   return data.reduce((acc: any, song: any) => {
     const category = song.category || 'OTHER';
