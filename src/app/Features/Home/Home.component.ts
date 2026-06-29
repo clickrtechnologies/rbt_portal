@@ -104,7 +104,7 @@ activeRbt: any;
 fetchToneCatalog() {
   this.rbtService.getToneCatalog().subscribe({
     next: (data: any) => {
-      console.log("Backend data:", data);
+      //console.log("Backend data:", data);
 
       this.groupedSongs = this.groupByCategory(data);
 
@@ -114,7 +114,7 @@ fetchToneCatalog() {
     },
 
     error: (err: any) => {
-      console.log(err);
+       alert("Failed to load songs");
     }
   });
 }
@@ -123,8 +123,8 @@ checkExistingUser() {
   this.rbtService.getUser(Number(this.msisdn)).subscribe({
     next: (data: any) => {
 
-      console.log("========== EXISTING USER API ==========");
-      console.log("Existing User Response =", data);
+      //console.log("========== EXISTING USER API ==========");
+      //console.log("Existing User Response =", data);
 
       if (data && Object.keys(data).length > 0) {
 
@@ -133,25 +133,25 @@ checkExistingUser() {
 
         let toneName = '';
 
-        console.log("Backend user data =", data);
-        console.log("Grouped songs =", this.groupedSongs);
+       // console.log("Backend user data =", data);
+        //console.log("Grouped songs =", this.groupedSongs);
 
-        console.log("Backend toneCode =", data.toneCode);
+        //console.log("Backend toneCode =", data.toneCode);
 
         for (let category in this.groupedSongs) {
 
-          console.log("Checking category =", category);
+          //console.log("Checking category =", category);
 
           const song = this.groupedSongs[category].find(
             (s: any) => {
 
             
-              console.log("Song object =", s);
+           //   console.log("Song object =", s);
 
             
-              console.log("Song toneCode =", s.toneCode);
-              console.log("Song tone_code =", s.tone_code);
-              console.log("Song code =", s.code);
+             // console.log("Song toneCode =", s.toneCode);
+              //console.log("Song tone_code =", s.tone_code);
+              //console.log("Song code =", s.code);
 
             
               return (
@@ -162,7 +162,7 @@ checkExistingUser() {
             }
           );
 
-          console.log("Matched song =", song);
+          //console.log("Matched song =", song);
 
           if (song) {
             toneName =
@@ -181,7 +181,7 @@ checkExistingUser() {
           validity: '30 Days Left'
         };
 
-        console.log("Final existingRbt =", this.existingRbt);
+       // console.log("Final existingRbt =", this.existingRbt);
 
       } else {
 
@@ -192,7 +192,7 @@ checkExistingUser() {
     },
 
     error: (err: any) => {
-      console.log("API Error:", err);
+     // console.log("API Error:", err);
 
       this.isExistingUser = false;
       this.userType = 'NEW';
@@ -223,7 +223,7 @@ searchTone() {
   this.rbtService.searchTone(this.searchKeyword).subscribe({
     next: (data: any) => {
 
-      console.log("Search Result:", data);
+     // console.log("Search Result:", data);
 
       this.groupedSongs = this.groupByCategory(data);
     },
@@ -410,7 +410,7 @@ getCategoryClass(category: string): string {
   }
 
   openRbtFlow(song: any) {
-     console.log("Selected Song:", song);
+    // console.log("Selected Song:", song);
     this.selectedSong = song;
     this.showPopup = true;
     this.selectedPlan = '';
@@ -429,16 +429,16 @@ getCategoryClass(category: string): string {
     packName: this.userType === 'NEW' ? this.selectedPlan : this.existingRbt?.plan
   };
 
-  console.log("User Type =", this.userType);
-    console.log("Activate payload =", payload);
-  console.log("Sending payload:", payload);
+ // console.log("User Type =", this.userType);
+   // console.log("Activate payload =", payload);
+  //console.log("Sending payload:", payload);
 
   this.rbtService.activateRbt(payload).subscribe({
 
     
     next: (res: any) => {
 
-    console.log("RBT Activated:", res);
+   // console.log("RBT Activated:", res);
       this.showPopup = false;
       this.isSuccess = true;
 
@@ -461,14 +461,14 @@ this.popupMessage = this.userType === 'EXISTING'
     },
 
     error: (err: any) => {
-      console.log(err);
+      //console.log(err);
       alert("API Error while activating RBT");
     }
 
   });
 }
 openPlayer(song: any) {
-  console.log("Song object =", song);
+  //console.log("Song object =", song);
 
   this.selectedSong = song;
   this.openRbtFlow(song);
@@ -482,11 +482,11 @@ openPlayer(song: any) {
 
   audio.play()
     .then(() => {
-      console.log("Audio playing automatically");
+     // console.log("Audio playing automatically");
       this.isPlaying = true;
     })
     .catch((err) => {
-      console.log("Autoplay blocked:", err);
+      //console.log("Autoplay blocked:", err);
     });
 
   audio.onpause = () => this.isPlaying = false;
@@ -501,17 +501,17 @@ openPlayer(song: any) {
 
  togglePlay() {
 
-  console.log("PLAY BUTTON CLICKED");
+ // console.log("PLAY BUTTON CLICKED");
 
   const audio: HTMLAudioElement = this.audioPlayer?.nativeElement;
 
   if (!audio) {
-    console.log("Audio element not found");
+   // console.log("Audio element not found");
     return;
   }
 
   if (!this.selectedSong?.toneUrl) {
-    console.log("No toneUrl found");
+   // console.log("No toneUrl found");
     return;
   }
 
@@ -522,16 +522,16 @@ openPlayer(song: any) {
   if (this.isPlaying) {
     audio.pause();
     this.isPlaying = false;
-    console.log("Audio paused");
+   // console.log("Audio paused");
   } else {
 
     audio.play()
       .then(() => {
         this.isPlaying = true;
-        console.log("Audio started successfully");
+       // console.log("Audio started successfully");
       })
       .catch((err) => {
-        console.log("Play error =", err);
+       // console.log("Play error =", err);
       });
   }
 }
