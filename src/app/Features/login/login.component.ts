@@ -95,55 +95,62 @@ export class LoginComponent {
   alert("OTP Sent Successfully");
   this.startResendTimer();
 }
-  verifyOtp() {
+  
+verifyOtp() {
 
-    if (this.otpRetryCount >= this.maxOtpRetry) {
-      alert("Maximum OTP attempts exceeded");
-      return;
-    }
-
-    const enteredOtp =
-      this.otp1 + this.otp2 + this.otp3 + this.otp4;
-
-    if (enteredOtp.length < 4) {
-      alert("Enter complete OTP");
-      return;
-    }
-
-    if (enteredOtp === this.generatedOtp) {
-
-      alert("OTP Verified Successfully");
-      const payload ={
-        mobileNumber: Number(this.mobileNumber),
-        countryCode:this.countryCode
-      };
-
-      this.userService.login(payload)
-        .subscribe({
-
-          next: (res: any) => {
-
-            localStorage.setItem('auth', 'true');
-
-         const finalMsisdn =
-         this.countryCode.replace('+', '') + this.mobileNumber;
-         this.router.navigate(['/music'], {
-          state: { msisdn: finalMsisdn }
-           });
-          },
-
-          error: (err: any) => {
-            alert("Login API Failed");
-          }
-
-        });
-
-    } else {
-      this.otpRetryCount++;
-      alert("Invalid OTP");
-    }
+  if (this.otpRetryCount >= this.maxOtpRetry) {
+    alert("Maximum OTP attempts exceeded");
+    return;
   }
 
+  const enteredOtp =
+    this.otp1 + this.otp2 + this.otp3 + this.otp4;
+
+  if (enteredOtp.length < 4) {
+    alert("Enter complete OTP");
+    return;
+  }
+
+  if (enteredOtp === this.generatedOtp) {
+
+    alert("OTP Verified Successfully");
+
+    const payload = {
+      mobileNumber: Number(this.mobileNumber),
+      countryCode: this.countryCode
+    };
+
+    this.userService.login(payload)
+      .subscribe({
+
+        next: (res: any) => {
+
+          localStorage.setItem('auth', 'true');
+
+          const finalMsisdn =
+            this.countryCode.replace('+', '') + this.mobileNumber;
+
+          this.router.navigate(['/music'], {
+            state: { msisdn: finalMsisdn }
+          });
+        },
+
+        error: (err: any) => {
+          alert("Login API Failed");
+        }
+
+      });
+
+  } else {
+
+    this.otpRetryCount++;
+    alert("Invalid OTP");
+  }
+}
+    
+
+    
+     
   startResendTimer() {
 
     this.canResendOtp = false;
