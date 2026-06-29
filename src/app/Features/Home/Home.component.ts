@@ -424,11 +424,13 @@ getCategoryClass(category: string): string {
   const payload = {
     msisdn: this.msisdn,
     toneCode: this.selectedSong.toneCode,
-    packName: this.userType === 'NEW' ? this.selectedPlan : this.existingRbt?.plan
+    packName: this.userType === 'NEW' 
+    ? this.selectedPlan
+     : this.existingRbt?.plan
   };
 
  // console.log("User Type =", this.userType);
-   // console.log("Activate payload =", payload);
+    console.log("Activate payload =", payload);
   //console.log("Sending payload:", payload);
 
   this.rbtService.activateRbt(payload).subscribe({
