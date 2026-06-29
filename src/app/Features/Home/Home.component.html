@@ -29,7 +29,7 @@
 <div class="existing-box" *ngIf="userType === 'EXISTING'">
   <h3>Your Active RBT</h3>
   <p><b>RBT:</b> {{ existingRbt?.name || 'NO RBT Selected' }}</p>
-  <p><b>Plan:</b> {{ getPlanName(existingRbt?.plan) }}</p>
+  <p><b>Plan:</b> {{ existingRbt?.plan }}</p>
 </div>
     <div class="search-bar">
       <mat-icon>search</mat-icon>

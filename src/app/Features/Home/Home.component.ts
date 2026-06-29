@@ -108,6 +108,7 @@ fetchToneCatalog() {
 
       this.groupedSongs = this.groupByCategory(data);
 
+      console.log("MSISDN sent =", this.msisdn);
       if (this.msisdn) {
         this.checkExistingUser();
         console.log("Current MSISDN =", this.msisdn);
@@ -124,7 +125,6 @@ checkExistingUser() {
   this.rbtService.getUser(Number(this.msisdn)).subscribe({
     next: (data: any) => {
 
-      //console.log("========== EXISTING USER API ==========");
       console.log("Existing User Response =", data);
 
       if (data && Object.keys(data).length > 0) {
@@ -132,57 +132,34 @@ checkExistingUser() {
         this.isExistingUser = true;
         this.userType = 'EXISTING';
 
-        let toneName = '';
+        let toneName = 'Active RBT Found';
 
-       // console.log("Backend user data =", data);
-        //console.log("Grouped songs =", this.groupedSongs);
-
-        //console.log("Backend toneCode =", data.toneCode);
-
+        // try matching song from catalogue
         for (let category in this.groupedSongs) {
 
-          //console.log("Checking category =", category);
-
           const song = this.groupedSongs[category].find(
-            (s: any) => {
-
-            
-           //   console.log("Song object =", s);
-
-            
-             // console.log("Song toneCode =", s.toneCode);
-              //console.log("Song tone_code =", s.tone_code);
-              //console.log("Song code =", s.code);
-
-            
-              return (
-  String(s.toneCode).trim() === String(data.toneCode).trim() ||
-  String(s.tone_code).trim() === String(data.toneCode).trim() ||
-  String(s.code).trim() === String(data.toneCode).trim()
-);
-            }
+            (s: any) =>
+              String(s.toneCode) === String(data.toneCode) ||
+              String(s.tone_code) === String(data.toneCode) ||
+              String(s.code) === String(data.toneCode)
           );
-
-          //console.log("Matched song =", song);
 
           if (song) {
             toneName =
               song.toneName ||
               song.tonename ||
               song.name ||
-              'No RBT Selected';
-
+              'Active RBT Found';
             break;
           }
         }
 
+        // ALWAYS SET existingRbt
         this.existingRbt = {
-         name: toneName || 'No RBT Selected',
-  plan: this.getPlanName(data.packName),
-  validity: '30 Days Left'
-};
-  
-       // console.log("Final existingRbt =", this.existingRbt);
+          name: toneName,
+          plan: data.packName || 'TSUBM',
+          validity: '30 Days Left'
+        };
 
       } else {
 
@@ -193,7 +170,8 @@ checkExistingUser() {
     },
 
     error: (err: any) => {
-     // console.log("API Error:", err);
+
+      console.log("Get User API Error =", err);
 
       this.isExistingUser = false;
       this.userType = 'NEW';
@@ -201,6 +179,10 @@ checkExistingUser() {
     }
   });
 }
+
+        
+    
+         
 groupByCategory(data: any[]) {
   return data.reduce((acc: any, song: any) => {
     const category = song.category || 'OTHER';
