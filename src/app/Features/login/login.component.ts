@@ -84,15 +84,17 @@ export class LoginComponent {
 
   sendOtp() {
 
-    if (!this.mobileNumber) return;
-
-    this.generatedOtp = "1234";
-    this.otpSent = true;
-
-    alert("OTP Sent Successfully");
-    this.startResendTimer();
+  if (!/^6\d{6}$/.test(this.mobileNumber)) {
+    alert("Mobile number must be 7 digits and start with 6");
+    return;
   }
 
+  this.generatedOtp = "1234";
+  this.otpSent = true;
+
+  alert("OTP Sent Successfully");
+  this.startResendTimer();
+}
   verifyOtp() {
 
     if (this.otpRetryCount >= this.maxOtpRetry) {
