@@ -129,6 +129,8 @@ verifyOtp() {
           const finalMsisdn =
             this.countryCode.replace('+', '') + this.mobileNumber;
 
+localStorage.setItem("msisdn", finalMsisdn);
+
           this.router.navigate(['/music'], {
             state: { msisdn: finalMsisdn }
           });

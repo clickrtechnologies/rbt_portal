@@ -88,13 +88,13 @@ currentTime = '0:00';
 duration = '0:00';
 
   waveBars = Array(30).fill(0);
-
 ngOnInit() {
   const navData = history.state || {};
 
-  if (navData?.msisdn) {
-    this.msisdn = navData.msisdn;
-  }
+  this.msisdn =
+    navData?.msisdn ||
+    localStorage.getItem('msisdn') ||
+    '';
 
   this.fetchToneCatalog();
 }
@@ -110,6 +110,7 @@ fetchToneCatalog() {
 
       if (this.msisdn) {
         this.checkExistingUser();
+        console.log("Current MSISDN =", this.msisdn);
       }
     },
 
@@ -124,7 +125,7 @@ checkExistingUser() {
     next: (data: any) => {
 
       //console.log("========== EXISTING USER API ==========");
-      //console.log("Existing User Response =", data);
+      console.log("Existing User Response =", data);
 
       if (data && Object.keys(data).length > 0) {
 
@@ -155,10 +156,10 @@ checkExistingUser() {
 
             
               return (
-                String(s.toneCode) === String(data.toneCode) ||
-                String(s.tone_code) === String(data.toneCode) ||
-                String(s.code) === String(data.toneCode)
-              );
+  String(s.toneCode).trim() === String(data.toneCode).trim() ||
+  String(s.tone_code).trim() === String(data.toneCode).trim() ||
+  String(s.code).trim() === String(data.toneCode).trim()
+);
             }
           );
 
@@ -176,11 +177,11 @@ checkExistingUser() {
         }
 
         this.existingRbt = {
-          name: toneName || 'No RBT Selected',
-          plan: data.packName || 'Monthly',
-          validity: '30 Days Left'
-        };
-
+         name: toneName || 'No RBT Selected',
+  plan: this.getPlanName(data.packName),
+  validity: '30 Days Left'
+};
+  
        // console.log("Final existingRbt =", this.existingRbt);
 
       } else {
@@ -438,30 +439,31 @@ getCategoryClass(category: string): string {
     
     next: (res: any) => {
 
-   // console.log("RBT Activated:", res);
-      this.showPopup = false;
-      this.isSuccess = true;
+  const wasExistingUser = this.userType === 'EXISTING';
+
+  this.showPopup = false;
+  this.isSuccess = true;
 
   this.isExistingUser = true;
   this.userType = 'EXISTING';
 
   this.existingRbt = {
-    name: this.selectedSong.toneName, 
+    name: this.selectedSong.toneName,
     plan: this.selectedPlan || this.existingRbt?.plan || '',
-     validity: '30 Days Left'
+    validity: '30 Days Left'
   };
 
-this.popupMessage = this.userType === 'EXISTING'
-  ? 'RBT Changed Successfully'
-  : `RBT Activated (${this.selectedPlan})`;
+  this.popupMessage = wasExistingUser
+    ? 'RBT Changed Successfully'
+    : `RBT Activated (${this.selectedPlan})`;
 
-      setTimeout(() => {
-        this.isSuccess = false;
-      }, 2000);
-    },
+  setTimeout(() => {
+    this.isSuccess = false;
+  }, 2000);
+},
 
     error: (err: any) => {
-      //console.log(err);
+      console.log(err);
       alert("API Error while activating RBT");
     }
 
