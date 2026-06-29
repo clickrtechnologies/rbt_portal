@@ -12,10 +12,10 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  login(msisdn: number): Observable<any> {
-    return this.http.post(
-      `${this.apiUrl}/api/user/login`,
-      { msisdn: msisdn }
-    );
-  }
+  login(data: any): Observable<any> {
+  return this.http.post(
+    `${this.apiUrl}/api/user/login`,
+    data
+  );
+}
 }

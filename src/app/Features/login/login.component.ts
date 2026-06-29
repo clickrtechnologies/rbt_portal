@@ -14,6 +14,7 @@ import { UserService } from '../../services/user.service';
 })
 export class LoginComponent {
   mobileNumber: string = '';
+  countryCode: string = '+227';
 
   otp1: string = '';
   otp2: string = '';
@@ -110,22 +111,26 @@ export class LoginComponent {
     if (enteredOtp === this.generatedOtp) {
 
       alert("OTP Verified Successfully");
-      this.userService.login(Number(this.mobileNumber))
+      const payload ={
+        mobileNumber: Number(this.mobileNumber),
+        countryCode:this.countryCode
+      };
+
+      this.userService.login(payload)
         .subscribe({
 
           next: (res: any) => {
 
-            console.log("Login API Success:", res);
-
             localStorage.setItem('auth', 'true');
 
-            this.router.navigate(['/music'], {
-              state: { msisdn: this.mobileNumber }
-            });
+         const finalMsisdn =
+         this.countryCode.replace('+', '') + this.mobileNumber;
+         this.router.navigate(['/music'], {
+          state: { msisdn: finalMsisdn }
+           });
           },
 
           error: (err: any) => {
-            console.log("Login API Error:", err);
             alert("Login API Failed");
           }
 

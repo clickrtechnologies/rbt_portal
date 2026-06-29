@@ -200,12 +200,6 @@ checkExistingUser() {
     }
   });
 }
-
-
-
-
-  
-
 groupByCategory(data: any[]) {
   return data.reduce((acc: any, song: any) => {
     const category = song.category || 'OTHER';
@@ -521,7 +515,6 @@ openPlayer(song: any) {
     return;
   }
 
-  // Set src ONLY if different song
   if (audio.src !== this.selectedSong.toneUrl) {
     audio.src = this.selectedSong.toneUrl;
   }
