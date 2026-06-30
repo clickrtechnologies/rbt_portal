@@ -30,6 +30,21 @@ export class RbtService {
     );
   }
 
+login(data: any): Observable<any> {
+  return this.http.post(
+    `${this.apiUrl}/api/user/login`,
+    data
+  );
+}
+
+sendOtp(data: any): Observable<any> {
+  return this.http.post(
+    `${this.apiUrl}/api/user/send-otp`,
+    data
+  );
+}
+ 
+
   getToneCatalog(): Observable<any> {
     return this.http.get(
       `${this.apiUrl}/api/tone-catalogue`

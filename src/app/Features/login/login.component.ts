@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
-import { UserService } from '../../services/user.service'; 
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -59,7 +59,6 @@ export class LoginComponent {
   }
 
   moveNext(event: any, nextInput: any, box: string) {
-
     const value = event.target.value.replace(/[^0-9]/g, '');
 
     switch (box) {
@@ -84,71 +83,96 @@ export class LoginComponent {
 
   sendOtp() {
 
-  if (!this.mobileNumber) {
-    return;
-  }
+    if (!this.mobileNumber) {
+      return;
+    }
 
-  this.generatedOtp = "1234";
-  this.otpSent = true;
-
-  alert("OTP Sent Successfully");
-  this.startResendTimer();
-}
-  
-verifyOtp() {
-
-  if (this.otpRetryCount >= this.maxOtpRetry) {
-    alert("Maximum OTP attempts exceeded");
-    return;
-  }
-
-  const enteredOtp =
-    this.otp1 + this.otp2 + this.otp3 + this.otp4;
-
-  if (enteredOtp.length < 4) {
-    alert("Enter complete OTP");
-    return;
-  }
-
-  if (enteredOtp === this.generatedOtp) {
-
-    alert("OTP Verified Successfully");
-
-    const payload = {
+    const loginPayload = {
       mobileNumber: Number(this.mobileNumber),
       countryCode: this.countryCode
     };
 
-    this.userService.login(payload)
-      .subscribe({
+    this.userService.login(loginPayload).subscribe({
 
-        next: (res: any) => {
+      next: (loginRes: any) => {
 
-          localStorage.setItem('auth', 'true');
+        const msisdn =
+          Number(this.countryCode.replace('+', '') + this.mobileNumber);
 
-          const finalMsisdn =
-            this.countryCode.replace('+', '') + this.mobileNumber;
+        const otpPayload = {
+          msisdn: msisdn
+        };
 
-localStorage.setItem("msisdn", finalMsisdn);
+        this.userService.sendOtp(otpPayload).subscribe({
 
-          this.router.navigate(['/music'], {
-            state: { msisdn: finalMsisdn }
-          });
-        },
+          next: (otpRes: any) => {
 
-        error: (err: any) => {
-          alert("Login API Failed");
-        }
+            console.log("OTP Response", otpRes);
 
+    
+            this.generatedOtp = otpRes.otp.toString();
+
+            this.otpSent = true;
+
+            alert(otpRes.message);
+
+            this.startResendTimer();
+          },
+
+          error: (err: any) => {
+            alert("Send OTP API Failed");
+            console.log(err);
+          }
+
+        });
+      },
+
+      error: (err: any) => {
+        alert("Login API Failed");
+        console.log(err);
+      }
+
+    });
+  }
+
+  verifyOtp() {
+
+    if (this.otpRetryCount >= this.maxOtpRetry) {
+      alert("Maximum OTP attempts exceeded");
+      return;
+    }
+
+    const enteredOtp =
+      this.otp1 + this.otp2 + this.otp3 + this.otp4;
+
+    if (enteredOtp.length < 4) {
+      alert("Enter complete OTP");
+      return;
+    }
+
+    // compare backend OTP
+    if (enteredOtp === this.generatedOtp) {
+
+      alert("OTP Verified Successfully");
+
+      localStorage.setItem('auth', 'true');
+
+      const finalMsisdn =
+        this.countryCode.replace('+', '') + this.mobileNumber;
+
+      localStorage.setItem("msisdn", finalMsisdn);
+
+      this.router.navigate(['/music'], {
+        state: { msisdn: finalMsisdn }
       });
 
-  } else {
+    } else {
 
-    this.otpRetryCount++;
-    alert("Invalid OTP");
+      this.otpRetryCount++;
+      alert("Invalid OTP");
+    }
   }
-}
-    
+
   startResendTimer() {
 
     this.canResendOtp = false;
@@ -171,16 +195,13 @@ localStorage.setItem("msisdn", finalMsisdn);
       return;
     }
 
-    this.generatedOtp = "1234";
-
-    alert("OTP Resent");
+    // call sendOtp again
+    this.sendOtp();
 
     this.otp1 = '';
     this.otp2 = '';
     this.otp3 = '';
     this.otp4 = '';
-
-    this.startResendTimer();
   }
 
   editNumber() {

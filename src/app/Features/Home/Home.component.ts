@@ -116,6 +116,7 @@ fetchToneCatalog() {
 
 checkExistingUser() {
   this.rbtService.getUser(Number(this.msisdn)).subscribe({
+
     next: (data: any) => {
 
       console.log("API RESPONSE =", data);
@@ -123,19 +124,18 @@ checkExistingUser() {
 
       if (data && data.msisdn) {
 
-        //console.log("EXISTING USER FOUND");
-
         this.isExistingUser = true;
         this.userType = 'EXISTING';
 
         let toneName = '';
 
         for (let category in this.groupedSongs) {
-          const song = this.groupedSongs[category].find(
-            (s: any) =>
-              String(s.toneCode) === String(data.toneCode) ||
-              String(s.tone_code) === String(data.toneCode)
-          );
+
+          const song =
+            this.groupedSongs[category].find(
+              (s: any) =>
+                String(s.toneCode) === String(data.toneCode)
+            );
 
           if (song) {
             toneName = song.toneName;
@@ -145,24 +145,33 @@ checkExistingUser() {
 
         this.existingRbt = {
           name: toneName || 'Active RBT Found',
-          plan: data.packName,
+          plan: data.packName || 'TSUBM',
           validity: '30 Days Left'
         };
 
-        console.log("USER TYPE =", this.userType);
-        console.log("EXISTING RBT =", this.existingRbt);
+        console.log("Existing user loaded");
 
-      } else {
-
-        console.log("NEW USER");
+      }
+      else {
 
         this.isExistingUser = false;
         this.userType = 'NEW';
         this.existingRbt = null;
       }
+    },
+
+    error: (err: any) => {
+
+      console.log("API ERROR =", err);
+
+      this.isExistingUser = false;
+      this.userType = 'NEW';
+      this.existingRbt = null;
     }
   });
 }
+
+
 
 groupByCategory(data: any[]) {
   return data.reduce((acc: any, song: any) => {

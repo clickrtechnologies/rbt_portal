@@ -18,4 +18,13 @@ export class UserService {
     data
   );
 }
+
+sendOtp(data: any): Observable<any> {
+  return this.http.post(
+    `${this.apiUrl}/api/user/send-otp`,
+    data
+  );
+}
+
+
 }
