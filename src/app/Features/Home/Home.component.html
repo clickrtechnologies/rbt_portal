@@ -26,10 +26,10 @@
       <p class="highlight"><mat-icon>flash_on</mat-icon> Easy Activation</p>
     </div>
 
-       <div class="existing-box" *ngIf="existingRbt">
+       <div class="existing-box" *ngIf="isExistingUser && existingRbt">
   <h3>Your Active RBT</h3>
-  <p><b>RBT:</b> {{ existingRbt?.name }}</p>
-  <p><b>Plan:</b> {{ getPlanName(existingRbt?.plan) }}</p>
+  <p><b>RBT:</b> {{ existingRbt.name }}</p>
+  <p><b>Plan:</b> {{ getPlanName(existingRbt.plan) }}</p>
 </div>
     <div class="search-bar">
       <mat-icon>search</mat-icon>
@@ -171,7 +171,7 @@
         <p>📅 Validity: <b>30 Days</b></p>
       </div>
 
-      <div *ngIf="userType === 'NEW'">
+      <div *ngIf="!isExistingUser">
 
         <label>Select Plan</label>
 

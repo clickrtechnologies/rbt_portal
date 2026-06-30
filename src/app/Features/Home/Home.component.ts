@@ -25,7 +25,6 @@ userType: 'NEW' | 'EXISTING' = 'NEW';
   showPopup: boolean = false;
   showProfileMenu = false;
 showLogoutPopup = false;
-
   isSuccess: boolean = false;
   popupMessage: string = '';
 
@@ -42,7 +41,6 @@ goToManageAccount() {
     }
   );
 }
-
 songIcons: string[] = [
   'music_note',
   'queue_music',
@@ -51,12 +49,9 @@ songIcons: string[] = [
   'library_music',
   'headphones'
 ];
-
 getSongIcon(index: number): string {
   return this.songIcons[index % this.songIcons.length];
 }
-
-
 iconColors: string[] = [
   '#e91e63',   
   '#ff9800',   
@@ -75,7 +70,6 @@ toggleProfileMenu() {
 }
 
 logout() {
-
   this.showProfileMenu = false;
   localStorage.clear();
     this.router.navigate(['/login']);
@@ -95,7 +89,7 @@ ngOnInit() {
     navData?.msisdn ||
     localStorage.getItem('msisdn') ||
     '';
-
+console.log("LOGIN MSISDN =", this.msisdn);
   this.fetchToneCatalog();
 }
 activeRbt: any;
@@ -119,66 +113,57 @@ fetchToneCatalog() {
     }
   });
 }
+
 checkExistingUser() {
   this.rbtService.getUser(Number(this.msisdn)).subscribe({
     next: (data: any) => {
 
-      console.log("Existing User Response =", data);
+      console.log("API RESPONSE =", data);
+      console.log("MSISDN SENT =", this.msisdn);
 
-      if (data && Object.keys(data).length > 0) {
+      if (data && data.msisdn) {
+
+        //console.log("EXISTING USER FOUND");
 
         this.isExistingUser = true;
         this.userType = 'EXISTING';
 
-        let toneName = 'Active RBT Found';
+        let toneName = '';
 
-        // try matching song from catalogue
         for (let category in this.groupedSongs) {
-
           const song = this.groupedSongs[category].find(
             (s: any) =>
               String(s.toneCode) === String(data.toneCode) ||
-              String(s.tone_code) === String(data.toneCode) ||
-              String(s.code) === String(data.toneCode)
+              String(s.tone_code) === String(data.toneCode)
           );
 
           if (song) {
-            toneName =
-              song.toneName ||
-              song.tonename ||
-              song.name ||
-              'Active RBT Found';
+            toneName = song.toneName;
             break;
           }
         }
 
-        // ALWAYS SET existingRbt
         this.existingRbt = {
-          name: toneName,
-          plan: data.packName || 'TSUBM',
+          name: toneName || 'Active RBT Found',
+          plan: data.packName,
           validity: '30 Days Left'
         };
 
+        console.log("USER TYPE =", this.userType);
+        console.log("EXISTING RBT =", this.existingRbt);
+
       } else {
+
+        console.log("NEW USER");
 
         this.isExistingUser = false;
         this.userType = 'NEW';
         this.existingRbt = null;
       }
-    },
-
-    error: (err: any) => {
-
-      console.log("Get User API Error =", err);
-
-      this.isExistingUser = false;
-      this.userType = 'NEW';
-      this.existingRbt = null;
     }
   });
 }
-     
-      
+
 groupByCategory(data: any[]) {
   return data.reduce((acc: any, song: any) => {
     const category = song.category || 'OTHER';
@@ -191,7 +176,6 @@ groupByCategory(data: any[]) {
     return acc;
   }, {});
 }
-
 searchTone() {
 
   if (!this.searchKeyword.trim()) {
@@ -401,20 +385,22 @@ getCategoryClass(category: string): string {
   }
 
   const payload = {
-    msisdn: this.msisdn,
-    toneCode: this.selectedSong.toneCode,
-    packName: this.userType === 'NEW' 
+  msisdn: this.msisdn,
+  toneCode: this.selectedSong.toneCode,
+
+  // NEW user -> selected plan
+  // EXISTING user -> always Monthly
+  packName: this.userType === 'NEW'
     ? this.selectedPlan
-     : this.existingRbt?.plan
-  };
+    : 'TSUBM'
+};
+  
 
  // console.log("User Type =", this.userType);
     console.log("Activate payload =", payload);
   //console.log("Sending payload:", payload);
 
   this.rbtService.activateRbt(payload).subscribe({
-
-    
     next: (res: any) => {
 
   const wasExistingUser = this.userType === 'EXISTING';
@@ -425,11 +411,13 @@ getCategoryClass(category: string): string {
   this.isExistingUser = true;
   this.userType = 'EXISTING';
 
-  this.existingRbt = {
-    name: this.selectedSong.toneName,
-    plan: this.selectedPlan || this.existingRbt?.plan || '',
-    validity: '30 Days Left'
-  };
+this.existingRbt = {
+  name: this.selectedSong.toneName,
+  plan: this.userType === 'EXISTING'
+    ? 'TSUBM'
+    : this.selectedPlan,
+  validity: '30 Days Left'
+};
 
   this.popupMessage = wasExistingUser
     ? 'RBT Changed Successfully'
@@ -472,8 +460,6 @@ openPlayer(song: any) {
   audio.onpause = () => this.isPlaying = false;
   audio.onended = () => this.isPlaying = false;
 }
-
-
   goToMusic() {}
   goToTopSongs() {}
   goToFavorites() {}
@@ -482,7 +468,6 @@ openPlayer(song: any) {
  togglePlay() {
 
  // console.log("PLAY BUTTON CLICKED");
-
   const audio: HTMLAudioElement = this.audioPlayer?.nativeElement;
 
   if (!audio) {
@@ -539,7 +524,6 @@ seekAudio(event: Event) {
 
   this.currentTimeInSec = value;
 }
-
 formatTime(time: number): string {
   const min = Math.floor(time / 60);
   const sec = Math.floor(time % 60);
