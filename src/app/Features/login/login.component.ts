@@ -33,7 +33,7 @@ export class LoginComponent {
   constructor(
     private router: Router,
     private userService: UserService
-  ) {}
+  ) { }
 
   allowOnlyNumbers(event: KeyboardEvent) {
     const key = event.key;
@@ -92,12 +92,12 @@ export class LoginComponent {
       countryCode: this.countryCode
     };
 
+    console.log("Login Payload =", loginPayload);
     this.userService.login(loginPayload).subscribe({
 
       next: (loginRes: any) => {
 
-        const msisdn =
-          Number(this.countryCode.replace('+', '') + this.mobileNumber);
+        const msisdn = Number(this.mobileNumber);
 
         const otpPayload = {
           msisdn: msisdn
@@ -109,7 +109,7 @@ export class LoginComponent {
 
             console.log("OTP Response", otpRes);
 
-    
+
             this.generatedOtp = otpRes.otp.toString();
 
             this.otpSent = true;
@@ -150,17 +150,18 @@ export class LoginComponent {
       return;
     }
 
-    // compare backend OTP
     if (enteredOtp === this.generatedOtp) {
 
       alert("OTP Verified Successfully");
 
       localStorage.setItem('auth', 'true');
 
-      const finalMsisdn =
-        this.countryCode.replace('+', '') + this.mobileNumber;
+      const finalMsisdn = this.mobileNumber;
 
       localStorage.setItem("msisdn", finalMsisdn);
+      localStorage.setItem("countryCode", this.countryCode.replace('+', ''));
+
+
 
       this.router.navigate(['/music'], {
         state: { msisdn: finalMsisdn }

@@ -170,9 +170,6 @@ checkExistingUser() {
     }
   });
 }
-
-
-
 groupByCategory(data: any[]) {
   return data.reduce((acc: any, song: any) => {
     const category = song.category || 'OTHER';
@@ -221,115 +218,6 @@ getPlanName(plan: string | undefined): string {
 currentTimeInSec = 0;
 durationInSec = 0;
 
-  categories = [
-    {
-      key: 'party',
-      title: 'Party Music',
-      songs: [
-        { name: 'Taki Taki', artist: 'DJ Snake', previewUrl: 'assets/audio/taki-taki.mp3' },
-        { name: 'Lean On', artist: 'Major Lazer', previewUrl: 'assets/audio/lean-on.mp3' },
-        { name: 'On My Way', artist: 'Alan Walker', previewUrl: 'assets/audio/on-my-way.mp3' },
-        { name: 'myonika', artist: 'Alan Walker', previewUrl: 'assets/audio/myonika.mp3' },
-        { name: 'Animals', artist: 'Martin Garrix', previewUrl: 'assets/audio/animals.mp3' },
-        { name: 'Despacito', artist: 'Luis Fonsi', previewUrl: 'assets/audio/despacito.mp3' }
-      ]
-    },
-    {
-      key: 'oldclassics',
-      title: 'Old Classics',
-      songs: [
-        { name: 'Lag Ja Gale', artist: 'Lata Mangeshkar' },
-        { name: 'Ek Ladki Ko Dekha', artist: 'Kumar Sanu' },
-        { name: 'Pehla Nasha', artist: 'Udit Narayan' },
-        { name: 'Chura Liya Hai Tumne', artist: 'Asha Bhosle' },
-        { name: 'O Mere Dil Ke Chain', artist: 'Kishore Kumar' },
-        { name: 'Kahin Door Jab Din Dhal Jaye', artist: 'Mukesh' }
-      ]
-    },
-    {
-      key: 'love',
-      title: 'Love Music',
-      songs: [
-        { name: 'Perfect', artist: 'Ed Sheeran' },
-        { name: 'Shape of You', artist: 'Ed Sheeran' },
-        { name: 'Tum Hi Ho', artist: 'Arijit Singh' },
-        { name: 'Raabta', artist: 'Arijit Singh' },
-        { name: 'Tera Ban Jaunga', artist: 'Akhil Sachdeva' },
-        { name: 'Humsafar', artist: 'Akhil Sachdeva' }
-      ]
-    },
-    {
-      key: 'sad',
-      title: 'Sad Songs',
-      songs: [
-        { name: 'Channa Mereya', artist: 'Arijit Singh' },
-        { name: 'Agar Tum Saath Ho', artist: 'Alka Yagnik' },
-        { name: 'Tears in Heaven', artist: 'Eric Clapton' },
-        { name: 'Bhula Dena', artist: 'Mustafa Zahid' },
-        { name: 'Phir Bhi Tumko Chaahunga', artist: 'Arijit Singh' }
-      ]
-    },
-    {
-      key: 'trending',
-      title: 'Trending Songs',
-      songs: [
-        { name: 'Calm Down', artist: 'Rema' },
-        { name: 'Jhoome Jo Pathaan', artist: 'Arijit Singh' },
-        { name: 'Apna Bana Le', artist: 'Arijit Singh' },
-        { name: 'Kesariya', artist: 'Arijit Singh' },
-        { name: 'Naatu Naatu', artist: 'RRR' },
-        { name: 'Unholy', artist: 'Sam Smith' }
-      ]
-    },
-    {
-      key: 'emotional',
-      title: 'Emotional Songs',
-      songs: [
-        { name: 'Channa Mereya', artist: 'Arijit Singh' },
-        { name: 'Agar Tum Saath Ho', artist: 'Alka Yagnik' },
-        { name: 'Tadap Tadap', artist: 'KK' },
-        { name: 'Jeene Bhi De', artist: 'Arijit Singh' },
-        { name: 'Bhula Dena', artist: 'Mustafa Zahid' },
-        { name: 'Phir Bhi Tumko Chaahunga', artist: 'Arijit Singh' }
-      ]
-    },
-    {
-      key: 'bhakti',
-      title: 'Bhakti Songs',
-      songs: [
-        { name: 'Hanuman Chalisa', artist: 'Hariharan' },
-        { name: 'Shiv Tandav Stotram', artist: 'Ravana' },
-        { name: 'Achyutam Keshavam', artist: 'Vishal Mishra' },
-        { name: 'Om Jai Jagdish Hare', artist: 'Aarti' },
-        { name: 'Jai Shree Ram', artist: 'Devotional' },
-        { name: 'Madhurashtakam', artist: 'Religious' }
-      ]
-    },
-    {
-      key: 'romantic',
-      title: 'Romantic Songs',
-      songs: [
-        { name: 'Janam Janam', artist: 'Arijit Singh' },
-        { name: 'Tera Ban Jaunga', artist: 'Akhil Sachdeva' },
-        { name: 'Tum Hi Ho', artist: 'Arijit Singh' },
-        { name: 'Perfect', artist: 'Ed Sheeran' },
-        { name: 'Raabta', artist: 'Arijit Singh' },
-        { name: 'Tera Hone Laga Hoon', artist: 'Atif Aslam' }
-      ]
-    },
-    {
-      key: 'motivational',
-      title: 'Motivational Songs',
-      songs: [
-        { name: 'Zinda', artist: 'Siddharth Mahadevan' },
-        { name: 'Lakshya', artist: 'Shankar Mahadevan' },
-        { name: 'Kar Har Maidaan Fateh', artist: 'Sukhwinder Singh' },
-        { name: 'Chak De India', artist: 'Sukhwinder Singh' },
-        { name: 'Besabriyaan', artist: 'Armaan Malik' },
-        { name: 'Aashayein', artist: 'KK' }
-      ]
-    }
-  ];
 
 getCategoryClass(category: string): string {
   switch (category) {
@@ -364,21 +252,7 @@ getCategoryClass(category: string): string {
       return 'default-category';
   }
 }
-  getIcon(title: string): string {
-    switch (title) {
-      case 'Party Music': return 'celebration';
-      case 'Love Music': return 'favorite';
-      case 'Sad Songs': return 'sentiment_dissatisfied';
-      case 'Emotional Songs': return 'mood';
-      case 'Bhakti Songs': return 'self_improvement';
-      case 'Romantic Songs': return 'favorite_border';
-      case 'Motivational Songs': return 'lightbulb';
-      case 'Old Classics': return 'history_edu';
-      case 'Trending Songs': return 'trending_up';
-      default: return 'music_note';
-    }
-  }
-
+  
   openRbtFlow(song: any) {
     // console.log("Selected Song:", song);
     this.selectedSong = song;
@@ -404,7 +278,6 @@ getCategoryClass(category: string): string {
     : 'TSUBM'
 };
   
-
  // console.log("User Type =", this.userType);
     console.log("Activate payload =", payload);
   //console.log("Sending payload:", payload);
@@ -509,7 +382,6 @@ openPlayer(song: any) {
       });
   }
 }
-
 onLoadedMetadata() {
   const audio = this.audioPlayer.nativeElement;
 
