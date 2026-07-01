@@ -52,15 +52,12 @@
   position: fixed;
 }
 
-/* profile right side */
 .profile-section {
   position: absolute;
   right: 20px;
   top:8px;
   cursor: pointer;
 }
-
-/* icon */
 .profile-icon {
   font-size: 22px;
   color: gold;
@@ -96,8 +93,6 @@
   width:20px;
 }
 
-
-/* popup */
 .profile-menu {
   position: absolute;
   top: 35px;
@@ -113,7 +108,6 @@
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
-/* logout button */
 .profile-menu button {
   width: 100%;
   background: transparent;
@@ -243,7 +237,6 @@ max-width:330px;
   color: gold;
 }
 
-/* CONTENT */
 .content {
   margin-top:0 !important;
   padding: 70px 18px 80px;
@@ -480,8 +473,6 @@ max-width:330px;
   font-size: 11px;
   opacity: 0.7;
 }
-
-/* BUTTON */
 .song-card button {
   padding: 8px 12px;
   font-size: 11px;
@@ -800,16 +791,24 @@ audio {
 
 
 .play-btn {
-  width: 30px;
-  height: 30px;
-  border-radius: 48%;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  margin:0;
 
   background: #ffd000;
   border: none;
 
-  font-size: 12px;
+  font-size: 11px;
   color: #000;
   cursor: pointer;
+
+   display: flex;          
+  justify-content: center;
+  align-items: center;  
+  
+  padding: 0;
+  line-height: 16px;
 }
 
 .audio-box,
@@ -1015,7 +1014,6 @@ audio {
   min-width: 35px;
 }
 
-/* PROFILE ICON */
 .profile-section {
   position: absolute;
   right: 15px;
@@ -1037,7 +1035,6 @@ audio {
   font-size: 20px;
 }
 
-/* DROPDOWN MENU */
 .profile-menu {
   position: fixed;
   top: 60px;
@@ -1061,7 +1058,6 @@ audio {
   font-size: 14px;
 }
 
-/* LOGOUT POPUP BACKDROP */
 .logout-popup {
   position: fixed;
   inset: 0;
@@ -1074,8 +1070,6 @@ audio {
 
   z-index: 5000;
 }
-
-/* POPUP CARD */
 .logout-card {
   background: #111;
   color: white;
