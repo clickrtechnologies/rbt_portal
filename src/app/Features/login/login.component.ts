@@ -88,7 +88,7 @@ export class LoginComponent {
     }
 
     const loginPayload = {
-      mobileNumber: Number(this.mobileNumber),
+      mobileNumber:this.mobileNumber,
       countryCode: this.countryCode
     };
 
@@ -137,42 +137,62 @@ export class LoginComponent {
 
   verifyOtp() {
 
-    if (this.otpRetryCount >= this.maxOtpRetry) {
-      alert("Maximum OTP attempts exceeded");
-      return;
-    }
-
-    const enteredOtp =
-      this.otp1 + this.otp2 + this.otp3 + this.otp4;
-
-    if (enteredOtp.length < 4) {
-      alert("Enter complete OTP");
-      return;
-    }
-
-    if (enteredOtp === this.generatedOtp) {
-
-      alert("OTP Verified Successfully");
-
-      localStorage.setItem('auth', 'true');
-
-      const finalMsisdn = this.mobileNumber;
-
-      localStorage.setItem("msisdn", finalMsisdn);
-      localStorage.setItem("countryCode", this.countryCode.replace('+', ''));
-
-
-
-      this.router.navigate(['/music'], {
-        state: { msisdn: finalMsisdn }
-      });
-
-    } else {
-
-      this.otpRetryCount++;
-      alert("Invalid OTP");
-    }
+  if (this.otpRetryCount >= this.maxOtpRetry) {
+    alert("Maximum OTP attempts exceeded");
+    return;
   }
+
+  const enteredOtp =
+    this.otp1 + this.otp2 + this.otp3 + this.otp4;
+
+  if (enteredOtp.length < 4) {
+    alert("Enter complete OTP");
+    return;
+  }
+
+  if (enteredOtp === this.generatedOtp) {
+    const verifyPayload = {
+      mobileNumber:this.mobileNumber,
+      countryCode: this.countryCode,
+      otp: Number(enteredOtp)
+    };
+
+    console.log("Verify Payload =", verifyPayload);
+
+    this.userService.login(verifyPayload).subscribe({
+
+      next: (res: any) => {
+
+        alert("OTP Verified Successfully");
+
+        localStorage.setItem('auth', 'true');
+
+        const finalMsisdn = this.mobileNumber;
+
+        localStorage.setItem("msisdn", finalMsisdn);
+        localStorage.setItem(
+          "countryCode",
+          this.countryCode.replace('+', '')
+        );
+
+        this.router.navigate(['/music'], {
+          state: { msisdn: finalMsisdn }
+        });
+      },
+
+      error: (err: any) => {
+        alert("Backend OTP Verification Failed");
+        console.log(err);
+      }
+
+    });
+
+  } else {
+
+    this.otpRetryCount++;
+    alert("Invalid OTP");
+  }
+}
 
   startResendTimer() {
 
@@ -196,7 +216,6 @@ export class LoginComponent {
       return;
     }
 
-    // call sendOtp again
     this.sendOtp();
 
     this.otp1 = '';

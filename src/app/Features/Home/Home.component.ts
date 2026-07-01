@@ -113,7 +113,6 @@ fetchToneCatalog() {
     }
   });
 }
-
 checkExistingUser() {
   this.rbtService.getUser(Number(this.msisdn)).subscribe({
 
@@ -122,7 +121,7 @@ checkExistingUser() {
       console.log("API RESPONSE =", data);
       console.log("MSISDN SENT =", this.msisdn);
 
-      if (data && data.msisdn) {
+      if (data?.msisdn) {
 
         this.isExistingUser = true;
         this.userType = 'EXISTING';
@@ -130,12 +129,10 @@ checkExistingUser() {
         let toneName = '';
 
         for (let category in this.groupedSongs) {
-
-          const song =
-            this.groupedSongs[category].find(
-              (s: any) =>
-                String(s.toneCode) === String(data.toneCode)
-            );
+          const song = this.groupedSongs[category].find(
+            (s: any) =>
+              String(s.toneCode) === String(data.toneCode)
+          );
 
           if (song) {
             toneName = song.toneName;
@@ -149,10 +146,7 @@ checkExistingUser() {
           validity: '30 Days Left'
         };
 
-        console.log("Existing user loaded");
-
-      }
-      else {
+      } else {
 
         this.isExistingUser = false;
         this.userType = 'NEW';
@@ -161,8 +155,11 @@ checkExistingUser() {
     },
 
     error: (err: any) => {
-
-      console.log("API ERROR =", err);
+      if (err.status === 404) {
+        console.log("No subscription found. Treating as new user.");
+      } else {
+        console.log("Unexpected API ERROR =", err);
+      }
 
       this.isExistingUser = false;
       this.userType = 'NEW';
