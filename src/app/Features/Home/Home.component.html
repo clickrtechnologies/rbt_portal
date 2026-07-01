@@ -2,7 +2,10 @@
 
   <div class="header">
 
-    <h2>🎵 RBT Portal</h2>
+    <h2>
+  <mat-icon>music_note</mat-icon>
+  RBT Portal
+</h2>
     <div class="profile-section" (click)="toggleProfileMenu()">
       <mat-icon>person</mat-icon>
     </div>
@@ -119,7 +122,9 @@
 
     <div class="popup-card">
 
-      <button class="close-btn" (click)="showPopup=false">✕</button>
+      <button class="close-btn" (click)="showPopup=false">
+  <mat-icon>close</mat-icon>
+</button>
 
       <h2 class="title">Set RBT</h2>
       <p class="subtitle">Preview & Activate your tone</p>
@@ -139,13 +144,16 @@
 
 <div class="excerpt-player">
 
-  <p class="listen-label">🎧 LISTEN TO THE EXCERPT</p>
+  <p class="listen-label">
+  <mat-icon>headphones</mat-icon>
+  LISTEN TO THE EXCERPT
+</p>
 
   <div class="player-row">
 
     <button class="circle-play" (click)="togglePlay()">
-      <span *ngIf="!isPlaying">▶</span>
-      <span *ngIf="isPlaying">❚❚</span>
+     <mat-icon *ngIf="!isPlaying">play_arrow</mat-icon>
+<mat-icon *ngIf="isPlaying">pause</mat-icon>
     </button>
 
     <div class="waveform">
@@ -165,8 +173,14 @@
 </div>
 
       <div class="info-box" *ngIf="userType === 'EXISTING'">
-        <p>💰 Subscription Cost: <b>100 ZAR</b></p>
-        <p>📅 Validity: <b>30 Days</b></p>
+      <p>
+  <mat-icon>payments</mat-icon>
+  Subscription Cost: <b>100 ZAR</b>
+</p>
+        <p>
+  <mat-icon>calendar_month</mat-icon>
+  Validity: <b>30 Days</b>
+</p>
       </div>
 
       <div *ngIf="!isExistingUser">
@@ -191,6 +205,7 @@
 
     </div>
   </div>
-  <div class="success" *ngIf="isSuccess">
-    🎉 {{ popupMessage }}
-  </div>
+ <div class="success" *ngIf="isSuccess">
+  <mat-icon>celebration</mat-icon>
+  {{ popupMessage }}
+</div>

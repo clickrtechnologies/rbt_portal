@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { MatIconModule } from '@angular/material/icon';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,7 +21,8 @@ import { SetRbtComponent } from './Features/set-rbt/set-rbt.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     MatDialogModule,
-     HttpClientModule
+     HttpClientModule,
+     MatIconModule
   ],
 
   providers: [],
