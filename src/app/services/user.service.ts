@@ -13,6 +13,8 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   login(data: any): Observable<any> {
+
+console.log("Calling LOGIN API with =", data);
   return this.http.post(
     `${this.apiUrl}/api/user/login`,
     data
@@ -20,6 +22,8 @@ export class UserService {
 }
 
 sendOtp(data: any): Observable<any> {
+
+  console.log("Calling SEND OTP API with =", data);
   return this.http.post(
     `${this.apiUrl}/api/user/send-otp`,
     data

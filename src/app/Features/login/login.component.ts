@@ -83,6 +83,7 @@ export class LoginComponent {
 
   sendOtp() {
 
+      console.log("SEND OTP FUNCTION CALLED");
     if (!this.mobileNumber) {
       return;
     }
@@ -97,21 +98,24 @@ export class LoginComponent {
 
       next: (loginRes: any) => {
 
+          console.log("LOGIN API SUCCESS =", loginRes);
+
         const msisdn = Number(this.mobileNumber);
 
         const otpPayload = {
           msisdn: msisdn
         };
 
+         console.log("OTP Payload =", otpPayload);
+
         this.userService.sendOtp(otpPayload).subscribe({
 
           next: (otpRes: any) => {
 
             console.log("OTP Response", otpRes);
-
-
             this.generatedOtp = otpRes.otp.toString();
 
+            console.log("Generated OTP Stored =", this.generatedOtp);
             this.otpSent = true;
 
             alert(otpRes.message);
@@ -145,6 +149,9 @@ export class LoginComponent {
   const enteredOtp =
     this.otp1 + this.otp2 + this.otp3 + this.otp4;
 
+ console.log("Entered OTP =", enteredOtp);
+  console.log("Generated OTP =", this.generatedOtp);
+
   if (enteredOtp.length < 4) {
     alert("Enter complete OTP");
     return;
@@ -162,6 +169,9 @@ export class LoginComponent {
     this.userService.login(verifyPayload).subscribe({
 
       next: (res: any) => {
+
+         console.log("VERIFY API SUCCESS =", res);
+
 
         alert("OTP Verified Successfully");
 
@@ -193,7 +203,6 @@ export class LoginComponent {
     alert("Invalid OTP");
   }
 }
-
   startResendTimer() {
 
     this.canResendOtp = false;
