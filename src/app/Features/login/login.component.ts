@@ -103,8 +103,9 @@ export class LoginComponent {
         const msisdn = Number(this.mobileNumber);
 
         const otpPayload = {
-          msisdn: msisdn
-        };
+          msisdn: msisdn,
+          countryCode: this.countryCode
+          };
 
          console.log("OTP Payload =", otpPayload);
 

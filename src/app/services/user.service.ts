@@ -29,6 +29,4 @@ sendOtp(data: any): Observable<any> {
     data
   );
 }
-
-
 }
