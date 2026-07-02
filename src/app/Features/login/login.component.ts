@@ -83,40 +83,44 @@ export class LoginComponent {
 
   sendOtp() {
 
-      console.log("SEND OTP FUNCTION CALLED");
+    console.log("SEND OTP FUNCTION CALLED");
+
     if (!this.mobileNumber) {
       return;
     }
 
     const loginPayload = {
-      mobileNumber:this.mobileNumber,
+      mobileNumber: this.mobileNumber,
       countryCode: this.countryCode
     };
 
     console.log("Login Payload =", loginPayload);
+
     this.userService.login(loginPayload).subscribe({
 
       next: (loginRes: any) => {
 
-          console.log("LOGIN API SUCCESS =", loginRes);
+        console.log("LOGIN API SUCCESS =", loginRes);
 
         const msisdn = Number(this.mobileNumber);
 
         const otpPayload = {
           msisdn: msisdn,
           countryCode: this.countryCode
-          };
+        };
 
-         console.log("OTP Payload =", otpPayload);
+        console.log("OTP Payload =", otpPayload);
 
         this.userService.sendOtp(otpPayload).subscribe({
 
           next: (otpRes: any) => {
 
             console.log("OTP Response", otpRes);
+
             this.generatedOtp = otpRes.otp.toString();
 
             console.log("Generated OTP Stored =", this.generatedOtp);
+
             this.otpSent = true;
 
             alert(otpRes.message);
@@ -142,25 +146,23 @@ export class LoginComponent {
 
   verifyOtp() {
 
-  if (this.otpRetryCount >= this.maxOtpRetry) {
-    alert("Maximum OTP attempts exceeded");
-    return;
-  }
+    if (this.otpRetryCount >= this.maxOtpRetry) {
+      alert("Maximum OTP attempts exceeded");
+      return;
+    }
 
-  const enteredOtp =
-    this.otp1 + this.otp2 + this.otp3 + this.otp4;
+    const enteredOtp =
+      this.otp1 + this.otp2 + this.otp3 + this.otp4;
 
- console.log("Entered OTP =", enteredOtp);
-  console.log("Generated OTP =", this.generatedOtp);
+    console.log("Entered OTP =", enteredOtp);
+    console.log("Generated OTP =", this.generatedOtp);
 
-  if (enteredOtp.length < 4) {
-    alert("Enter complete OTP");
-    return;
-  }
-
-  if (enteredOtp === this.generatedOtp) {
+    if (enteredOtp.length < 4) {
+      alert("Enter complete OTP");
+      return;
+    }
     const verifyPayload = {
-      mobileNumber:this.mobileNumber,
+      mobileNumber: this.mobileNumber,
       countryCode: this.countryCode,
       otp: Number(enteredOtp)
     };
@@ -171,8 +173,7 @@ export class LoginComponent {
 
       next: (res: any) => {
 
-         console.log("VERIFY API SUCCESS =", res);
-
+        console.log("VERIFY API SUCCESS =", res);
 
         alert("OTP Verified Successfully");
 
@@ -181,29 +182,37 @@ export class LoginComponent {
         const finalMsisdn = this.mobileNumber;
 
         localStorage.setItem("msisdn", finalMsisdn);
+
         localStorage.setItem(
           "countryCode",
           this.countryCode.replace('+', '')
         );
 
+        console.log("NAVIGATING NOW");
+
         this.router.navigate(['/music'], {
           state: { msisdn: finalMsisdn }
+        })
+        .then(() => {
+          console.log("NAVIGATION SUCCESS");
+        })
+        .catch((err) => {
+          console.log("NAVIGATION FAILED", err);
         });
       },
 
       error: (err: any) => {
+
+        this.otpRetryCount++;
+
         alert("Backend OTP Verification Failed");
-        console.log(err);
+
+        console.log("VERIFY API ERROR =", err);
       }
 
     });
-
-  } else {
-
-    this.otpRetryCount++;
-    alert("Invalid OTP");
   }
-}
+
   startResendTimer() {
 
     this.canResendOtp = false;
