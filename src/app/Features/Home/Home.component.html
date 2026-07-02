@@ -50,16 +50,26 @@
       [ngClass]="getCategoryClass($any(cat.key))">
 
       <div class="category-header">
-        <div class="category-icon">
-          <mat-icon>music_note</mat-icon>
-        </div>
 
-        <div class="category-info">
-          <h3>{{ cat.key }}</h3>
-          <p>Premium RBT Collection</p>
-        </div>
-      </div>
+  <div class="category-left">
 
+    <div class="category-icon">
+      <mat-icon>music_note</mat-icon>
+    </div>
+
+    <div class="category-info">
+      <h3>{{ cat.key }}</h3>
+    </div>
+
+  </div>
+
+  <div
+    class="category-count"
+    [ngClass]="getCategoryClass($any(cat.key))">
+    {{ categoryCounts[$any(cat.key)] || 0 }} Sounds
+  </div>
+
+</div>
       <div class="category-line"></div>
 
       <div class="songs-grid">

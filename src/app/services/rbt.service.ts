@@ -62,4 +62,11 @@ searchTone(keyword: string): Observable<any> {
     `${this.apiUrl}/api/tone-catalogue/search?keyword=${keyword}`
   );
 }
+
+
+  getCategoryCount() {
+  return this.http.get<any[]>(
+    `${this.apiUrl}/api/tone-catalogue/category-count`
+  );
+}
 }

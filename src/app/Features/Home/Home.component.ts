@@ -30,7 +30,7 @@ showLogoutPopup = false;
 
 groupedSongs: any = {};
 searchKeyword: string = '';
-
+categoryCounts: { [key: string]: number } = {};
 goToManageAccount() {
   this.router.navigate(
     ['/manage-account'],
@@ -91,6 +91,7 @@ ngOnInit() {
     '';
 console.log("LOGIN MSISDN =", this.msisdn);
   this.fetchToneCatalog();
+    this.fetchCategoryCounts();
 }
 activeRbt: any;
 
@@ -111,6 +112,20 @@ fetchToneCatalog() {
     error: (err: any) => {
        alert("Failed to load songs");
     }
+  });
+}
+fetchCategoryCounts() {
+  this.rbtService.getCategoryCount().subscribe({
+    next: (data: any[]) => {
+
+      data.forEach(item => {
+        this.categoryCounts[item.category] = item.songCount;
+      });
+
+      console.log(this.categoryCounts);
+
+    },
+    error: err => console.log(err)
   });
 }
 checkExistingUser() {

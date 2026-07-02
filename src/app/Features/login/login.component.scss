@@ -1,6 +1,6 @@
 .login-page {
   min-height: 100vh;
-  background: linear-gradient(180deg, #111111, #1b1b1b);
+  background: #F7F9FC ;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,7 +11,7 @@
 .login-card {
   width: 100%;
   max-width: 340px;
-  background: #F7F9FC;
+  background: #FFFFFF ;
   border-radius: 24px;
   padding: 24px 20px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
@@ -33,7 +33,7 @@
 
 .logo-section p {
   margin-top: 6px;
-  color: #1E293B;
+  color: #64748B ;
   font-size: 12px;
 }
 
@@ -44,14 +44,14 @@
 
 .login-text h3 {
   margin: 0;
-  color: #64748B;
+  color: #1E293B;
   font-size: 22px;
   font-weight: 700;
 }
 
 .login-text p {
   margin-top: 12px;
-  color: #1E293B;
+  color: #64748B ;
   font-size: 10px;
   line-height: 1.5;
 }
@@ -73,26 +73,26 @@ label {
 
 .country-box {
   width: 90px;
-  background: #303030;
-  color: white;
+  background: #EEF3FA ;
+  color: #1E293B ;
   border-radius: 12px;
   display: flex;
   justify-content: center;
   align-items: center;
   font-weight: 700;
   font-size: 13px;
-  border: 1px solid #444;
+  border: 1px solid;
 }
 
 .mobile-row input,
 .otp-section input {
   flex: 1;
-  background: #303030;
-  border: 1px solid #444;
+  background: #EEF3FA ;
+  border: 1px solid;
   outline: none;
   padding: 15px;
   border-radius: 12px;
-  color: white;
+  color: #1E293B ;
   font-size: 13px;
   transition: 0.3s ease;
 }
@@ -101,12 +101,6 @@ label {
   width: 100%;
   box-sizing: border-box;
   margin-bottom: 15px;
-}
-
-.mobile-row input:focus,
-.otp-section input:focus {
-  border-color: #ffd400;
-  box-shadow: 0 0 8px rgba(255, 212, 0, 0.2);
 }
 
 input::placeholder {
@@ -123,8 +117,8 @@ small {
 button {
   width: 100%;
   background: #F7F9FC;
-  color: #FF6B00;
-  border: none;
+  color: #003E92 ;
+  border: 1px solid #1E293B ;
   padding: 13px;
   border-radius: 28px;
   font-size: 13px;
@@ -166,7 +160,7 @@ button:disabled {
 }
 
 .edit-text {
-  color: #ffd400;
+  color: #1E293B ;
   cursor: pointer;
   font-size: 13px;
   font-weight: 600;
@@ -178,7 +172,7 @@ button:disabled {
 
 .verify-text h3 {
   font-size: 17px;
-  color: white;
+  color: #1E293B ;
   text-align: center;
   margin-bottom: 4px;
   font-weight: 600;
@@ -186,13 +180,14 @@ button:disabled {
 
 .verify-text p {
   font-size: 11px;
-  color: #aaa;
+  color: #64748B;
   text-align: center;
   margin-bottom: 12px;
 }
 
 .number-preview {
-  background: #3a3a3a;
+  background: #ffffff;
+  border: 1px solid #1E293B ;
   border-radius: 12px;
   padding: 10px 14px;
   display: flex;
@@ -202,7 +197,7 @@ button:disabled {
 }
 
 .number-preview span {
-  color: white;
+  color: #1E293B ;
   font-size: 14px;
   font-weight: 600;
   margin: 0;
@@ -212,7 +207,7 @@ button:disabled {
 .edit-btn {
   background: none;
   border: none;
-  color: #ffd700;
+  color: #1E293B ;
   font-size: 14px;
   cursor: pointer;
   width: auto;
@@ -227,7 +222,7 @@ button:disabled {
 .otp-label {
   display: block;
   text-align: center;
-  color: #ddd;
+  color: #1E293B ;
   font-size: 13px;
   margin-bottom: 12px;
   letter-spacing: 1px;
@@ -243,11 +238,11 @@ button:disabled {
 .otp-boxes input {
   width: 26px;
   height: 26px;
-  background: #4b4b4b;
+  background: #ffffff;
   border: 1px solid #666;
   border-radius: 7px;
   text-align: center;
-  color: white;
+  color: #1E293B ;
   font-size: 10px;
   font-weight: 400;
   outline: none;
@@ -255,27 +250,27 @@ button:disabled {
 }
 
 .otp-boxes input:focus {
-  border: 1px solid #ffd700;
+  border: 1px solid;
   box-shadow: 0 0 8px rgba(255, 212, 0, 0.3);
 }
 
 .resend-text {
   text-align: center;
-  color: #aaa;
+  color: #64748B ;
   font-size: 11px;
   margin-bottom: 14px;
 }
 
 .resend-link {
-  color: #ffd700;
+  color: #1E293B ;
   cursor: pointer;
 }
 
 .verify-btn {
   width: 100%;
-  background: #e5c24d;
-  color: black;
-  border: none;
+  background: #ffffff;
+  color: #003E92 ;
+  border: 1px solid #1E293B ;
   padding: 10px;
   border-radius: 12px;
   font-size: 14px;
