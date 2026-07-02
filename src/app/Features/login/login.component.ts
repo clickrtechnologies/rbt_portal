@@ -16,6 +16,19 @@ export class LoginComponent {
   mobileNumber: string = '';
   countryCode: string = '+227';
 
+  countries = [
+  { name: 'Niger', code: '+227', flag: '🇳🇪' },
+  { name: 'India', code: '+91', flag: '🇮🇳' },
+  { name: 'United States', code: '+1', flag: '🇺🇸' },
+  { name: 'United Kingdom', code: '+44', flag: '🇬🇧' },
+  { name: 'France', code: '+33', flag: '🇫🇷' },
+  { name: 'Nigeria', code: '+234', flag: '🇳🇬' },
+  { name: 'Ghana', code: '+233', flag: '🇬🇭' },
+  { name: 'Cameroon', code: '+237', flag: '🇨🇲' },
+  { name: 'South Africa', code: '+27', flag: '🇿🇦' },
+  { name: 'Canada', code: '+1', flag: '🇨🇦' }
+];
+
   otp1: string = '';
   otp2: string = '';
   otp3: string = '';
@@ -150,7 +163,6 @@ export class LoginComponent {
       alert("Maximum OTP attempts exceeded");
       return;
     }
-
     const enteredOtp =
       this.otp1 + this.otp2 + this.otp3 + this.otp4;
 
@@ -212,9 +224,7 @@ export class LoginComponent {
 
     });
   }
-
   startResendTimer() {
-
     this.canResendOtp = false;
     this.resendTimer = 30;
 
@@ -227,26 +237,19 @@ export class LoginComponent {
       }
     }, 1000);
   }
-
   resendOtp() {
-
     if (!this.canResendOtp) {
       alert("Please wait before resending OTP");
       return;
     }
-
     this.sendOtp();
-
     this.otp1 = '';
     this.otp2 = '';
     this.otp3 = '';
     this.otp4 = '';
   }
-
   editNumber() {
-
     this.otpSent = false;
-
     this.otp1 = '';
     this.otp2 = '';
     this.otp3 = '';

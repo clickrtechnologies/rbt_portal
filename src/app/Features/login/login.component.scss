@@ -17,7 +17,14 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
-
+.country-box select {
+  border: none;
+  background: transparent;
+  outline: none;
+  cursor: pointer;
+  font-size: 14px;
+  width: 85%;
+}
 .logo-section {
   text-align: center;
   margin-bottom: 28px;

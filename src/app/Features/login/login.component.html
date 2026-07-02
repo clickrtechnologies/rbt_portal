@@ -19,7 +19,19 @@
       <div class="mobile-row">
 
         <div class="country-box">
-          +227
+
+          <select [(ngModel)]="countryCode">
+
+            <option
+              *ngFor="let c of countries"
+              [value]="c.code">
+
+              {{ c.flag }} {{ c.code }}
+
+            </option>
+
+          </select>
+
         </div>
 
         <input
@@ -44,11 +56,12 @@
       </div>
 
       <div class="number-preview">
-        <span>+227 {{ mobileNumber }}</span>
+        <span>{{ countryCode }} {{ mobileNumber }}</span>
 
         <button class="edit-btn" (click)="editNumber()">
           Edit
         </button>
+
       </div>
 
       <label class="otp-label">ENTER CODE</label>
@@ -56,15 +69,15 @@
       <div class="otp-boxes">
 
         <input
-  #otpBox1
-  type="tel"
-  inputmode="numeric"
-  pattern="[0-9]*"
-  maxlength="1"
-  [(ngModel)]="otp1"
-  (input)="moveNext($event, otpBox2, '1')"
-  (keydown)="movePrev($event, null)"
-/>
+          #otpBox1
+          type="tel"
+          inputmode="numeric"
+          pattern="[0-9]*"
+          maxlength="1"
+          [(ngModel)]="otp1"
+          (input)="moveNext($event, otpBox2, '1')"
+          (keydown)="movePrev($event, null)"
+        />
 
         <input
           #otpBox2
@@ -100,7 +113,7 @@
         />
 
       </div>
-      
+
       <p class="resend-text">
 
         Didn’t get it?
